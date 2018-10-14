@@ -1,0 +1,45 @@
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+a {
+  color: rgba(255, 2, 2, 0.959);
+  text-decoration: none;
+}
+.form-control {
+  padding: 1.6rem .75rem;
+  font-size: 1.5rem;
+}
+body {
+   font-size: 1.5rem;
+  line-height: 2;
+}
+.table {
+  line-height: 2.5; 
+}
+.table .thead-dark th {
+  background-color: #1a4384;
+  border-color: #d4dbe2;
+  line-height: 2; 
+}
+.info-box-label{
+  text-align: right;
+  font-weight: normal
+}
+.field-required{
+  color: red;
+}
