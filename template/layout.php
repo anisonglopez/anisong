@@ -12,7 +12,7 @@
 	<!--<link rel="stylesheet" href="dependencies/css/style.css">-->
 	<!--<script src="js/modernizr.js"></script>--> <!-- Modernizr -->
   	
-	<title>Responsive Sidebar Navigation | CodyHouse</title>
+	<title>Payroll - <?php echo $title?></title>
 </head>
 <body>
 	<header class="cd-main-header">

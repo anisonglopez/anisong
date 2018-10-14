@@ -12,7 +12,7 @@ if(isset($_POST["create"])) {
     $objQuery = mysql_query($strSQL);
     if($objQuery)
     {
-        $result = '<script>alert("ทำการบันทึกข้อมูลสำเร็จ")</script>';
+        $result = '<script> alert("ทำการบันทึกข้อมูลสำเร็จ");</script>';
     }
     else
     {
@@ -22,5 +22,51 @@ if(isset($_POST["create"])) {
     }
     }
 }
+if(isset($_POST["delete_id"])) {
+ $strSQL = "DELETE FROM tm01_user ";
+  $strSQL .="WHERE UserID = '".$_POST["delete_id"]."' ";
+  $objQuery = mysql_query($strSQL);
+  if($objQuery)
+{
+    echo '<script>window.location.href="user.php"</script>';
+   // $result = '<script> alert("ทำการลบข้อมูลสำเร็จ");</script>';
+  //$msgbox = '<span class="success fixed animated fadeIn">ลบข้อมูล สำเร็จ </span>';
+}
+else
+{
+    $result = '<script>alert("ขออภัย! ไม่สามารถทำการลบข้อมูลได้")</script>';
+}
+}
+if(isset($_POST["edit_id"])) {
+    if ($_POST["password"] == $_POST["confirm_password"] ){
+        date_default_timezone_set("Asia/Bangkok");
+        $date = date('Y-m-d H:i:s');
+        $strSQL = "UPDATE tm01_user ";
+        $strSQL .="SET Password = '".mysql_real_escape_string($_POST["password"])."',
+        UserEName = '".mysql_real_escape_string($_POST["descEN"])."',
+        UserTName = '".mysql_real_escape_string($_POST["descTH"])."', 
+        SysUserID = '".($_POST["user_login"])."',
+        SysUpdDate = '".($date )."'
+        ";
+        $strSQL .="WHERE UserID = '".$_POST["edit_id"]."'";
+        $objQuery = mysql_query($strSQL);    
+         if($objQuery)
+       {
+           $result = '<script>alert("ทำการแก้ไขข้อมูลสำเร็จ")</script>';
+           //echo '<script>window.location.href="user.php"</script>';
+       }
+       else
+       {
+           $result = '<script>alert("ขออภัย! ไม่สามารถทำการอัปเดตข้อมูลได้")</script>';
+       }
+    }
+else
+{
+    $result = '<script>alert("ขออภัย! ไม่สามารถทำการอัปเดตข้อมูลได้ รหัสผ่านไม่ตรงกัน")</script>';
+}
+ }
+      
+    
+    
 
 ?>
