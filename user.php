@@ -16,6 +16,7 @@ $sql = "SELECT * FROM tm01_user";
 $DATA = mysql_query($sql);
 //etc
 //and then call a template:
+$title = "จัดการผู้ใช้งาน";
 $tpl = "";
 $detail = "template/user/usertable.php";
 $footer = "";
