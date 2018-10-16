@@ -26,7 +26,9 @@
 
 		<nav class="cd-nav">
 			<ul class="cd-top-nav">
-				<li><a href="#0">Tour</a></li>
+				<li><a href="#0">Import Data</a></li>
+				<li><a href="#0">Export Data</a></li>
+				<li><a href="#0">Report</a></li>
 				<li><a href="#0">Support</a></li>
 				<li class="has-children account">
 					<a href="#0">
@@ -83,7 +85,7 @@
 					<a href="#0">Configuration</a>
 					
 					<ul>
-						<li><a href="attendance.php">กำหนดค่าระบบ</a></li>
+						<li><a href="systemcontrol.php">กำหนดค่าระบบ</a></li>
 						<li><a href="#0">กำหนดเงื่อนไขระบบ</a></li>
 					
 					</ul>
@@ -125,14 +127,16 @@
 			</ul>
 		</nav>
 
+
 		<div class="content-wrapper">
 			<?php include $detail ?>
 		</div> <!-- .content-wrapper -->
 	</main> <!-- .cd-main-content -->
-	<script src="dependencies/jQuery-3.3.1/jquery-3.3.1.min.js"></script>
+<script src="dependencies/jQuery-3.3.1/jquery-3.3.1.min.js"></script>
 <script src="dependencies/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
 <script src="js/jquery-2.1.4.js"></script>
 <script src="js/jquery.menu-aim.js"></script>
-<script src="js/main.js"></script> <!-- Resource jQuery -->
+<script src="js/main.js"></script><!-- Resource jQuery --> 
+
 </body>
 </html>
