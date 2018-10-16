@@ -60,7 +60,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
       <td>
       <button type="button" class="btn btn-outline-warning ">Edit</button> |
       
-     <button  class="btn btn-outline-danger " data-toggle="modal" data-target="#exampleModal" value="<?php echo $_GET[".$row1."];?> ?>"><a>Delete</a></button>
+     <button  class="btn btn-outline-danger " data-toggle="modal" data-target="#exampleModal" value="<?php echo $_GET[".$row1."];?>"><a>Delete</a></button>
       <!--<button type="button" class="btn btn-outline-danger">Delete</button></td>-->
     </tr>
   </tbody>
