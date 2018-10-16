@@ -58,9 +58,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
       <td><?php echo $row5; ?></td>
       <td><?php echo $row6; ?></td>
       <td>
+
       <a href="#edit<?php echo $row1;?>" class="btn btn-outline-warning " data-toggle="modal">Edit</a>
   |
       <a href="#delete<?php echo $row1;?>" class="btn btn-outline-danger " data-toggle="modal">Delete</a>
+
       <!--<button type="button" class="btn btn-outline-danger">Delete</button></td>-->
     </tr>
   </tbody>

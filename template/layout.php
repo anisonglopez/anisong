@@ -69,13 +69,13 @@
 				</li>
 				<li class="has-children overview"><a href="#0"onclick="myAccFunc()" >Master Data</a>
 				<ul>
-						<li><a href="#0">ข้อมูลพนักงาน</a></li>
+						<li><a href="employee.php">ข้อมูลพนักงาน</a></li>
 						<li><a href="#0">ข้อมูลสาขา/บริษัท</a></li>
-						<li><a href="#0">ข้อมูลตั้งต้นตำแหน่งงาน/เงินประจำตำแหน่ง</a></li>
+						<li><a href="department.php">ข้อมูลตั้งต้นตำแหน่งงาน/เงินประจำตำแหน่ง</a></li>
 						<li><a href="attendance.php">ข้อมูลประเภทการลา</a></li>
 						<li><a href="deducttype.php">ข้อมูลประเภทการหักเงิน</a></li>
-						<li><a href="#0">ข้อมูลแผนก</a></li>
-						<li><a href="#0">รายได้อื่น ๆ</a></li>
+						<li><a href="position.php">ข้อมูลแผนก</a></li>
+						<li><a href="otherinc.php">รายได้อื่น ๆ</a></li>
 					</ul>
 
 			</li>
