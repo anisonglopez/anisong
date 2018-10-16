@@ -10,15 +10,17 @@ if($_SESSION['UserID'] == "")
 //include dirname($_SERVER['DOCUMENT_ROOT']).'/cfg/settings.php';
 //getting required data
 //$DATA=dbgetarr("SELECT * FROM links");
-
-$title = "Dashboard";
+include "config/connect.php";
+include "template/systemcontrol/sysconaction.php";
+$sql = "SELECT * FROM tm00_control ORDER BY Period DESC";
+$DATA = mysql_query($sql);
 //etc
-
 //and then call a template:
+$title = "กำหนดค่าระบบ";
 $tpl = "";
-$detail = "template/api/api.php";
+$detail = "template/systemcontrol/syscon.php";
 $footer = "";
 include "template/layout.php";
 
-
 ?>
+

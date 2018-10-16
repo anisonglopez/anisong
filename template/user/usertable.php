@@ -67,7 +67,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
     </tr>
   </tbody>
 
-</p>
+
 
 <!-- Modal  Delete-->
 <div class="modal fade" id="delete<?php echo $row1; ?>" tabindex="1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

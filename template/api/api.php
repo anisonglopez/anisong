@@ -1,10 +1,8 @@
+<link rel="stylesheet" href="dependencies/bootstrap-4.1.3-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="dependencies/css/custom-main.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<h1>Payroll System</h1>
+<hr>
+<p>payroll 2018 version 0.0.1</p>
+<p>15 ตุลาคม 2018</p>
 
-<h1>Api Connect Database</h1>
-<p>เชื่อมต่อข้อมูลกับอีกระบบ</p>
-<h1>การสร้างบริการบนฝั่งเซิร์ฟเวอร์</h1>
-<p>
-การพัฒนา PHP เพื่อให้บริการเว็บเซอร์วิสแบบ REST นั้น สามารถทำได้โดยประกาศส่วนหัว (Header) ของเอกสารให้เป็นประเภท JSON
- และส่งคืนค่าเจซันออบเจ็กต์หรือเจซันอาร์เรย์ ก็สามารถเปิดให้บริการได้แล้ว ดังขั้นตอนต่อไปนี้
-</p>
-<p>- สร้างไฟล์ PHP ตั้งชื่อว่า getAllProducts.php ในตัวอย่างนี้ จะพัฒนา Web Service เพื่อติดต่อขอข้อมูลสินค้าจากฐานข้อมูล MySQL</p>
-<p>- ประกาศให้เอกสารนี้สามารถเข้าถึงได้จากทุกแหล่ง และประกาศหัว (header) ของเอกสารให้เป็นประเภท JSON</p>
