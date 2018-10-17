@@ -39,6 +39,41 @@ if(isset($_POST["create"])) {
 }
 if(isset($_POST["edit_id"]))  
 {  
-echo $_POST["edit_id"];
+    echo "id ที่เรียก แล้วค่อยเอาไป Search หา คือ id".$_POST["edit_id"];
+    $strSQL = "SELECT * FROM tm00_control WHERE auto_increment = '".$_POST["edit_id"]."'";   
+    $objQuery = mysql_query($strSQL); 
+    $output .= '<div class="table-responsive"> <label>รายละเอียดเพิ่มเติม</label> 
+    <table class="table table-bordered"> 
+    ';  
+   
+   
+   
+    while ($rows = mysql_fetch_array($objQuery)) {    
+    $output .= '
+     <tr>  
+         <td width="20%" align="right"><label>ชื่อ</label></td>  
+         <td width="80%">'.$rows["Period"].'</td> 
+     </tr> 
+    <tr>
+         <td width="20%" align="right"><label>Email</label></td>
+         <td width="80%">'.$rows["email"].'</td> 
+     </tr>  
+     <tr>
+         <td width="20%" align="right"><label>ข้อความ</label></td>
+         <td width="80%">'.$rows["message"].'</td> 
+     </tr> 
+     <tr>
+         <td width="20%" align="right"><label>หมายเลข Ip</label></td>
+         <td width="80%">'.$rows["ipaddress"].'</td> 
+     </tr> 
+     <tr>
+         <td width="20%" align="right"><label>วันที่ส่งคำร้อง</label></td>
+         <td width="80%">'.$rows["recievedate"].'</td> 
+     </tr> 
+
+         ';  
+}  
+$output .= '</table></div>';  
+echo $output;  
 }  
 ?>
