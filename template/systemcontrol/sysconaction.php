@@ -39,41 +39,163 @@ if(isset($_POST["create"])) {
 }
 if(isset($_POST["edit_id"]))  
 {  
-    echo "id ที่เรียก แล้วค่อยเอาไป Search หา คือ id".$_POST["edit_id"];
+    include "../../config/connect.php";
     $strSQL = "SELECT * FROM tm00_control WHERE auto_increment = '".$_POST["edit_id"]."'";   
     $objQuery = mysql_query($strSQL); 
-    $output .= '<div class="table-responsive"> <label>รายละเอียดเพิ่มเติม</label> 
-    <table class="table table-bordered"> 
-    ';  
-   
-   
-   
     while ($rows = mysql_fetch_array($objQuery)) {    
-    $output .= '
-     <tr>  
-         <td width="20%" align="right"><label>ชื่อ</label></td>  
-         <td width="80%">'.$rows["Period"].'</td> 
-     </tr> 
-    <tr>
-         <td width="20%" align="right"><label>Email</label></td>
-         <td width="80%">'.$rows["email"].'</td> 
-     </tr>  
-     <tr>
-         <td width="20%" align="right"><label>ข้อความ</label></td>
-         <td width="80%">'.$rows["message"].'</td> 
-     </tr> 
-     <tr>
-         <td width="20%" align="right"><label>หมายเลข Ip</label></td>
-         <td width="80%">'.$rows["ipaddress"].'</td> 
-     </tr> 
-     <tr>
-         <td width="20%" align="right"><label>วันที่ส่งคำร้อง</label></td>
-         <td width="80%">'.$rows["recievedate"].'</td> 
-     </tr> 
+        $ConvertPeriodDate = date("Y-m", strtotime($rows["Period"]));
+        if ($rows["EmplType"] == M){
+            $EmplString = "Monthly Employee";
+        }
+        else
+        {
+            $EmplString = "Daily Employee";
+        }
+    $output .= '<input type="hidden" name="id" value="'.$_POST["edit_id"].'">
+    <div class="row">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4 info-box-label">Period : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="period" type="month" value="'.$ConvertPeriodDate.'" data-placement="top" required  class="form-control"  disabled/ >      
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4 info-box-label">รอบ : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="term" type="number" value="'.$rows["Term"].'" data-placement="top" required  class="form-control"placeholder="ระบุรอบที่จ่าย" min="1" max="3" maxlength="1" disabled/>
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4 info-box-label">วันที่จ่าย : </dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="paydate" type="date"value="'.$rows["PayDate"].'"  data-placement="top"  class="form-control"  maxlength="20" / >      
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-6">
+    <dl class="row">
+            <dt class="col-sm-4 info-box-label">ประเภทพนักงาน : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <select class="form-control"  name="emp_type" required disabled>
+            <option value="'.$rows["EmplType"].'">'.$EmplString.'</option>   
+            <option value="D">Daily Employee</option>
+            <option value="M">Monthly Employee</option>
+            </select>   
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-12">
+<!--Start-->
+<div class="add-pad">
+        <div class="title-header-info-box add-pad">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active " data-toggle="tab" href="#tab1" id="tabspecification" role="tab">Period</a>
+                </li>
+            </ul>
+        </div>
+        <div class="warpper-table">
+            <div class="tab-content">
+            <br/>
+                <!-- ///////////////////////////////Period Control///////////////////////////////////////// -->
+                <div class="tab-pane active" id="tab1">
+                    <div class="header-info-content-box content-box-padding">
+                        <div class="row">
+                        <div class="col-md-12">
+        <dl class="row">
+            <dt class="col-sm-3 info-box-label">Salary Date from : <span class="field-required">*</span></dt>
+            <dd class="col-sm-3 info-box-label">
+            <input name="salary_date_from" value="'.$rows["FmAttnDate"].'" type="date" data-placement="top" required  class="form-control" disabled/ >      
+            </dd>
+            <dt class="col-sm-1 info-box-label">To : <span class="field-required">*</span></dt>
+            <dd class="col-sm-3 info-box-label">
+            <input name="salary_date_to" type="date" value="'.$rows["ToAttnDate"].'" data-placement="top" required  class="form-control" disabled/ >      
+            </dd>
+            <dd class="col-sm-2 info-box-label"></dd>
+           </dl>
+    </div>
+    <div class="col-md-12">
+        <dl class="row">
+            <dt class="col-sm-3 info-box-label">Overtime Date from : <span class="field-required">*</span></dt>
+            <dd class="col-sm-3 info-box-label">
+            <input name="overtime_date_from"  value="'.$rows["FmOVTDate"].'" type="date" data-placement="top" required  class="form-control" disabled/ >      
+            </dd>
+            <dt class="col-sm-1 info-box-label">To : <span class="field-required">*</span></dt>
+            <dd class="col-sm-3 info-box-label">
+            <input name="overtime_date_to"  value="'.$rows["ToOVTDate"].'" type="date" data-placement="top" required  class="form-control" disabled / >      
+            </dd>
+            <dd class="col-sm-2 info-box-label"></dd>
+           </dl>
+    </div>
+    <div class="col-md-12">
+        <dl class="row">
+            <dt class="col-sm-3 info-box-label">Lev-Late-Shif Date from : <span class="field-required">*</span></dt>
+            <dd class="col-sm-3 info-box-label">
+            <input name="lev_date_from" type="date" value="'.$rows["FmLevDate"].'" data-placement="top" required  class="form-control" disabled/ >      
+            </dd>
+            <dt class="col-sm-1 info-box-label">To : <span class="field-required">*</span></dt>
+            <dd class="col-sm-3 info-box-label">
+            <input name="lev_date_to" type="date" value="'.$rows["ToLevDate"].'"  data-placement="top" required  class="form-control" disabled / >      
+            </dd>
+            <dd class="col-sm-2 info-box-label"></dd>
+           </dl>
+    </div>
+                        </div>
+                    </div>
+                </div>
+<!-- ///////////////////////////////Period Control///////////////////////////////////////// -->                         
+<!--END-->
+
+</div>
 
          ';  
 }  
-$output .= '</table></div>';  
 echo $output;  
 }  
+if(isset($_POST["delete_id"]))  {
+    $output.= "<p>Are you confirm delete?</p>
+    <input type='hidden' name='delete' value='".$_POST["delete_id"]."'/>
+    ";
+    echo $output;
+}
+
+if(isset($_POST["update"]))  {
+        date_default_timezone_set("Asia/Bangkok");
+        $date = date('Y-m-d H:i:s');
+        $strSQL = "UPDATE tm00_control ";
+        $strSQL .= "SET PayDate = '".($_POST["paydate"])."'";
+        $strSQL .="WHERE auto_increment = '".$_POST["id"]."'";
+        $objQuery = mysql_query($strSQL);    
+         if($objQuery)
+       {
+           $result = '<script>alert("ทำการแก้ไขข้อมูลสำเร็จ")</script>';
+           //echo '<script>window.location.href="user.php"</script>';
+       }
+       else
+       {
+           $result = '<script>alert("ขออภัย! ไม่สามารถทำการอัปเดตข้อมูลได้")</script>';
+       }
+}
+
+if(isset($_POST["delete"])) {    
+    $strSQL = "DELETE FROM tm00_control ";
+    $strSQL .="WHERE auto_increment = '".$_POST["delete_id"]."' ";
+    $objQuery = mysql_query($strSQL);
+    if($objQuery)
+  {
+      echo '<script>window.location.href="systemcontrol.php"</script>';
+     // $result = '<script> alert("ทำการลบข้อมูลสำเร็จ");</script>';
+    //$msgbox = '<span class="success fixed animated fadeIn">ลบข้อมูล สำเร็จ </span>';
+  }
+  else
+  {
+      $result = '<script>alert("ขออภัย! ไม่สามารถทำการลบข้อมูลได้")</script>';
+  }
+ }
 ?>

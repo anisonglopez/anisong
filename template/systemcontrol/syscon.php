@@ -8,11 +8,13 @@
     <button class="btn btn-success" data-toggle="modal" data-target="#modal_create">Create New</button>
     </div>
     <div class="col-sm" style="text-align: right;">
+        <!--
     <form name="search_user" method="get"  action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
 Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholder="ค้นหาผู้ใช้งาน" size="20" value="<?php echo $_GET["txtKeyword"];?>" /> 
 <input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
 <input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>
 </form>
+-->
 </div>
 </div>
 </div>
@@ -29,16 +31,8 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
       <th scope="col" style="text-align: center;">Action</th>
     </tr>
   </thead>
-  </div>
+
   <?php 
-  if($_GET["txtKeyword"] != "")
-  {
-  // Search By Name or Email
-  $strSQL = "SELECT * FROM tm01_user ";
-  $strSQL .="WHERE (UserID LIKE '%".$_GET["txtKeyword"]."%' or UserTName LIKE '%".$_GET["txtKeyword"]."%' or UserEName LIKE '%".$_GET["txtKeyword"]."%' )  ";
-     $objQuery = mysql_query($strSQL);
-     $DATA = $objQuery;
-  }
   if(mysql_num_rows($DATA) > 0)
   while ($rows = mysql_fetch_array($DATA)) {
     $id = $rows['auto_increment'];
@@ -57,22 +51,39 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
       <td><?php echo date("d/m/Y", strtotime($row4));?></td>
       <td><?php echo date("d/m/Y", strtotime($row5)); ?></td>
       <td><?php echo date("d/m/Y", strtotime($row6));?></td>
-      <td>
-
-      <button  class="btn btn-outline-warning edit_id "  id="<?php echo $id?>">Edit</button>
-  |
-    <a href="feedbackDelete.php?tracker=<?php echo $resultArray[tracker];?>" onclick="return set_confirm(this)">
-      <a href="#delete<?php echo $row1;?>" class="btn btn-outline-danger " data-toggle="modal">Delete</a>
-      <!--<button type="button" class="btn btn-outline-danger">Delete</button></td>-->
+      <td><center>
+    <button  class="btn btn-warning edit_id "  id="<?php echo $id?>">Edit</button>
+  <button  class="btn btn-danger delete_id "  id="<?php echo $id?>">Delete</button>
+  </center>
+  </td>
     </tr>
   </tbody>
   <?php } ?>
-
-
+  </table>
+  <!--   Page List   -->
+<nav>
+ <ul class="pagination">
+ <li>
+ <a href="systemcontrol.php?page=1" aria-label="Previous">
+ <span aria-hidden="true">&laquo;</span> 
+ </a>
+ </li>
+ <?php for($i=1;$i<=$total_page;$i++){?>
+ <li><a class="btn btn-light" href="systemcontrol.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+ <?php } ?>
+ <li>
+ <a href="systemcontrol.php?page=<?php echo  $total_page;?>" aria-label="Next">
+ <span aria-hidden="true">&raquo;</span>
+ </a>
+ </li>
+ </ul>
+ </nav>
+   <!--   Page List   -->
       </div>
     </div>
   </div>
 </div>
+
 
   <?php 
     echo $result;

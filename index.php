@@ -10,7 +10,7 @@ if($_SESSION['UserID'] == "")
 //include dirname($_SERVER['DOCUMENT_ROOT']).'/cfg/settings.php';
 //getting required data
 //$DATA=dbgetarr("SELECT * FROM links");
-
+$Dashboad = "active";
 $title = "Dashboard";
 //etc
 
