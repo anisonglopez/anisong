@@ -1,7 +1,7 @@
 <?php
 		$host="localhost";
 		$user="root";
-		$password="12345678";
+		$password="";
 		$db=mysql_connect($host, $user, $password);
 		if (!$db) {
 				//echo "Oh no";

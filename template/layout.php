@@ -9,6 +9,8 @@
 	
 	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="css/style.css"><!--  Resource style -->
+<link rel="stylesheet" href="dependencies/bootstrap-4.1.3-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="dependencies/css/custom-main.css">
 	<!--<link rel="stylesheet" href="dependencies/css/style.css">-->
 	<!--<script src="js/modernizr.js"></script>--> <!-- Modernizr -->
   	
@@ -127,16 +129,18 @@
 			</ul>
 		</nav>
 
-
+		<?php include $modal ?>
 		<div class="content-wrapper">
 			<?php include $detail ?>
 		</div> <!-- .content-wrapper -->
 	</main> <!-- .cd-main-content -->
 <script src="dependencies/jQuery-3.3.1/jquery-3.3.1.min.js"></script>
 <script src="dependencies/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
-<script src="js/jquery-2.1.4.js"></script>
-<script src="js/jquery.menu-aim.js"></script>
-<script src="js/main.js"></script><!-- Resource jQuery --> 
 
+<?php include $script ?>
+
+<!--<script src="js/jquery-2.1.4.js"></script>-->
+<script src="js/jquery.menu-aim.js"></script>
+<<script src="js/main.js"></script> <!--Resource jQuery --> 
 </body>
 </html>

@@ -1,5 +1,4 @@
-<link rel="stylesheet" href="dependencies/bootstrap-4.1.3-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="dependencies/css/custom-main.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <h1>Prepare for Monthly Closing</h1>
 <hr>
@@ -206,51 +205,6 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
     </div>
   </div>
 <!--Modal Create-->
-    <!--- Modal  Edit-->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 800px;" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">กล่องข้อความเข้า</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reload()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="detail">
-      
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="reload()">ปิด</button>
-      </div>
-    </div>
-  </div>
-</div>
-        <!--- Modal Edit-->
-        <script>  
-  $(document).ready(function(){  
-      $('.edit_id').click(function(){  
-          var edit_id = $(this).attr("id");  
-           $.ajax({  
-               url:"systemcontrol.php",  
-                method:"post",  
-                data:{edit_id:edit_id},  
-                success:function(data){                    
-                     $('#detail').html(data);  
-                     $('#editModal').modal({
-                        //backdrop: 'static',
-                       // keyboard: false
-                    }); 
-                     $('#editModal').modal("show");                               
-                },
-                error: function (jqXHR, exception) {
-                    document.write(exception);
-                }
-               
-           });  
-      });  
- }); 
- function reload() {
-    location.reload();
-}
- </script>
+
+        
 

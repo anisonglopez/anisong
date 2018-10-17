@@ -19,6 +19,8 @@ $DATA = mysql_query($sql);
 $title = "กำหนดค่าระบบ";
 $tpl = "";
 $detail = "template/systemcontrol/syscon.php";
+$modal = "template/systemcontrol/sysconmodal.php";
+$script = "template/systemcontrol/sysscript.php";
 $footer = "";
 include "template/layout.php";
 
