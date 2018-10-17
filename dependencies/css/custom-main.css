@@ -26,7 +26,7 @@ a {
 }
 body {
    font-size: 1.5rem;
-  line-height: 2;
+  line-height: 1.2;
 }
 .table {
   line-height: 2.5; 
@@ -55,4 +55,48 @@ body {
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
   box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.cd-side-nav{
+    height: 100%;
+    background: #031f2f;
+}
+.has-children ul {
+  background-color: #3a4046
+}
+.cd-main-header {
+  background: #003b56;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and (min-width: 768px){
+.cd-side-nav .active > a {
+    box-shadow: inset 3px 0 0 #db3d0d;
+    background-color: #0b3b3c;
+}
+}
+@media only screen and (min-width: 1170px){
+.cd-side-nav {
+    width: 200px;
+    position: fixed;
+}}
+.has-children ul {
+  background-color: #004b4d;
+}
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+@media only screen and (min-width: 768px){
+  .cd-main-header {
+    position: fixed;
+    height: 47px;
+}
+}
+.table td, .table th {
+  padding: .30rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
 }
