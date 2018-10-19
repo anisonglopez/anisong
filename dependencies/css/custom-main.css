@@ -17,7 +17,7 @@
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 a {
-  color: rgba(255, 2, 2, 0.959);
+  color: black;
   text-decoration: none;
 }
 .form-control {

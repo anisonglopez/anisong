@@ -20,8 +20,8 @@ $start = ($page - 1) * $perpage;
 //page
 */
 include "config/connect.php";
-//include "template/systemcontrol/sysconaction.php";
-$sql = "SELECT * FROM tm00_control ORDER BY Period DESC LIMIT {$start} , {$perpage}";
+include "template/systemcondition/sysconditaction.php";
+$sql = "SELECT * FROM tm01_system_condition";
 $DATA = mysql_query($sql);
 //page
 /*$sql2 = "SELECT * FROM tm00_control ORDER BY Period DESC";
