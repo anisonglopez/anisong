@@ -183,7 +183,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                         </dd>
                         <dt class="col-sm-2 info-box-label">ธนาคาร : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                         <input name="BankCode" type="date" data-placement="top" required  class="form-control"/>      
+                         <input name="BankCode" type="text" data-placement="top" required  class="form-control"/>      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -192,11 +192,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                        <dt class="col-sm-3 info-box-label">ตำแหน่ง : <span class="field-required">*</span></dt>
                        <dd class="col-sm-3 info-box-label">
-                         <input name="Position" type="date" data-placement="top" required  class="form-control"/>      
+                         <input name="Position" type="text" data-placement="top" required  class="form-control"/>      
                        </dd>
                        <dt class="col-sm-2 info-box-label">เลที่บัญชี : <span class="field-required">*</span></dt>
                        <dd class="col-sm-3 info-box-label">
-                         <input name="BankAccCode" type="date" data-placement="top" required  class="form-control" />      
+                         <input name="BankAccCode" type="text" data-placement="top" required  class="form-control" />      
                        </dd>
                        <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -205,11 +205,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">สาขา : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="BranchCode" type="date" data-placement="top" required  class="form-control"/>      
+                          <input name="BranchCode" type="text" data-placement="top" required  class="form-control"/>      
                         </dd>
                         <dt class="col-sm-2 info-box-label">กองทุนสำรองเลี้ยงชีพ : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="PF_Flag" type="date" data-placement="top" required  class="form-control" />      
+                          <input name="PF_Flag" type="text" data-placement="top" required  class="form-control" />      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -218,11 +218,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">เงินเดือน : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Salary" type="date" data-placement="top" required  class="form-control"/>      
+                          <input name="Salary" type="text" data-placement="top" required  class="form-control"/>      
                         </dd>
                         <dt class="col-sm-2 info-box-label">รหัสสมาชิก : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="PF_MemNo" type="date" data-placement="top" required  class="form-control" />      
+                          <input name="PF_MemNo" type="text" data-placement="top" required  class="form-control" />      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -248,7 +248,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                         </dd>
                         <dt class="col-sm-2 info-box-label">พ้นสถาพ : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="ProbFlag" type="date" data-placement="top" required  class="form-control" />      
+                          <input name="ProbFlag" type="text" data-placement="top" required  class="form-control" />      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -257,7 +257,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">เงื่อนไขภาษี : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="TaxCond" type="date" data-placement="top" required  class="form-control"/>      
+                          <input name="TaxCond" type="text" data-placement="top" required  class="form-control"/>      
                         </dd>
                         <dt class="col-sm-2 info-box-label"></dt>
                         <dd class="col-sm-3 info-box-label"></dd>
@@ -305,11 +305,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">สถานะ : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                         <input name="Marital" type="date" data-placement="top" required  class="form-control"/ >      
+                         <input name="Marital" type="text" data-placement="top" required  class="form-control"/ >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">หมายเลขสมรถ : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                         <input name="MarriageNo" type="date" data-placement="top" required  class="form-control"/ >      
+                         <input name="MarriageNo" type="text" data-placement="top" required  class="form-control"/ >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -322,7 +322,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                        </dd>
                        <dt class="col-sm-2 info-box-label">ชื่อ-สกุลคู่สมรถ : <span class="field-required">*</span></dt>
                        <dd class="col-sm-3 info-box-label">
-                         <input name="SpouseName" type="date" data-placement="top" required  class="form-control" / >      
+                         <input name="SpouseName" type="text" data-placement="top" required  class="form-control" / >      
                        </dd>
                        <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -344,11 +344,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">กำลังศึกษา : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="ChildInEduc" type="date" data-placement="top" required  class="form-control"/ >      
+                          <input name="ChildInEduc" type="text" data-placement="top" required  class="form-control"/ >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">ไม่ได้ศึกษา : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="ChildNotEduc" type="date" data-placement="top" required  class="form-control" / >      
+                          <input name="ChildNotEduc" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -370,11 +370,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">บิดา : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Own_Fath_ID" type="date" data-placement="top" required  class="form-control"/ >      
+                          <input name="Own_Fath_ID" type="text" data-placement="top" required  class="form-control"/ >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">มารดา : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Own_Moth_ID" type="date" data-placement="top" required  class="form-control" / >      
+                          <input name="Own_Moth_ID" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -383,11 +383,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">บิดาคู่สมรถ : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="SP_Fath_ID" type="date" data-placement="top" required  class="form-control"/ >      
+                          <input name="SP_Fath_ID" type="text" data-placement="top" required  class="form-control"/ >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">มารดาคู่สมรถ : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="SP_Moth_ID" type="date" data-placement="top" required  class="form-control" / >      
+                          <input name="SP_Moth_ID" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -409,7 +409,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                         </dd>
                         <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชน : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                         <input name="IDno" type="date" data-placement="top" required  class="form-control"/ >      
+                         <input name="IDno" type="text" data-placement="top" required  class="form-control"/ >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -418,11 +418,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                        <dt class="col-sm-3 info-box-label">สัญชาติ : <span class="field-required">*</span></dt>
                        <dd class="col-sm-3 info-box-label">
-                         <input name="Nationality" type="date" data-placement="top" required  class="form-control"/ >      
+                         <input name="Nationality" type="text" data-placement="top" required  class="form-control"/ >      
                        </dd>
                        <dt class="col-sm-2 info-box-label">ศาสนา : <span class="field-required">*</span></dt>
                        <dd class="col-sm-3 info-box-label">
-                         <input name="Religion" type="date" data-placement="top" required  class="form-control" / >      
+                         <input name="Religion" type="text" data-placement="top" required  class="form-control" / >      
                        </dd>
                        <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -431,11 +431,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">น้ำหนัก : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Weight" type="date" data-placement="top" required  class="form-control"/ >      
+                          <input name="Weight" type="text" data-placement="top" required  class="form-control"/ >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">ส่วนสูง : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Height" type="date" data-placement="top" required  class="form-control" / >      
+                          <input name="Height" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -444,11 +444,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">เพศ : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Sex" type="date" data-placement="top" required  class="form-control"/ >      
+                          <input name="Sex" type="text" data-placement="top" required  class="form-control"/ >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">เบอร์โทรศัพท์ : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="HomePhone" type="date" data-placement="top" required  class="form-control" / >      
+                          <input name="HomePhone" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -461,7 +461,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                         </dd>
                         <dt class="col-sm-2 info-box-label">รหัสไปรษณีย์ : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="PostalCode" type="date" data-placement="top" required  class="form-control" / >      
+                          <input name="PostalCode" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -470,7 +470,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">เลขประจำตัวผู้เสียภาษี : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="TaxID" type="date" data-placement="top" required  class="form-control"/ >      
+                          <input name="TaxID" type="text" data-placement="top" required  class="form-control"/ >      
                         </dd>
                         <dt class="col-sm-2 info-box-label"></dt>
                         <dd class="col-sm-3 info-box-label">
@@ -492,11 +492,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">Last Company Gross : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="L_C_Gross" type="date" data-placement="top" required  class="form-control" / >      
+                        <input name="L_C_Gross" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">Last Company Tax : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="L_C_Tax" type="date" data-placement="top" required  class="form-control" / >      
+                          <input name="L_C_Tax" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -505,11 +505,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">Last Company Social : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="L_C_SOC" type="date" data-placement="top" required  class="form-control" / >     
+                        <input name="L_C_SOC" type="text" data-placement="top" required  class="form-control" / >     
                         </dd>
                         <dt class="col-sm-2 info-box-label">Company Loan/Month : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="CompLoan" type="date" data-placement="top" required  class="form-control" / >      
+                          <input name="CompLoan" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -518,11 +518,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">Overtime Flag : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="OT_Cal_F" type="date" data-placement="top" required  class="form-control" / >      
+                        <input name="OT_Cal_F" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">Attendance Flag : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Attn_Cal_F" type="date" data-placement="top" required  class="form-control" / >      
+                          <input name="Attn_Cal_F" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -531,11 +531,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">Office Shift : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="O_Shft_D_PM" type="date" data-placement="top" required  class="form-control" / >      
+                        <input name="O_Shft_D_PM" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">Morning Shift : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="M_Shft_D_PM" type="date" data-placement="top" required  class="form-control" / >      
+                          <input name="M_Shft_D_PM" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -544,11 +544,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">Evening Shift : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="E_Shft_D_PM" type="date" data-placement="top" required  class="form-control" / >      
+                        <input name="E_Shft_D_PM" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">Night Shift : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="N_Shft_D_PM" type="date" data-placement="top" required  class="form-control" / >      
+                          <input name="N_Shft_D_PM" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -557,11 +557,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">Sick Leave : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="SL_Day" type="date" data-placement="top" required  class="form-control" / >      
+                        <input name="SL_Day" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">A/L Remaining : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="AL_Rem_Hrs" type="date" data-placement="top" required  class="form-control" / >      
+                          <input name="AL_Rem_Hrs" type="text" data-placement="top" required  class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
