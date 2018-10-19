@@ -9,16 +9,37 @@ if($_SESSION['UserID'] == "")
 //include dirname($_SERVER['DOCUMENT_ROOT']).'/cfg/settings.php';
 //getting required data
 //$DATA=dbgetarr("SELECT * FROM links");
+//page
+$perpage = 20;
+if (isset($_GET['page'])) {
+$page = $_GET['page'];
+} else {
+$page = 1;
+}
+$start = ($page - 1) * $perpage;
+//page
 include "config/connect.php";
-include "template/otherinc/other_add.php";
-
-//etc
+include "template/otherinc/otheraction.php";
 $sql = "SELECT * FROM tm02_otherinc";
 $DATA = mysql_query($sql);
+//page
+$sql2 = "SELECT * FROM tm02_otherinc";
+$query2 = mysql_query($sql2);
+$total_record = mysql_num_rows($query2);
+$total_page = ceil($total_record / $perpage);
+//page
+
+//etc
 //and then call a template:
+$title = "รายได้อื่นๆ";
 $tpl = "";
 $detail = "template/otherinc/othertable.php";
+$modal = "template/otherinc/othermodal.php";
+$script = "template/otherinc/otherscript.php";
 $footer = "";
 include "template/layout.php";
+//page
 
+
+//page
 ?>
