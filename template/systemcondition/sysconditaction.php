@@ -218,10 +218,15 @@ date_default_timezone_set("Asia/Bangkok");
         PF_Name = '".$_POST["PF_Name"]."',
         PF_No = '".$_POST["PF_No"]."',
         PF_Comp_No = '".$_POST["PF_Comp_No"]."',
-        UMF_R = '".$_POST["UMF_R"]."'
+        UMF_R = '".$_POST["UMF_R"]."',
+        SysUpdDate = '".$date ."',
+        SysUserID = '".$_POST["SysUserID"]."',
+        SysPgmID = 'FM01_System_Condition'
         ";
         $strSQL .="WHERE System_Name = '".$_POST["System_Name"]."'";
-        $objQuery = mysql_query($strSQL);    
+        $objQuery = mysql_query($strSQL);  
+        echo   $strSQL;
+        die();
          if($objQuery)
        {
            $result = '<script>alert("ทำการอัพเดตข้อมูลสำเร็จ")</script>';
