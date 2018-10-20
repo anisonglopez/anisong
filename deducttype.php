@@ -31,7 +31,7 @@ $total_page = ceil($total_record / $perpage);
 
 //etc
 //and then call a template:
-$title = "ข้อมูลตำแหน่ง";
+$title = "ข้อมูลประเภทการหักเงิน";
 $tpl = "";
 $detail = "template/deducttype/dcttable.php";
 $modal = "template/deducttype/dctmodal.php";

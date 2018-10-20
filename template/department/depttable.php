@@ -1,6 +1,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<h1>ข้อมูลประเภทการลา</h1>
+<h1>ข้อมูลแผนก</h1>
 <hr>
 <div class="container">
   <div class="row">
@@ -22,11 +22,9 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
 <table class="table table-hover">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">รหัสการลา</th>
+      <th scope="col">รหัสแผนก</th>
       <th scope="col">คำอธิบาย(ENG)</th>
       <th scope="col">คำอธิบาย(ไทย)</th>
-      <th scope="col">Ded_Flag</th>
-      <th scope="col">อัตราหัก</th>
       <th scope="col">SysUserID</th>
       <th scope="col" style="text-align: center;">Action</th>
     </tr>
@@ -35,12 +33,10 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
   <?php 
   if(mysql_num_rows($DATA) > 0)
   while ($rows = mysql_fetch_array($DATA)) {
-    $id = $rows['AttnCode'];
-    $row1 = $rows['AttnEDesc'];
-    $row2 = $rows['AttnTDesc'];
-    $row3 = $rows['Ded_Flag'];
-    $row4 = $rows['Ded_Rate'];
-    $row5 = $rows['SysUserID'];
+    $id = $rows['DeptCode'];
+    $row1 = $rows['DeptEDesc'];
+    $row2 = $rows['DeptTDesc'];
+    $row3 = $rows['SysUserID'];
   ?>
   <tbody>
     <tr>
@@ -48,8 +44,6 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
       <td><?php echo $row1; ?></td>
       <td><?php echo $row2; ?></td>
       <td><?php echo $row3; ?></td>
-      <td><?php echo $row4; ?></td>
-      <td><?php echo $row5; ?></td>
       <td><center>
     <button  class="btn btn-warning edit_id "  id="<?php echo $id?>">Edit</button>
   <button  class="btn btn-danger delete_id "  id="<?php echo $id?>">Delete</button>
@@ -93,7 +87,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
   <div class="modal-dialog" style="max-width: 1000px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title" id="modal_create_label">Create Prepare for Monthly Closing</h1>
+        <h1 class="modal-title" id="modal_create_label">Create department</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -106,9 +100,9 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
       <div class="row">
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">รหัสการลา : <span class="field-required">*</span></dt>
+            <dt class="col-sm-4 info-box-label">รหัสการหักเงิน : <span class="field-required">*</span></dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="AttnCode" type="text" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
+            <input name="DeptCode" type="text" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
             </dd>
           </dl>
         </div>
@@ -116,7 +110,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
           <dl class="row">
             <dt class="col-sm-4 info-box-label">คำอธิบาย(ENG) : </dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="AttnEDesc" type="text" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
+            <input name="DeptEDesc" type="text" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
             </dd>
           </dl>
         </div>
@@ -124,23 +118,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
           <dl class="row">
             <dt class="col-sm-4 info-box-label">คำอธิบาย(TH) : </dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="AttnTDesc" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
-            </dd>
-          </dl>
-        </div>
-        <div class="col-md-12">
-          <dl class="row">
-            <dt class="col-sm-4 info-box-label">Ded_Flag : </dt>
-            <dd class="col-sm-4 info-box-label">
-						<input name="Ded_Flag" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
-            </dd>
-          </dl>
-        </div>
-				<div class="col-md-12">
-          <dl class="row">
-            <dt class="col-sm-4 info-box-label">อัตราหัก : </dt>
-            <dd class="col-sm-4 info-box-label">
-						<input name="Ded_Rate" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+            <input name="DeptTDesc" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
             </dd>
           </dl>
         </div>
