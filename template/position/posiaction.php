@@ -60,7 +60,7 @@ if(isset($_POST["edit_id"]))
           <dl class="row">
             <dt class="col-sm-4 info-box-label">รหัสตำแหน่ง : <span class="field-required">*</span></dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="PosiCode" type="text" value="'.$_POST["PosiCode"].'" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
+            <input name="PosiCode" type="text" value="'.$rows["PosiCode"].'" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
             </dd>
           </dl>
         </div>
@@ -68,7 +68,7 @@ if(isset($_POST["edit_id"]))
           <dl class="row">
             <dt class="col-sm-4 info-box-label">ตำแหน่ง(ENG) : </dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="PosiEDesc" type="text" value="'.$_POST["PosiEDesc"].'" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
+            <input name="PosiEDesc" type="text" value="'.$rows["PosiEDesc"].'" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
             </dd>
           </dl>
         </div>
@@ -76,7 +76,7 @@ if(isset($_POST["edit_id"]))
           <dl class="row">
             <dt class="col-sm-4 info-box-label">ตำแหน่ง(TH) : </dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="PosiTDesc" type="text" value="'.$_POST["PosiTDesc"].'" data-placement="top"  class="form-control"  maxlength="20"/>      
+            <input name="PosiTDesc" type="text" value="'.$rows["PosiTDesc"].'" data-placement="top"  class="form-control"  maxlength="20"/>      
             </dd>
           </dl>
         </div>
@@ -84,7 +84,7 @@ if(isset($_POST["edit_id"]))
           <dl class="row">
             <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยง/เดือน : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="PosiALW" value="'.$_POST["PosiALW"].'" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="PosiALW" value="'.$rows["PosiALW"].'" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>
         </div>
@@ -92,7 +92,7 @@ if(isset($_POST["edit_id"]))
           <dl class="row">
             <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยง/วัน(เช้า) : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="M_ShftALW_D" value="'.$_POST["M_ShftALW_D"].'" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="M_ShftALW_D" value="'.$rows["M_ShftALW_D"].'" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>
         </div>
@@ -100,7 +100,7 @@ if(isset($_POST["edit_id"]))
           <dl class="row">
             <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยง/วัน(บ่าย) : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="E_ShftALW_D" value="'.$_POST["E_ShftALW_D"].'" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="E_ShftALW_D" value="'.$rows["E_ShftALW_D"].'" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>
         </div> 
@@ -108,7 +108,7 @@ if(isset($_POST["edit_id"]))
           <dl class="row">
             <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยง/วัน(เย็น) : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="N_ShftALW_D" value="'.$_POST["N_ShftALW_D"].'" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="N_ShftALW_D" value="'.$rows["N_ShftALW_D"].'" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>
         </div>
@@ -116,7 +116,7 @@ if(isset($_POST["edit_id"]))
           <dl class="row">
             <dt class="col-sm-4 info-box-label">SysPgmID : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="SysPgmID" value="'.$_POST["SysPgmID"].'" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="SysPgmID" value="'.$rows["SysPgmID"].'" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>
         </div>                   

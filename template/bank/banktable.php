@@ -1,6 +1,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<h1>ข้อมูลแผนก</h1>
+<h1>ข้อมูลธนาคาร</h1>
 <hr>
 <div class="container">
   <div class="row">
@@ -20,9 +20,9 @@
 <table class="table table-hover">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">รหัสแผนก</th>
-      <th scope="col">คำอธิบาย(ENG)</th>
-      <th scope="col">คำอธิบาย(ไทย)</th>
+      <th scope="col">รหัสธนาคาร</th>
+      <th scope="col">ชื่อธนาคาร(ENG)</th>
+      <th scope="col">ชื่อธนาคาร(ไทย)</th>
       <th scope="col">SysUserID</th>
       <th scope="col" style="text-align: center;">Action</th>
     </tr>
@@ -31,9 +31,9 @@
   <?php 
   if(mysql_num_rows($DATA) > 0)
   while ($rows = mysql_fetch_array($DATA)) {
-    $id = $rows['DeptCode'];
-    $row1 = $rows['DeptEDesc'];
-    $row2 = $rows['DeptTDesc'];
+    $id = $rows['bankcode'];
+    $row1 = $rows['BankEName'];
+    $row2 = $rows['BankTName'];
     $row3 = $rows['SysUserID'];
   ?>
   <tbody>
@@ -98,25 +98,41 @@
       <div class="row">
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">รหัสการหักเงิน : <span class="field-required">*</span></dt>
+            <dt class="col-sm-4 info-box-label">รหัสธนาคาร : <span class="field-required">*</span></dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="DeptCode" type="text" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
+            <input name="bankcode" type="text" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">คำอธิบาย(ENG) : </dt>
+            <dt class="col-sm-4 info-box-label">ชื่อธนาคาร(ENG) : </dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="DeptEDesc" type="text" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
+            <input name="BankEName" type="text" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">คำอธิบาย(TH) : </dt>
+            <dt class="col-sm-4 info-box-label">ชื่อธนาคาร(TH) : </dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="DeptTDesc" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
+            <input name="BankTName" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
+            </dd>
+          </dl>
+        </div>
+        <div class="col-md-12">
+          <dl class="row">
+            <dt class="col-sm-4 info-box-label">ที่อยู่ : </dt>
+            <dd class="col-sm-4 info-box-label">
+            <textarea class="form-control" rows="5" name="Address" id="comment"></textarea>       
+            </dd>
+          </dl>
+        </div>
+        <div class="col-md-12">
+          <dl class="row">
+            <dt class="col-sm-4 info-box-label">เบอร์โทรศัพท์ : </dt>
+            <dd class="col-sm-4 info-box-label">
+            <input name="PhoneNo" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
             </dd>
           </dl>
         </div>

@@ -1,6 +1,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<h1>ข้อมูลแผนก</h1>
+<h1>ข้อมูลสาขา/บริษัท</h1>
 <hr>
 <div class="container">
   <div class="row">
@@ -18,12 +18,13 @@
 </div>
 <div class="col-md-12"><br /></div>
 <table class="table table-hover">
-  <thead class="thead-dark">
+  <thead class="thead-dark" >
     <tr>
-      <th scope="col">รหัสแผนก</th>
-      <th scope="col">คำอธิบาย(ENG)</th>
-      <th scope="col">คำอธิบาย(ไทย)</th>
-      <th scope="col">SysUserID</th>
+      <th scope="col">รหัสสาขา</th>
+      <th scope="col">ชื่อสาขา(ENG)</th>
+      <th scope="col">ชื่อสาขา(ไทย)</th>
+      <th scope="col">ที่อยู่</th>
+      <th scope="col">เบอร์</th>
       <th scope="col" style="text-align: center;">Action</th>
     </tr>
   </thead>
@@ -31,18 +32,20 @@
   <?php 
   if(mysql_num_rows($DATA) > 0)
   while ($rows = mysql_fetch_array($DATA)) {
-    $id = $rows['DeptCode'];
-    $row1 = $rows['DeptEDesc'];
-    $row2 = $rows['DeptTDesc'];
-    $row3 = $rows['SysUserID'];
+    $id = $rows['BranchCode'];
+    $row1 = $rows['BranchEName'];
+    $row2 = $rows['BranchTName'];
+    $row3 = $rows['Address'];
+    $row4 = $rows['PhoneNo'];
   ?>
   <tbody>
     <tr>
-      <td><?php echo $id; ?></td>
-      <td><?php echo $row1; ?></td>
-      <td><?php echo $row2; ?></td>
-      <td><?php echo $row3; ?></td>
-      <td><center>
+      <td width="5%"><?php echo $id; ?></td>
+      <td width="25%"><?php echo $row1; ?></td>
+      <td width="25%"><?php echo $row2; ?></td>
+      <td width="25%"><?php echo $row3; ?></td>
+      <td width="10%"><?php echo $row4; ?></td>
+      <td width="10%"><center>
     <button  class="btn btn-warning edit_id "  id="<?php echo $id?>">Edit</button>
   <button  class="btn btn-danger delete_id "  id="<?php echo $id?>">Delete</button>
   </center>
@@ -98,33 +101,41 @@
       <div class="row">
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">รหัสการหักเงิน : <span class="field-required">*</span></dt>
+            <dt class="col-sm-4 info-box-label">รหัสสาขา : <span class="field-required">*</span></dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="DeptCode" type="text" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
+            <input name="BranchCode" type="text" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">คำอธิบาย(ENG) : </dt>
+            <dt class="col-sm-4 info-box-label">ชื่อสาขา(ENG) : </dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="DeptEDesc" type="text" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
+            <input name="BranchEName" type="text" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">คำอธิบาย(TH) : </dt>
+            <dt class="col-sm-4 info-box-label">ชื่อสาขา(TH) : </dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="DeptTDesc" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
+            <input name="BranchTName" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">SysPgmID : </dt>
+            <dt class="col-sm-4 info-box-label">ที่อยู่ : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="SysPgmID" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<textarea class="form-control" rows="5" name="Address" id="comment"></textarea>   
+            </dd>
+          </dl>
+        </div>
+        <div class="col-md-12">
+          <dl class="row">
+            <dt class="col-sm-4 info-box-label">เบอร์โทรศัพท์ : </dt>
+            <dd class="col-sm-4 info-box-label">
+						<input name="PhoneNo" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>
         </div>                   

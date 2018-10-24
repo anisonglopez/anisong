@@ -19,17 +19,17 @@ $page = 1;
 $start = ($page - 1) * $perpage;
 //page
 include "config/connect.php";
-include "template/otherinc/otheraction.php";
+include "template/branch/branchaction.php";
 
 if(isset($_POST["search"])){
-    $sql = "SELECT * FROM tm02_otherinc WHERE OthINCCode like '%".$_POST['search']."%' OR OthINCEDesc like '%".$_POST['search']."%' OR OthINCTDesc like '%".$_POST['search']."%'";
+    $sql = "SELECT * FROM tm02_branch WHERE BranchCode like '%".$_POST['search']."%' OR BranchEName like '%".$_POST['search']."%' OR BranchTName like '%".$_POST['search']."%' OR Address like '%".$_POST['search']."%' OR PhoneNo like '%".$_POST['search']."%'";
 }else{
-    $sql = "SELECT * FROM tm02_otherinc";
+    $sql = "SELECT * FROM tm02_branch";
 }
 
 $DATA = mysql_query($sql);
 //page
-$sql2 = "SELECT * FROM tm02_otherinc";
+$sql2 = "SELECT * FROM tm02_branch";
 $query2 = mysql_query($sql2);
 $total_record = mysql_num_rows($query2);
 $total_page = ceil($total_record / $perpage);
@@ -37,11 +37,11 @@ $total_page = ceil($total_record / $perpage);
 
 //etc
 //and then call a template:
-$title = "รายได้อื่นๆ";
+$title = "ข้อมูลแผนก";
 $tpl = "";
-$detail = "template/otherinc/othertable.php";
-$modal = "template/otherinc/othermodal.php";
-$script = "template/otherinc/otherscript.php";
+$detail = "template/branch/branchtable.php";
+$modal = "template/branch/branchmodal.php";
+$script = "template/branch/branchscript.php";
 $footer = "";
 include "template/layout.php";
 //page

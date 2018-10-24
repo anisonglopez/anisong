@@ -20,7 +20,12 @@ $start = ($page - 1) * $perpage;
 //page
 include "config/connect.php";
 include "template/attendance/attaction.php";
-$sql = "SELECT * FROM tm02_attncode";
+if(isset($_POST["search"])){
+    $sql = "SELECT * FROM tm02_attncode WHERE AttnCode like '%".$_POST['search']."%' OR AttnEDesc like '%".$_POST['search']."%' OR AttnTDesc like '%".$_POST['search']."%' OR Ded_Flag like '%".$_POST['search']."%' OR Ded_Rate like '%".$_POST['search']."%'";
+}else{
+    $sql = "SELECT * FROM tm02_attncode";
+}
+
 $DATA = mysql_query($sql);
 //page
 $sql2 = "SELECT * FROM tm02_attncode";

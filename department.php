@@ -20,7 +20,13 @@ $start = ($page - 1) * $perpage;
 //page
 include "config/connect.php";
 include "template/department/deptaction.php";
-$sql = "SELECT * FROM tm02_department";
+
+if(isset($_POST["search"])){
+    $sql = "SELECT * FROM tm02_department WHERE DeptCode like '%".$_POST['search']."%' OR DeptEDesc like '%".$_POST['search']."%' OR DeptTDesc like '%".$_POST['search']."%'";
+}else{
+    $sql = "SELECT * FROM tm02_department";
+}
+
 $DATA = mysql_query($sql);
 //page
 $sql2 = "SELECT * FROM tm02_department";

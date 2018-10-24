@@ -8,13 +8,12 @@
     <button class="btn btn-success" data-toggle="modal" data-target="#modal_create">Create New</button>
     </div>
     <div class="col-sm" style="text-align: right;">
-        <!--
-    <form name="search_user" method="get"  action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
-Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholder="ค้นหาผู้ใช้งาน" size="20" value="<?php echo $_GET["txtKeyword"];?>" /> 
-<input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
-<input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>
-</form>
--->
+    <form name="search" method="post"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
+        <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20" value="" /> 
+        <input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
+<!--<input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>-->
+    </form>
+
 </div>
 </div>
 </div>
