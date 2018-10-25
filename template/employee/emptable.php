@@ -177,11 +177,33 @@
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">แผนก : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                         <input name="DeptCode" type="text" data-placement="top" required  class="form-control"/>      
+                         <select class="form-control"  name="DeptCode" required>
+                          <?php
+                          $strSQL = "SELECT * FROM tm02_department";
+                         $objQuery = mysql_query($strSQL);
+                          while($objResuut = mysql_fetch_array($objQuery))
+                          {
+                          ?>
+                            <option value="<?=$objResuut["DeptCode"];?>"><?=$objResuut["DeptCode"]." - ".$objResuut["DeptTDesc"];?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>      
                         </dd>
                         <dt class="col-sm-2 info-box-label">ธนาคาร : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                         <input name="BankCode" type="text" data-placement="top" required  class="form-control"/>      
+                        <select class="form-control"  name="BankCode" required>
+                          <?php
+                          $strSQL = "SELECT * FROM tm02_bank";
+                         $objQuery = mysql_query($strSQL);
+                          while($objResuut = mysql_fetch_array($objQuery))
+                          {
+                          ?>
+                            <option value="<?=$objResuut["bankcode"];?>"><?=$objResuut["bankcode"]." - ".$objResuut["BankTName"];?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -190,7 +212,18 @@
                       <dl class="row">
                        <dt class="col-sm-3 info-box-label">ตำแหน่ง : <span class="field-required">*</span></dt>
                        <dd class="col-sm-3 info-box-label">
-                         <input name="Position" type="text" data-placement="top" required  class="form-control"/>      
+                       <select class="form-control"  name="PosiCode" required>
+                          <?php
+                          $strSQL = "SELECT * FROM tm02_position";
+                         $objQuery = mysql_query($strSQL);
+                          while($objResuut = mysql_fetch_array($objQuery))
+                          {
+                          ?>
+                            <option value="<?=$objResuut["PosiCode"];?>"><?=$objResuut["PosiCode"]." - ".$objResuut["PosiTDesc"];?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>      
                        </dd>
                        <dt class="col-sm-2 info-box-label">เลที่บัญชี : <span class="field-required">*</span></dt>
                        <dd class="col-sm-3 info-box-label">
@@ -203,7 +236,18 @@
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">สาขา : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="BranchCode" type="text" data-placement="top" required  class="form-control"/>      
+                          <select class="form-control"  name="BranchCode" required>
+                          <?php
+                          $strSQL = "SELECT * FROM tm02_branch";
+                         $objQuery = mysql_query($strSQL);
+                          while($objResuut = mysql_fetch_array($objQuery))
+                          {
+                          ?>
+                            <option value="<?=$objResuut["BranchCode"];?>"><?=$objResuut["BranchCode"]." - ".$objResuut["BranchTName"];?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>      
                         </dd>
                         <dt class="col-sm-2 info-box-label">กองทุนสำรองเลี้ยงชีพ : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
@@ -264,31 +308,23 @@
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label"></dt>
-                        <dd class="col-sm-3 info-box-label">
-                         <label class="checkbox-inline"><input type="checkbox" name="UM_Flag" value="1">สมาชิกสหภาพฯ</label>      
-                        </dd>
-                        <dt class="col-sm-3 info-box-label">
-                         <label class="checkbox-inline"><input type="checkbox" name="Cooperative_F" value="1">สมาชิกสหกรณ์ออมทรัพย์</label>
-                        </dt>
-                        <dd class="col-sm-3 info-box-label">
-                         <label class="checkbox-inline"><input type="checkbox" name="GHB_F" value="1">สมาชิก ธอส.</label>      
-                        </dd>
-                    
-                      </dl>
-                    </div>
-                    <div class="col-md-12">
-                      <dl class="row">
-                        <dt class="col-sm-3 info-box-label"></dt>
-                        <dd class="col-sm-3 info-box-label">
-                         <label class="checkbox-inline"><input type="checkbox" name="Feneral_F" value="1">สมาชิกฌาปนกิจสงเคราะห์</label>      
-                        </dd>
-                        <dt class="col-sm-2 info-box-label">
-                         <label class="checkbox-inline"><input type="checkbox" name="MoneyLoan_F" value="1">สมาชิก สินเชื่อเงินกู้</label>
-                        </dt>
-                        <dd class="col-sm-3 info-box-label"></dd>
-                        <dd class="col-sm-1 info-box-label"></dd>
-                      </dl>
+                      <div class="col-sm-3"></div>
+                      <div class="col-sm-9">
+                      <table width="80%">
+                          <tbody>
+                            <tr>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="UM_Flag" value="1">สมาชิกสหภาพฯ</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="Cooperative_F" value="1">สมาชิกสหกรณ์ออมทรัพย์</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="GHB_F" value="1">สมาชิก ธอส.</label></td>
+                            </tr>
+                            <tr>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="Feneral_F" value="1">สมาชิกฌาปนกิจสงเคราะห์</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="MoneyLoan_F" value="1">สมาชิก สินเชื่อเงินกู้</label></td>
+                              <td></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -327,15 +363,11 @@
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label"></dt>
-                        <dd class="col-sm-3 info-box-label">
-                          ข้อมูลบุตร      
+                        <dt class="col-sm-1 info-box-label"></dt>
+                        <dd class="col-sm-3">
+                          <h3>ข้อมูลบุตร</h3>      
                         </dd>
-                        <dt class="col-sm-2 info-box-label"></dt>
-                        <dd class="col-sm-3 info-box-label">
-                                
-                        </dd>
-                        <dd class="col-sm-1 info-box-label"></dd>
+                        
                       </dl>
                     </div>
                     <div class="col-md-12">
@@ -353,15 +385,12 @@
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label"></dt>
-                        <dd class="col-sm-3 info-box-label">
-                          ข้อมูลผู้ปกครอง(เลขประจำตัวประชาชน)      
+                        <dt class="col-sm-1 info-box-label"></dt>
+                        <dd class="col-sm-4">
+                          <h3>ข้อมูลผู้ปกครอง(เลขประจำตัวประชาชน)</h3>      
                         </dd>
-                        <dt class="col-sm-2 info-box-label"></dt>
-                        <dd class="col-sm-3 info-box-label">
-                                
-                        </dd>
-                        <dd class="col-sm-1 info-box-label"></dd>
+                        
+                        
                       </dl>
                     </div>
                     <div class="col-md-12">
