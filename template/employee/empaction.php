@@ -193,7 +193,13 @@ if(isset($_POST["edit_id"]))
     include "../../config/connect.php";
     $strSQL = "SELECT * FROM tm03_employee WHERE EmplCode = '".$_POST["edit_id"]."'";   
     $objQuery = mysql_query($strSQL); 
-    while ($rows = mysql_fetch_array($objQuery)) {    
+    while ($rows = mysql_fetch_array($objQuery)) { 
+      
+      $deptcode = $rows["DeptCode"];
+      $bankcode = $rows["BankCode"];
+      $posicode = $rows["PosiCode"];
+      $branchcode = $rows["BranchCode"];
+
     $output .= '<input type="hidden" name="id" value="'.$_POST["edit_id"].'">
     <div class="modal-body" >
     <br/>
@@ -277,33 +283,51 @@ if(isset($_POST["edit_id"]))
                 <dl class="row">
                   <dt class="col-sm-3 info-box-label">แผนก : <span class="field-required">*</span></dt>
                   <dd class="col-sm-3 info-box-label">
-                   <select class="form-control"  name="DeptCode" required>
-                    <?php
+                   <select class="form-control"  name="DeptCode" required>';
+                    
                     $strSQL = "SELECT * FROM tm02_department";
                    $objQuery = mysql_query($strSQL);
                     while($objResuut = mysql_fetch_array($objQuery))
                     {
-                    ?>
-                      <option value="'.$objResuut["DeptCode"].'">'.$objResuut["DeptCode"].' - '.$objResuut["DeptTDesc"].'></option>
-                    <?php
+                    
+                      if($objResuut["DeptCode"] == $deptcode)
+                      {
+                        $sel = "selected";
+                      }
+                      else
+                      {
+                        $sel = "";
+                      }
+
+                    $output.='<option value="'.$objResuut["DeptCode"].'" '.$sel.'>'.$objResuut["DeptCode"].' - '.$objResuut["DeptTDesc"].'</option>';
+                    
                     }
-                    ?>
-                  </select>      
+                    
+                  $output.='</select>      
                   </dd>
                   <dt class="col-sm-2 info-box-label">ธนาคาร : <span class="field-required">*</span></dt>
                   <dd class="col-sm-3 info-box-label">
-                  <select class="form-control"  name="BankCode" required>
-                    <?php
+                  <select class="form-control"  name="BankCode" required>';
+                    
                     $strSQL = "SELECT * FROM tm02_bank";
                    $objQuery = mysql_query($strSQL);
                     while($objResuut = mysql_fetch_array($objQuery))
                     {
-                    ?>
-                      <option value="<?=$objResuut["bankcode"];?>"><?=$objResuut["bankcode"]." - ".$objResuut["BankTName"];?></option>
-                    <?php
+                    
+                      if($objResuut["DeptCode"] == $bankcode)
+                      {
+                        $sel = "selected";
+                      }
+                      else
+                      {
+                        $sel = "";
+                      }
+
+                      $output.='<option value="'.$objResuut["bankcode"].'">'.$objResuut["bankcode"].' - '.$objResuut["BankTName"].'</option>';
+                    
                     }
-                    ?>
-                  </select>      
+                    
+                    $output.='</select>      
                   </dd>
                   <dd class="col-sm-1 info-box-label"></dd>
                 </dl>
@@ -312,18 +336,26 @@ if(isset($_POST["edit_id"]))
                 <dl class="row">
                  <dt class="col-sm-3 info-box-label">ตำแหน่ง : <span class="field-required">*</span></dt>
                  <dd class="col-sm-3 info-box-label">
-                 <select class="form-control"  name="PosiCode" required>
-                    <?php
+                 <select class="form-control"  name="PosiCode" required>';
+                    
                     $strSQL = "SELECT * FROM tm02_position";
                    $objQuery = mysql_query($strSQL);
                     while($objResuut = mysql_fetch_array($objQuery))
                     {
-                    ?>
-                      <option value="<?=$objResuut["PosiCode"];?>"><?=$objResuut["PosiCode"]." - ".$objResuut["PosiTDesc"];?></option>
-                    <?php
+                    
+                      if($objResuut["DeptCode"] == $posicode)
+                      {
+                        $sel = "selected";
+                      }
+                      else
+                      {
+                        $sel = "";
+                      }
+                      $output.='<option value="'.$objResuut["PosiCode"].'">'.$objResuut["PosiCode"].' - '.$objResuut["PosiTDesc"].'</option>';
+                   
                     }
-                    ?>
-                  </select>      
+                    
+                    $output.='</select>      
                  </dd>
                  <dt class="col-sm-2 info-box-label">เลที่บัญชี : <span class="field-required">*</span></dt>
                  <dd class="col-sm-3 info-box-label">
@@ -336,18 +368,26 @@ if(isset($_POST["edit_id"]))
                 <dl class="row">
                   <dt class="col-sm-3 info-box-label">สาขา : <span class="field-required">*</span></dt>
                   <dd class="col-sm-3 info-box-label">
-                    <select class="form-control"  name="BranchCode" required>
-                    <?php
+                    <select class="form-control"  name="BranchCode" required>';
+                    
                     $strSQL = "SELECT * FROM tm02_branch";
                    $objQuery = mysql_query($strSQL);
                     while($objResuut = mysql_fetch_array($objQuery))
                     {
-                    ?>
-                      <option value="<?=$objResuut["BranchCode"];?>"><?=$objResuut["BranchCode"]." - ".$objResuut["BranchTName"];?></option>
-                    <?php
+                    
+                      if($objResuut["DeptCode"] == $branchcode)
+                      {
+                        $sel = "selected";
+                      }
+                      else
+                      {
+                        $sel = "";
+                      }
+                      $output.='<option value="'.$objResuut["BranchCode"].'">'.$objResuut["BranchCode"].' - '.$objResuut["BranchTName"].'</option>';
+                    
                     }
-                    ?>
-                  </select>      
+                    
+                    $output.='</select>      
                   </dd>
                   <dt class="col-sm-2 info-box-label">กองทุนสำรองเลี้ยงชีพ : <span class="field-required">*</span></dt>
                   <dd class="col-sm-3 info-box-label">
@@ -412,14 +452,44 @@ if(isset($_POST["edit_id"]))
                       <div class="col-sm-9">
                       <table width="80%">
                           <tbody>
-                            <tr>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="UM_Flag" value="1">สมาชิกสหภาพฯ</label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="Cooperative_F" value="1">สมาชิกสหกรณ์ออมทรัพย์</label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="GHB_F" value="1">สมาชิก ธอส.</label></td>
+                            <tr>';
+
+                            if($rows["UM_Flag"] == '1'){
+                              $umcheck = "checked";
+                            }else{
+                              $umcheck = "";
+                            }
+                            if($rows["Cooperative_F"] == '1'){
+                              $coopcheck = "checked";
+                            }else{
+                              $coopcheck = "";
+                            }
+                            if($rows["GHB_F"] == '1'){
+                              $gbhcheck = "checked";
+                            }else{
+                              $gbhcheck = "";
+                            }
+                            if($rows["Feneral_F"] == '1'){
+                              $fencheck = "checked";
+                            }else{
+                              $fencheck = "";
+                            }
+                            if($rows["MoneyLoan_F"] == '1'){
+                              $mlcheck = "checked";
+                            }else{
+                              $mlcheck = "";
+                            }
+
+                            $output.='<td><label class="checkbox-inline"><input type="checkbox" name="UM_Flag" value="1" '.$umcheck.'>สมาชิกสหภาพฯ</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="Cooperative_F" value="1" '.$coopcheck.'>สมาชิกสหกรณ์ออมทรัพย์</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="GHB_F" value="1" '.$gbhcheck.'>สมาชิก ธอส.</label></td>
+
                             </tr>
                             <tr>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="Feneral_F" value="1">สมาชิกฌาปนกิจสงเคราะห์</label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="MoneyLoan_F" value="1">สมาชิก สินเชื่อเงินกู้</label></td>
+
+                              <td><label class="checkbox-inline"><input type="checkbox" name="Feneral_F" value="1" '.$fencheck.'>สมาชิกฌาปนกิจสงเคราะห์</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="MoneyLoan_F" value="1" '.$mlcheck.'>สมาชิก สินเชื่อเงินกู้</label></td>
+
                               <td></td>
                             </tr>
                           </tbody>
