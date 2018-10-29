@@ -193,7 +193,13 @@ if(isset($_POST["edit_id"]))
     include "../../config/connect.php";
     $strSQL = "SELECT * FROM tm03_employee WHERE EmplCode = '".$_POST["edit_id"]."'";   
     $objQuery = mysql_query($strSQL); 
-    while ($rows = mysql_fetch_array($objQuery)) {    
+    while ($rows = mysql_fetch_array($objQuery)) { 
+      
+      $deptcode = $rows["DeptCode"];
+      $bankcode = $rows["BankCode"];
+      $posicode = $rows["PosiCode"];
+      $branchcode = $rows["BranchCode"];
+
     $output .= '<input type="hidden" name="id" value="'.$_POST["edit_id"].'">
     <div class="modal-body" >
     <br/>
@@ -273,45 +279,123 @@ if(isset($_POST["edit_id"]))
             <div class="tab-pane active" id="tab1">
               <div class="header-info-content-box content-box-padding">
                 <div class="row">
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">แผนก : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                       <input name="DeptCode" type="text" value="'.$rows["DeptCode"].'" data-placement="top" required  class="form-control"/>      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">ธนาคาร : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                       <input name="BankCode" type="text" value="'.$rows["BankCode"].'" data-placement="top" required  class="form-control"/>      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                     <dt class="col-sm-3 info-box-label">ตำแหน่ง : <span class="field-required">*</span></dt>
-                     <dd class="col-sm-3 info-box-label">
-                       <input name="Position" type="text" value="'.$rows["Position"].'" data-placement="top" required  class="form-control"/>      
-                     </dd>
-                     <dt class="col-sm-2 info-box-label">เลที่บัญชี : <span class="field-required">*</span></dt>
-                     <dd class="col-sm-3 info-box-label">
-                       <input name="BankAccCode" type="text" value="'.$rows["BankAccCode"].'" data-placement="top" required  class="form-control" />      
-                     </dd>
-                     <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">สาขา : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="BranchCode" type="text" value="'.$rows["BranchCode"].'" data-placement="top" required  class="form-control"/>      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">กองทุนสำรองเลี้ยงชีพ : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="PF_Flag" type="text" value="'.$rows["PF_Flag"].'" data-placement="top" required  class="form-control" />      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
+                <div class="col-md-12">
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">แผนก : <span class="field-required">*</span></dt>
+                  <dd class="col-sm-3 info-box-label">
+                   <select class="form-control"  name="DeptCode" required>';
+                    
+                    $strSQL = "SELECT * FROM tm02_department";
+                   $objQuery = mysql_query($strSQL);
+                    while($objResuut = mysql_fetch_array($objQuery))
+                    {
+                    
+                      if($objResuut["DeptCode"] == $deptcode)
+                      {
+                        $sel = "selected";
+                      }
+                      else
+                      {
+                        $sel = "";
+                      }
+
+                    $output.='<option value="'.$objResuut["DeptCode"].'" '.$sel.'>'.$objResuut["DeptCode"].' - '.$objResuut["DeptTDesc"].'</option>';
+                    
+                    }
+                    
+                  $output.='</select>      
+                  </dd>
+                  <dt class="col-sm-2 info-box-label">ธนาคาร : <span class="field-required">*</span></dt>
+                  <dd class="col-sm-3 info-box-label">
+                  <select class="form-control"  name="BankCode" required>';
+                    
+                    $strSQL = "SELECT * FROM tm02_bank";
+                   $objQuery = mysql_query($strSQL);
+                    while($objResuut = mysql_fetch_array($objQuery))
+                    {
+                    
+                      if($objResuut["DeptCode"] == $bankcode)
+                      {
+                        $sel = "selected";
+                      }
+                      else
+                      {
+                        $sel = "";
+                      }
+
+                      $output.='<option value="'.$objResuut["bankcode"].'">'.$objResuut["bankcode"].' - '.$objResuut["BankTName"].'</option>';
+                    
+                    }
+                    
+                    $output.='</select>      
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
+              <div class="col-md-12">
+                <dl class="row">
+                 <dt class="col-sm-3 info-box-label">ตำแหน่ง : <span class="field-required">*</span></dt>
+                 <dd class="col-sm-3 info-box-label">
+                 <select class="form-control"  name="PosiCode" required>';
+                    
+                    $strSQL = "SELECT * FROM tm02_position";
+                   $objQuery = mysql_query($strSQL);
+                    while($objResuut = mysql_fetch_array($objQuery))
+                    {
+                    
+                      if($objResuut["DeptCode"] == $posicode)
+                      {
+                        $sel = "selected";
+                      }
+                      else
+                      {
+                        $sel = "";
+                      }
+                      $output.='<option value="'.$objResuut["PosiCode"].'">'.$objResuut["PosiCode"].' - '.$objResuut["PosiTDesc"].'</option>';
+                   
+                    }
+                    
+                    $output.='</select>      
+                 </dd>
+                 <dt class="col-sm-2 info-box-label">เลที่บัญชี : <span class="field-required">*</span></dt>
+                 <dd class="col-sm-3 info-box-label">
+                   <input name="BankAccCode" type="text" data-placement="top" required  class="form-control" />      
+                 </dd>
+                 <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
+              <div class="col-md-12">
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">สาขา : <span class="field-required">*</span></dt>
+                  <dd class="col-sm-3 info-box-label">
+                    <select class="form-control"  name="BranchCode" required>';
+                    
+                    $strSQL = "SELECT * FROM tm02_branch";
+                   $objQuery = mysql_query($strSQL);
+                    while($objResuut = mysql_fetch_array($objQuery))
+                    {
+                    
+                      if($objResuut["DeptCode"] == $branchcode)
+                      {
+                        $sel = "selected";
+                      }
+                      else
+                      {
+                        $sel = "";
+                      }
+                      $output.='<option value="'.$objResuut["BranchCode"].'">'.$objResuut["BranchCode"].' - '.$objResuut["BranchTName"].'</option>';
+                    
+                    }
+                    
+                    $output.='</select>      
+                  </dd>
+                  <dt class="col-sm-2 info-box-label">กองทุนสำรองเลี้ยงชีพ : <span class="field-required">*</span></dt>
+                  <dd class="col-sm-3 info-box-label">
+                    <input name="PF_Flag" type="text" data-placement="top" required  class="form-control" />      
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
                   <div class="col-md-12">
                     <dl class="row">
                       <dt class="col-sm-3 info-box-label">เงินเดือน : <span class="field-required">*</span></dt>
@@ -363,33 +447,55 @@ if(isset($_POST["edit_id"]))
                     </dl>
                   </div>
                   <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label"></dt>
-                      <dd class="col-sm-3 info-box-label">
-                       <label class="checkbox-inline"><input type="checkbox" name="UM_Flag" value="1">สมาชิกสหภาพฯ</label>      
-                      </dd>
-                      <dt class="col-sm-3 info-box-label">
-                       <label class="checkbox-inline"><input type="checkbox" name="Cooperative_F" value="1">สมาชิกสหกรณ์ออมทรัพย์</label>
-                      </dt>
-                      <dd class="col-sm-3 info-box-label">
-                       <label class="checkbox-inline"><input type="checkbox" name="GHB_F" value="1">สมาชิก ธอส.</label>      
-                      </dd>
-                  
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label"></dt>
-                      <dd class="col-sm-3 info-box-label">
-                       <label class="checkbox-inline"><input type="checkbox" name="Feneral_F" value="1">สมาชิกฌาปนกิจสงเคราะห์</label>      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">
-                       <label class="checkbox-inline"><input type="checkbox" name="MoneyLoan_F" value="1">สมาชิก สินเชื่อเงินกู้</label>
-                      </dt>
-                      <dd class="col-sm-3 info-box-label"></dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
+                      <dl class="row">
+                      <div class="col-sm-3"></div>
+                      <div class="col-sm-9">
+                      <table width="80%">
+                          <tbody>
+                            <tr>';
+
+                            if($rows["UM_Flag"] == '1'){
+                              $umcheck = "checked";
+                            }else{
+                              $umcheck = "";
+                            }
+                            if($rows["Cooperative_F"] == '1'){
+                              $coopcheck = "checked";
+                            }else{
+                              $coopcheck = "";
+                            }
+                            if($rows["GHB_F"] == '1'){
+                              $gbhcheck = "checked";
+                            }else{
+                              $gbhcheck = "";
+                            }
+                            if($rows["Feneral_F"] == '1'){
+                              $fencheck = "checked";
+                            }else{
+                              $fencheck = "";
+                            }
+                            if($rows["MoneyLoan_F"] == '1'){
+                              $mlcheck = "checked";
+                            }else{
+                              $mlcheck = "";
+                            }
+
+                            $output.='<td><label class="checkbox-inline"><input type="checkbox" name="UM_Flag" value="1" '.$umcheck.'>สมาชิกสหภาพฯ</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="Cooperative_F" value="1" '.$coopcheck.'>สมาชิกสหกรณ์ออมทรัพย์</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="GHB_F" value="1" '.$gbhcheck.'>สมาชิก ธอส.</label></td>
+
+                            </tr>
+                            <tr>
+
+                              <td><label class="checkbox-inline"><input type="checkbox" name="Feneral_F" value="1" '.$fencheck.'>สมาชิกฌาปนกิจสงเคราะห์</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="MoneyLoan_F" value="1" '.$mlcheck.'>สมาชิก สินเชื่อเงินกู้</label></td>
+
+                              <td></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -426,70 +532,63 @@ if(isset($_POST["edit_id"]))
                     </dl>
                   </div>
                   <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label"></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        ข้อมูลบุตร      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label"></dt>
-                      <dd class="col-sm-3 info-box-label">
-                              
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">กำลังศึกษา : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="ChildInEduc" type="text" value="'.$rows["ChildInEduc"].'" data-placement="top" required  class="form-control"/ >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">ไม่ได้ศึกษา : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="ChildNotEduc" type="text" value="'.$rows["ChildNotEduc"].'" data-placement="top" required  class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label"></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        ข้อมูลผู้ปกครอง(เลขประจำตัวประชาชน)      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label"></dt>
-                      <dd class="col-sm-3 info-box-label">
-                              
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">บิดา : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="Own_Fath_ID" type="text" value="'.$rows["Own_Fath_ID"].'" data-placement="top" required  class="form-control"/ >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">มารดา : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="Own_Moth_ID" type="text" value="'.$rows["Own_Moth_ID"].'" data-placement="top" required  class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">บิดาคู่สมรถ : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="SP_Fath_ID" type="text" value="'.$rows["SP_Fath_ID"].'" data-placement="top" required  class="form-control"/ >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">มารดาคู่สมรถ : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="SP_Moth_ID" type="text" value="'.$rows["SP_Moth_ID"].'" data-placement="top" required  class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
+                      <dl class="row">
+                        <dt class="col-sm-1 info-box-label"></dt>
+                        <dd class="col-sm-3">
+                          <h3>ข้อมูลบุตร</h3>      
+                        </dd>
+                        
+                      </dl>
+                    </div>
+                    <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-3 info-box-label">กำลังศึกษา : <span class="field-required">*</span></dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="ChildInEduc" type="text" value="'.$rows["SpouseName"].'" data-placement="top" required  class="form-control"/ >      
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">ไม่ได้ศึกษา : <span class="field-required">*</span></dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="ChildNotEduc" type="text" value="'.$rows["SpouseName"].'" data-placement="top" required  class="form-control" / >      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+                    <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-1 info-box-label"></dt>
+                        <dd class="col-sm-4">
+                          <h3>ข้อมูลผู้ปกครอง(เลขประจำตัวประชาชน)</h3>      
+                        </dd>
+                        
+                        
+                      </dl>
+                    </div>
+                    <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-3 info-box-label">บิดา : <span class="field-required">*</span></dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="Own_Fath_ID" type="text" value="'.$rows["Own_Fath_ID"].'" data-placement="top" required  class="form-control"/ >      
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">มารดา : <span class="field-required">*</span></dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="Own_Moth_ID" type="text" value="'.$rows["Own_Moth_ID"].'" data-placement="top" required  class="form-control" / >      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+                    <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-3 info-box-label">บิดาคู่สมรถ : <span class="field-required">*</span></dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="SP_Fath_ID" type="text" value="'.$rows["SP_Fath_ID"].'" data-placement="top" required  class="form-control"/ >      
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">มารดาคู่สมรถ : <span class="field-required">*</span></dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="SP_Moth_ID" type="text" value="'.$rows["SP_Moth_ID"].'" data-placement="top" required  class="form-control" / >      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
                 </div>
               </div>
             </div>

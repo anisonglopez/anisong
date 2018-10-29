@@ -20,7 +20,13 @@ $start = ($page - 1) * $perpage;
 //page
 include "config/connect.php";
 include "template/deducttype/dctaction.php";
-$sql = "SELECT * FROM tm02_deducttype";
+
+if(isset($_POST["search"])){
+    $sql = "SELECT * FROM tm02_deducttype WHERE DeductCode like '%".$_POST['search']."%' OR DeductEDesc like '%".$_POST['search']."%' OR DeductTDesc like '%".$_POST['search']."%'";
+}else{
+    $sql = "SELECT * FROM tm02_deducttype";
+}
+
 $DATA = mysql_query($sql);
 //page
 $sql2 = "SELECT * FROM tm02_deducttype";
@@ -31,7 +37,7 @@ $total_page = ceil($total_record / $perpage);
 
 //etc
 //and then call a template:
-$title = "ข้อมูลตำแหน่ง";
+$title = "ข้อมูลประเภทการหักเงิน";
 $tpl = "";
 $detail = "template/deducttype/dcttable.php";
 $modal = "template/deducttype/dctmodal.php";

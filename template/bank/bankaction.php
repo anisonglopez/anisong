@@ -16,16 +16,13 @@ if(isset($_POST["create"])) {
     date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d H:i:s');
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $strSQL = "INSERT INTO tm02_deducttype ";
-    $strSQL .="(DeductCode, DeductDesc, DeductTDesc, 
-                DeductAmt, TaxCalFlag, 
+    $strSQL = "INSERT INTO tm02_bank ";
+    $strSQL .="(bankcode, BankEName, BankTName,Address,PhoneNo, 
                 SysUpdDate, SysUserID, SysPgmID) ";
     $strSQL .="VALUES ";
-    $strSQL .="('".$_POST["DeductCode"]."','".$_POST["DeductDesc"]."','".$_POST["DeductTDesc"]."',
-                '".$_POST["DeductAmt"]."','".$_POST["TaxCalFlag"]."',
-                '".$date."','".$_SESSION['UserID']."',
-                '".$_POST["SysPgmID"]."', )";
-    //$strSQL .="('".mysql_real_escape_string($_POST["period"])."', '"($_POST["term"])."', '".mysql_real_escape_string($_POST["emp_type"])."', '".($_POST["salary_date_from"])."', '".$_POST["salary_date_to"]. "' , '" .$_POST["overtime_date_from"]."' ,'" .$_POST["overtime_date_to"]."' , '" .$_POST["user_login"]."' , 'FM01_User' )";
+    $strSQL .="('".$_POST["bankcode"]."','".$_POST["BankEName"]."','".$_POST["BankTName"]."','".$_POST["Address"]."','".$_POST["PhoneNo"]."',
+                '".$date."','".$_SESSION['UserID']."','".$_POST["SysPgmID"]."', )";
+    
     $objQuery = mysql_query($strSQL);
     if($objQuery)
     {
@@ -42,56 +39,48 @@ if(isset($_POST["create"])) {
 if(isset($_POST["edit_id"]))  
 {  
     include "../../config/connect.php";
-    $strSQL = "SELECT * FROM tm00_control WHERE auto_increment = '".$_POST["edit_id"]."'";   
+    $strSQL = "SELECT * FROM tm02_bank WHERE bankcode = '".$_POST["edit_id"]."'";   
     $objQuery = mysql_query($strSQL); 
     while ($rows = mysql_fetch_array($objQuery)) {    
-        $ConvertPeriodDate = date("Y-m", strtotime($rows["Period"]));
-        if ($rows["EmplType"] == M){
-            $EmplString = "Monthly Employee";
-        }
-        else
-        {
-            $EmplString = "Daily Employee";
-        }
     $output .= '<input type="hidden" name="id" value="'.$_POST["edit_id"].'">
     <div class="row">
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">รหัสประเภทการหักเงิน : <span class="field-required">*</span></dt>
+            <dt class="col-sm-4 info-box-label">รหัสธนาคาร : <span class="field-required">*</span></dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="DeductCode" type="text" value="'.$rows["DeductCode"].'" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
+            <input name="bankcode" type="text" value="'.$rows["bankcode"].'" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ประเภทการหักเงิน(ENG) : </dt>
+            <dt class="col-sm-4 info-box-label">ชื่อธนาคาร(ENG) : </dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="DeductDesc" type="text" value="'.$rows["DeductDesc"].'" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
+            <input name="BankEName" type="text" value="'.$rows["BankEName"].'" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ประเภทการหักเงิน(ไทย) : </dt>
+            <dt class="col-sm-4 info-box-label">ชื่อธนาคาร(TH) : </dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="DeductTDesc" type="text" value="'.$rows["DeductTDesc"].'" data-placement="top"  class="form-control"  maxlength="20"/>      
+            <input name="BankTName" type="text" value="'.$rows["BankTName"].'" data-placement="top"  class="form-control"  maxlength="20"/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">จำนวน : </dt>
+            <dt class="col-sm-4 info-box-label">ที่อยู่ : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="DeductAmt" type="text" value="'.$rows["DeductAmt"].'" data-placement="top"  class="form-control"  maxlength="20"/>   
+            <textarea class="form-control" rows="5" name="Address" id="comment">'.$rows["Address"].'</textarea>       
             </dd>
           </dl>
         </div>
-				<div class="col-md-12">
+        <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">นำไปคำนวนภาษี : </dt>
+            <dt class="col-sm-4 info-box-label">เบอร์โทรศัพท์ : </dt>
             <dd class="col-sm-4 info-box-label">
-						<label class="checkbox-inline"><input type="checkbox" name="TaxCalFlag" value="1"></label>   
+            <input name="PhoneNo" type="text" value="'.$rows["PhoneNo"].'" data-placement="top"  class="form-control"  maxlength="20"/>      
             </dd>
           </dl>
         </div>
@@ -102,7 +91,7 @@ if(isset($_POST["edit_id"]))
 						<input name="SysPgmID" type="text" value="'.$rows["SysPgmID"].'" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>
-        </div>
+        </div>    
 
 </div>
 
@@ -120,11 +109,10 @@ if(isset($_POST["delete_id"]))  {
 if(isset($_POST["update"]))  {
     date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d H:i:s');
-    $strSQL = "UPDATE tm02_deducttype ";
-    $strSQL .= "SET DeductDesc='".$_POST["DeductDesc"]."',DeductTDesc='".$_POST["DeductTDesc"]."',DeductAmt='".$_POST["DeductAmt"]."',
-                    TaxCalFlag='".$_POST["TaxCalFlag"]."',SysUpdDate='".$date."',SysUserID='".$_SESSION["UserID"]."',
+    $strSQL = "UPDATE tm02_bank ";
+    $strSQL .= "SET BankEName='".$_POST["BankEName"]."',BankTName='".$_POST["BankTName"]."',Address='".$_POST["Address"]."',PhoneNo='".$_POST["PhoneNo"]."',SysUpdDate='".$date."',SysUserID='".$_SESSION["UserID"]."',
                     SysPgmID='".$_POST["SysPgmID"]."'";
-    $strSQL .= " WHERE DeductCode = '".$_POST["id"]."'";
+    $strSQL .= " WHERE bankcode = '".$_POST["id"]."'";
         $objQuery = mysql_query($strSQL);    
          if($objQuery)
        {
@@ -138,12 +126,12 @@ if(isset($_POST["update"]))  {
 }
 
 if(isset($_POST["delete"])) {    
-    $strSQL = "DELETE FROM tm02_deducttype ";
-    $strSQL .="WHERE DeductCode = '".$_POST["delete"]."' ";
+    $strSQL = "DELETE FROM tm02_bank ";
+    $strSQL .="WHERE bankcode = '".$_POST["delete"]."' ";
     $objQuery = mysql_query($strSQL);
     if($objQuery)
   {
-      echo '<script>window.location.href="systemcontrol.php"</script>';
+      echo '<script>window.location.href="bank.php"</script>';
      // $result = '<script> alert("ทำการลบข้อมูลสำเร็จ");</script>';
     //$msgbox = '<span class="success fixed animated fadeIn">ลบข้อมูล สำเร็จ </span>';
   }
