@@ -225,8 +225,7 @@ date_default_timezone_set("Asia/Bangkok");
         ";
         $strSQL .="WHERE System_Name = '".$_POST["System_Name"]."'";
         $objQuery = mysql_query($strSQL);  
-        echo   $strSQL;
-        die();
+        
          if($objQuery)
        {
            $result = '<script>alert("ทำการอัพเดตข้อมูลสำเร็จ")</script>';
