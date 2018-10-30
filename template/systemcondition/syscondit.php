@@ -188,6 +188,7 @@ $UMF_R = $rows['UMF_R'];
 <form  name="update" method="post"  action="<?php echo $_SERVER['PHP_SELF'];?>">
 <input type="hidden" name="update"/>
 <input type="hidden" name="System_Name" value="<?php echo $System_Name ?>"/>
+<input type="hidden" name="SysUserID" value="<?php echo $_SESSION['UserID']; ?>"/>
 <button class="btn btn-success" data-toggle="modal" data-target="#modal_create">Update</button>
 </div>
 <br/>

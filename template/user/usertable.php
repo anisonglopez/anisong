@@ -59,9 +59,9 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
       <td><?php echo $row6; ?></td>
       <td>
 
-      <a href="#edit<?php echo $row1;?>" class="btn btn-outline-warning " data-toggle="modal">Edit</a>
+      <a href="#edit<?php echo $row1;?>" class="btn btn-warning " data-toggle="modal">Edit</a>
   |
-      <a href="#delete<?php echo $row1;?>" class="btn btn-outline-danger " data-toggle="modal">Delete</a>
+      <a href="#delete<?php echo $row1;?>" class="btn btn-danger " data-toggle="modal">Delete</a>
 
       <!--<button type="button" class="btn btn-outline-danger">Delete</button></td>-->
     </tr>
@@ -175,20 +175,28 @@ else
   </tbody>";
   ?>
 </table>
-<p> Show:
-<!--Page limit-->
-<select>
-  <option value="10">10</option>
-  <option value="25">25</option>
-  <option value="50">50</option>
-  <option value="100">100</option>
-</select>
-entries
-</p>
   <?php 
     echo $result;
     ?>  
-
+  <!--   Page List   -->
+  <nav>
+ <ul class="pagination">
+ <li>
+ <a href="user.php?page=1" aria-label="Previous">
+ <span aria-hidden="true">&laquo;</span> 
+ </a>
+ </li>
+ <?php for($i=1;$i<=$total_page;$i++){?>
+ <li><a class="btn btn-light" href="user.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+ <?php } ?>
+ <li>
+ <a href="user.php?page=<?php echo  $total_page;?>" aria-label="Next">
+ <span aria-hidden="true">&raquo;</span>
+ </a>
+ </li>
+ </ul>
+ </nav>
+   <!--   Page List   -->
 <!--Modal Create-->
 <div class="modal fade" id="modal_create" tabindex="-1" role="dialog" aria-labelledby="modal_create_label" aria-hidden="true">
   <div class="modal-dialog" style="max-width: 600px;" role="document">
