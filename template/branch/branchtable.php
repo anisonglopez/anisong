@@ -1,6 +1,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<h1>ข้อมูลสาขา/บริษัท</h1>
+<h1>Branch</h1>
 <hr>
 <div class="container">
   <div class="row">
@@ -23,7 +23,6 @@
       <th scope="col">รหัสสาขา</th>
       <th scope="col">ชื่อสาขา(ENG)</th>
       <th scope="col">ชื่อสาขา(ไทย)</th>
-      <th scope="col">ที่อยู่</th>
       <th scope="col">เบอร์</th>
       <th scope="col" style="text-align: center;">Action</th>
     </tr>
@@ -40,12 +39,11 @@
   ?>
   <tbody>
     <tr>
-      <td width="5%"><?php echo $id; ?></td>
-      <td width="25%"><?php echo $row1; ?></td>
-      <td width="25%"><?php echo $row2; ?></td>
-      <td width="25%"><?php echo $row3; ?></td>
+      <td width="10%"><?php echo $id; ?></td>
+      <td width="30%"><?php echo $row1; ?></td>
+      <td width="30%"><?php echo $row2; ?></td>
       <td width="10%"><?php echo $row4; ?></td>
-      <td width="10%"><center>
+      <td width="20%"><center>
     <button  class="btn btn-warning edit_id "  id="<?php echo $id?>">Edit</button>
   <button  class="btn btn-danger delete_id "  id="<?php echo $id?>">Delete</button>
   </center>
@@ -58,15 +56,15 @@
 <nav>
  <ul class="pagination">
  <li>
- <a href="systemcontrol.php?page=1" aria-label="Previous">
+ <a href="branch.php?page=1" aria-label="Previous">
  <span aria-hidden="true">&laquo;</span> 
  </a>
  </li>
  <?php for($i=1;$i<=$total_page;$i++){?>
- <li><a class="btn btn-light" href="systemcontrol.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+ <li><a class="btn btn-light" href="branch.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
  <?php } ?>
  <li>
- <a href="systemcontrol.php?page=<?php echo  $total_page;?>" aria-label="Next">
+ <a href="branch.php?page=<?php echo  $total_page;?>" aria-label="Next">
  <span aria-hidden="true">&raquo;</span>
  </a>
  </li>
@@ -85,15 +83,15 @@
 
 <!--Modal Create-->
 <div class="modal fade" id="modal_create" tabindex="-1" role="dialog" aria-labelledby="modal_create_label" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 1000px;" role="document">
+  <div class="modal-dialog" style="max-width: 600px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title" id="modal_create_label">Create department</h1>
+        <h1 class="modal-title" id="modal_create_label">Create Branch</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form class="form-horizontal col-sm-12" name="create" method="post"  action="<?php echo $_SERVER['PHP_SELF'];?>" enctype="multipart/form-data" autocomplete="off">
+      <form class="form-horizontal" name="create" method="post"  action="<?php echo $_SERVER['PHP_SELF'];?>" enctype="multipart/form-data" autocomplete="off">
       <input type="hidden" name="create"/>
       <input type="hidden" name="user_login" value="<?php echo $_SESSION['UserID']; ?>" />
       <div class="modal-body" >
@@ -102,31 +100,31 @@
         <div class="col-md-12">
           <dl class="row">
             <dt class="col-sm-4 info-box-label">รหัสสาขา : <span class="field-required">*</span></dt>
-            <dd class="col-sm-4 info-box-label">
+            <dd class="col-sm-4  info-box-label">
             <input name="BranchCode" type="text" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ชื่อสาขา(ENG) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="BranchEName" type="text" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
+            <dt class="col-sm-4 info-box-label">ชื่อสาขา(ENG) :<span class="field-required">*</span> </dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="BranchEName" type="text" data-placement="top" required  class="form-control"/>
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ชื่อสาขา(TH) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="BranchTName" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
+            <dt class="col-sm-4 info-box-label">ชื่อสาขา(TH) :<span class="field-required">*</span> </dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="BranchTName" type="text" data-placement="top" required  class="form-control" />      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
             <dt class="col-sm-4 info-box-label">ที่อยู่ : </dt>
-            <dd class="col-sm-4 info-box-label">
+            <dd class="col-sm-8 info-box-label">
 						<textarea class="form-control" rows="5" name="Address" id="comment"></textarea>   
             </dd>
           </dl>
@@ -134,7 +132,7 @@
         <div class="col-md-12">
           <dl class="row">
             <dt class="col-sm-4 info-box-label">เบอร์โทรศัพท์ : </dt>
-            <dd class="col-sm-4 info-box-label">
+            <dd class="col-sm-8 info-box-label">
 						<input name="PhoneNo" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>

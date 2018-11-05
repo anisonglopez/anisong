@@ -10,7 +10,7 @@ if($_SESSION['UserID'] == "")
 //getting required data
 //$DATA=dbgetarr("SELECT * FROM links");
 //page
-$perpage = 20;
+$perpage = 10;
 if (isset($_GET['page'])) {
 $page = $_GET['page'];
 } else {
@@ -21,11 +21,9 @@ $start = ($page - 1) * $perpage;
 include "config/connect.php";
 include "template/position/posiaction.php";
 
-if(isset($_POST["search"])){
-    $sql = "SELECT * FROM tm02_position WHERE PosiCode like '%".$_POST['search']."%' OR PosiEDesc like '%".$_POST['search']."%' OR PosiEDesc like '%".$_POST['search']."%'";
-}else{
-    $sql = "SELECT * FROM tm02_position";
-}
+
+$sql = "SELECT * FROM tm02_position  ORDER BY PosiCode  ASC  LIMIT {$start} , {$perpage}";
+
 
 $DATA = mysql_query($sql);
 //page

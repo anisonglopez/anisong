@@ -11,13 +11,12 @@ if(isset($_POST["create"])) {
     echo "lev_date_from = ".$_POST["lev_date_from"]. "<br/>";
     echo "lev_date_to = ".$_POST["lev_date_to"]. "<br/>";
    */ 
-    $ConvertPeriodDate = date("Ym", strtotime($_POST["period"]));
     $SysPgmID = "FM02_Branch";
     date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d H:i:s');
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $strSQL = "INSERT INTO tm02_branch ";
-    $strSQL .="(BranchCode, BranchEName, BranchTName,Address,PhoneNo 
+    $strSQL .="(BranchCode, BranchEName, BranchTName,Address,PhoneNo,
                 SysUpdDate, SysUserID, SysPgmID) ";
     $strSQL .="VALUES ";
     $strSQL .="('".$_POST["BranchCode"]."','".$_POST["BranchEName"]."','".$_POST["BranchTName"]."','".$_POST["Address"]."','".$_POST["PhoneNo"]."',
@@ -47,30 +46,30 @@ if(isset($_POST["edit_id"]))
           <dl class="row">
             <dt class="col-sm-4 info-box-label">รหัสสาขา : <span class="field-required">*</span></dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="BranchCode" type="text" value="'.$rows["BranchCode"].'" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
+            <input name="BranchCode" type="text" value="'.$rows["BranchCode"].'"  class="form-control" disabled/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
             <dt class="col-sm-4 info-box-label">ชื่อสาขา(ENG) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="BranchEName" type="text" value="'.$rows["BranchEName"].'" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
+            <dd class="col-sm-8 info-box-label">
+            <input name="BranchEName" type="text" value="'.$rows["BranchEName"].'" data-placement="top" required  class="form-control" />
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
             <dt class="col-sm-4 info-box-label">ชื่อสาขา(TH) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="BranchTName" type="text" value="'.$rows["BranchTName"].'" data-placement="top"  class="form-control"  maxlength="20"/>      
+            <dd class="col-sm-8 info-box-label">
+            <input name="BranchTName" type="text" value="'.$rows["BranchTName"].'" data-placement="top"  class="form-control" />      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
             <dt class="col-sm-4 info-box-label">ที่อยู่ : </dt>
-            <dd class="col-sm-4 info-box-label">
+            <dd class="col-sm-8 info-box-label">
 						<textarea class="form-control" rows="5" name="Address" id="comment">'.$rows["Address"].'</textarea>   
             </dd>
           </dl>
@@ -78,7 +77,7 @@ if(isset($_POST["edit_id"]))
         <div class="col-md-12">
           <dl class="row">
             <dt class="col-sm-4 info-box-label">เบอร์โทรศัพท์ : </dt>
-            <dd class="col-sm-4 info-box-label">
+            <dd class="col-sm-8 info-box-label">
 						<input name="PhoneNo" type="text" value="'.$rows["PhoneNo"].'" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>

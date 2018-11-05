@@ -1,5 +1,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<h1>ข้อมูลพนักงาน</h1>
+<h1>Employee</h1>
 <hr>
 <div class="container">
   <div class="row">
@@ -16,7 +16,7 @@
 </div>
 </div>
 <div class="col-md-12"><br /></div>
-<table class="table table-hover">
+<table class="table table-hover table-bordered">
   <thead class="thead-dark">
     <tr>
       <th scope="col">รหัสพนักงาน</th>
@@ -35,10 +35,23 @@
     $DeptTDesc = $rows['DeptTDesc'];
     $PosiTDesc = $rows['PosiTDesc'];
     $Sex = $rows['Sex'];
+
+    if( $EmplType == "D"){
+      $EmplType = "รายวัน";
+    }
+    else{
+      $EmplType = "รายเดือน";
+    }
+    if( $Sex == "F"){
+      $Sex = "หญิง";
+    }
+    else{
+      $Sex = "ชาย";
+    }
   ?>
   <tbody>
     <tr>
-      <td><?php echo $EmplCode; ?></td>
+      <td class="mx-2"><?php echo $EmplCode; ?></td>
       <td><?php echo $EmplType; ?></td>
       <td><?php echo $EmplTName; ?></td>
       <td><?php echo $DeptTDesc;?></td>
@@ -87,7 +100,7 @@
   <div class="modal-dialog" style="max-width: 1000px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title" id="modal_create_label">Create Prepare for Monthly Closing</h1>
+        <h1 class="modal-title" id="modal_create_label">Create Employee</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -98,45 +111,41 @@
       <div class="modal-body" >
       <br/>
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
          <dl class="row">
            <dt class="col-sm-4 info-box-label">รหัสพนักงาน : <span class="field-required">*</span></dt>
            <dd class="col-sm-8 info-box-label">
            <input name="EmplCode" type="text" data-placement="top" required  class="form-control"  maxlength="20"/>      
            </dd>
          </dl>
-        </div>
-        <div class="col-md-8">
+       
          <dl class="row">
           <dt class="col-sm-4 info-box-label">ชื่อพนักงาน(ไทย) : <span class="field-required">*</span></dt>
           <dd class="col-sm-8 info-box-label">
           <input name="EmplTName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
           </dd>
          </dl>
-        </div>
-        <div class="col-md-8">
+       
          <dl class="row">
           <dt class="col-sm-4 info-box-label">ชื่อพนักงาน(ENG) : <span class="field-required">*</span></dt>
           <dd class="col-sm-8 info-box-label">
           <input name="EmplEName" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
           </dd>
          </dl>
-        </div>
-        <div class="col-md-8">
+       
          <dl class="row">
           <dt class="col-sm-4 info-box-label">ประเภทพนักงาน : <span class="field-required">*</span></dt>
           <dd class="col-sm-8 info-box-label">
           <select class="form-control"  name="EmplType" required>
             <option value="">Select</option>   
-            <option value="D">Daily Employee</option>
-            <option value="M">Monthly Employee</option>
+            <option value="D">รานวัน</option>
+            <option value="M">รายเดือน</option>
           </select>      
           </dd>
          </dl>
-        </div>
-        <div class="col-md-8">
+       
          <dl class="row">
-          <dt class="col-sm-4 info-box-label">ประเภทกะบวนการ : <span class="field-required">*</span></dt>
+          <dt class="col-sm-4 info-box-label">ประเภทกระบวนการ : <span class="field-required">*</span></dt>
           <dd class="col-sm-4 info-box-label">
           <select class="form-control"  name="ProcCode" required>
             <option value="">Select</option>   
@@ -146,20 +155,24 @@
           </dd>
          </dl>
         </div>
-        <div class="col-md-2"></div>
+        
+        <div class="col-md-2">
+        <img src="paris.jpg" alt="Paris" width="300" height="300">
+        </div>
         <div class="col-md-12">
+        <br>
 <!--Start-->
          <div class="add-pad">
           <div class="title-header-info-box add-pad">
             <ul class="nav nav-tabs" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active " data-toggle="tab" href="#tab1" id="tabspecification" role="tab">employee</a>
+                <a class="nav-link active " data-toggle="tab" href="#tab1" id="tabspecification" role="tab">ข้อมูลพื้นฐาน</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab2" id="tabspecification" role="tab">family</a>
+                <a class="nav-link" data-toggle="tab" href="#tab2" id="tabspecification" role="tab">ข้อมูลครอบครัว</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab3" id="tabspecification" role="tab">personal</a>
+                <a class="nav-link" data-toggle="tab" href="#tab3" id="tabspecification" role="tab">ข้อมูลส่วนตัว</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#tab4" id="tabspecification" role="tab">other</a>
@@ -225,7 +238,7 @@
                           ?>
                         </select>      
                        </dd>
-                       <dt class="col-sm-2 info-box-label">เลที่บัญชี : <span class="field-required">*</span></dt>
+                       <dt class="col-sm-2 info-box-label">เลขที่บัญชี : <span class="field-required">*</span></dt>
                        <dd class="col-sm-3 info-box-label">
                          <input name="BankAccCode" type="text" data-placement="top" required  class="form-control" />      
                        </dd>
