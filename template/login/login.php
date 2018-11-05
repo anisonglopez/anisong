@@ -26,17 +26,20 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<div class="login100-pic js-tilt" data-tilt>
+			<!--	<div class="login100-pic js-tilt" data-tilt>
 					<img src="images/img-01.png" alt="IMG">
 				</div>
-
+-->
 				<form class="login100-form validate-form" method="post" action="../checklogin.php">
 					<span class="login100-form-title">
 						Payroll Login
 					</span>
+					<hr>
+					<p style="text-align: center;">ระบบจ่ายเงินเดือนพนักงาน</p>
+					<br>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid Username is required">
-						<input class="input100" type="text" name="txtUsername" placeholder="Username">
+						<input class="input100" type="text" name="txtUsername" placeholder="กรุณาระบุชื่อผู้ใช้งาน" >
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							
@@ -44,7 +47,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="txtPassword" placeholder="Password">
+						<input class="input100" type="password" name="txtPassword" placeholder="กรุณาระบุรหัสผ่าน">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							
@@ -57,7 +60,8 @@
 						</button>
 					</div>
 
-					<div class="text-center p-t-136">
+					<div class="text-center p-t-50">
+					<p style="text-align: center;">Copyrights 2018 : Anisong-Programing.com</p>
 					</div>
 				</form>
 			</div>

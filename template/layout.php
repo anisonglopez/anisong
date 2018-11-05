@@ -10,13 +10,11 @@
 	<!-- <link rel="stylesheet" href="css/reset.css"> CSS reset -->
 	<link rel="stylesheet" href="css/style.css"><!--  Resource style -->
 <link rel="stylesheet" href="dependencies/bootstrap-4.1.3-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="dependencies/css/custom-main.css">
-<link rel="stylesheet" href="dependencies/css/custom-main.css">
 <script type="text/javascript" src="dependencies/autocomplete/autocomplete.js"></script>
 <link rel="stylesheet" href="dependencies/autocomplete/autocomplete.css"  type="text/css"/>
-	<!--<link rel="stylesheet" href="dependencies/css/style.css">-->
-	<!--<script src="js/modernizr.js"></script>--> <!-- Modernizr -->
-  	
+	<link rel="stylesheet" href="dependencies/css/style.css">
+	<!--<script src="js/modernizr.js"></script> --><!-- Modernizr -->
+	<link rel="stylesheet" href="dependencies/css/custom-main.css">
 	<title>Payroll - <?php echo $title?></title>
 </head>
 <body>
@@ -45,17 +43,16 @@
 						<li><a href="#0">My Account</a></li>
 						<li><a href="#0">Edit Account</a></li>
 						<li><a href="template/logout.php">Logout</a></li>
-					</ul>
-					
+					</ul>				
 				</li>
-			</ul>
-		</nav>
+			</ul>			
+		</nav>	
 	</header> <!-- .cd-main-header -->
 
 	<main class="cd-main-content">
 		<nav class="cd-side-nav">
-			<ul>
-				<li class="cd-label">Main</li>
+		<ul>
+		<li class="cd-label">Main</li>
 				<li class="has-children overview <?php echo $Dashboad?>">
 					<a href="index.php">Dashboard</a>
 				</li>
@@ -85,38 +82,36 @@
 				<li class="has-children overview">
 					<a href="#0">ใบจ่ายเงิน</a>
 				</li>
-				<li class="cd-label">Master Data</li>
-				<li class="has-children overview"><a href="#" onclick="hideshowMasterFunction()">Master Data</a>
-				<ul id="master_menulist" style="display:none;  list-style: none;">
-						<li><a href="employee.php">ข้อมูลพนักงาน</a></li>
-						<li><a href="branch.php">ข้อมูลสาขา/บริษัท</a></li>
-						<li><a href="position.php">ข้อมูลตั้งต้นตำแหน่งงาน/เงินประจำตำแหน่ง</a></li>
+				<li class="cd-label">Set up</li>
+		<li class="">
+                    <a href="#masterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">Master Data</a>
+                    <ul class="list-unstyled collapse" id="masterSubmenu" style="">
+					<li><a href="employee.php">Employee</a></li>
+						<li><a href="branch.php">Branch</a></li>
+						<li><a href="position.php">Position Allowance</a></li>
 						<li><a href="attendance.php">ข้อมูลประเภทการลา</a></li>
 						<li><a href="deducttype.php">ข้อมูลประเภทการหักเงิน</a></li>
 						<li><a href="department.php">ข้อมูลแผนก</a></li>
 						<li><a href="otherinc.php">รายได้อื่น ๆ</a></li>
 						<li><a href="bank.php">ข้อมูลธนาคาร</a></li>
-					</ul>
-
-			</li>
-			<li class="cd-label">Configuration</li>
-				<li class="has-children comments">
-					<a href="#" onclick="hideshowConfigFunction()">Configuration</a>	
-					<ul id="config_menulist" style="display:none; list-style: none;">
-						<li><a href="systemcontrol.php">กำหนดค่าระบบ</a></li>
+                    </ul>
+				</li>
+		<li class="">
+                    <a href="#configSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">Configuration</a>
+                    <ul class="list-unstyled collapse" id="configSubmenu" style="">
+					<li><a href="systemcontrol.php">กำหนดค่าระบบ</a></li>
 						<li><a href="systemcondition.php">กำหนดเงื่อนไขระบบ</a></li>
 						<li><a href="communication-allowance.php">ค่าเดินทาง</a></li>
-					</ul>
+                    </ul>
 				</li>
 			</ul>
 
 			<ul>
-				<li class="cd-label">Administrator</li>
-				<li class="has-children users">
-					<a href="#" onclick="hideshowUserFunction()">Users</a>	
-					<ul id="user_menulist" style="display:none; list-style: none;">
-						<li><a href="user.php">ผู้ใช้งานระบบ</a></li>
-					</ul>
+			<li class="">
+                    <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">Administrator</a>
+                    <ul class="list-unstyled collapse" id="adminSubmenu" style="">
+					<li><a href="user.php">ผู้ใช้งานระบบ</a></li>
+                    </ul>
 				</li>
 			</ul>
 
@@ -133,9 +128,21 @@
 <script src="dependencies/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
 
 <?php include $script ?>
+<script>
+	function hideshowAccountFunction() {
+    var x = document.getElementById("account_menulist");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+		x.slideToggle("slow");
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
 <!--<script src="js/jquery-2.1.4.js"></script>-->
 <!--<script src="js/jquery.menu-aim.js"></script>-->
 <!--<script src="js/main.js"></script>--><!--Resource jQuery --> 
+<!--
 <script>
 function hideshowMasterFunction() {
     var x = document.getElementById("master_menulist");
@@ -174,5 +181,6 @@ function hideshowUserFunction() {
     }
 }
 </script>
+-->
 </body>
 </html>

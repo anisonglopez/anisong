@@ -9,7 +9,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  border: 1px solid transparent;
+  border: 3px solid transparent;
   padding: .375rem .75rem;
   font-size: 1.5rem;
   line-height: 1.5;
@@ -32,9 +32,11 @@ body {
   line-height: 2.5; 
 }
 .table .thead-dark th {
-  background-color: #1a4384;
-  border-color: #d4dbe2;
-  line-height: 2; 
+  background-color: #e4e4e4;
+  border-color: #7e9bb9;
+  line-height: 2.2;
+  color: #000;
+  text-align: center;
 }
 .info-box-label{
   text-align: right;
@@ -99,4 +101,67 @@ body {
   padding: .30rem;
   vertical-align: top;
   border-top: 1px solid #dee2e6;
+}
+ul ul a {
+  font-size: 0.8em !important;
+  padding-left: 30px !important;
+  background: #0b4c6d;
+  /* text-align: left; */
+}
+@media only screen and (min-width: 768px){
+.cd-side-nav a {
+    font-size: 1.2rem;
+    text-align: left; 
+}
+}
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;    
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.modal-header {
+  padding-top: 3rem;
+  padding-right: 3rem;
+  padding-bottom: 2rem;
+  padding-left: 3rem;
 }

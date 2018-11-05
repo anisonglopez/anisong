@@ -12,7 +12,7 @@ if(isset($_POST["create"])) {
     echo "lev_date_to = ".$_POST["lev_date_to"]. "<br/>";
    */ 
     $ConvertPeriodDate = date("Ym", strtotime($_POST["period"]));
-    $SysPgmID = "FT05_PrepareMonthlyData";
+    $SysPgmID = "FM02_Position";
     date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d H:i:s');
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

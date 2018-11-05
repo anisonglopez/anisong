@@ -1,6 +1,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<h1>ข้อมูลตั้งต้นตำแหน่งงาน/เงินประจำตำแหน่ง</h1>
+<h1>Position Allowance</h1>
 <hr>
 <div class="container">
   <div class="row">
@@ -8,8 +8,8 @@
     <button class="btn btn-success" data-toggle="modal" data-target="#modal_create">Create New</button>
     </div>
     <div class="col-sm" style="text-align: right;">
-    <form name="search" method="post"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
-        <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20" value="" /> 
+    <form name="search" method="GET"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
+        <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20" value="<?php echo $_GET["search"];?>"  /> 
         <input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
 <!--<input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>-->
     </form>
@@ -20,7 +20,7 @@
 <table class="table table-hover">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">รหัสตำแหน่ง</th>
+      <th scope="col">รหัสตำแหน่ง </th>
       <th scope="col">ตำแหน่ง(ENG)</th>
       <th scope="col">ตำแหน่ง(ไทย)</th>
       
@@ -32,6 +32,15 @@
   </thead>
 
   <?php 
+  if($_GET["search"] != ""){
+    $sql = "SELECT * FROM tm02_position WHERE PosiCode like '%".$_GET['search']."%' OR PosiEDesc like '%".$_GET['search']."%' OR PosiTDesc like '%".$_GET['search']."%'  ORDER BY PosiCode  LIMIT {$start} , {$perpage}";
+    $DATA = mysql_query($sql);
+    //page
+$query2 = mysql_query($sql);
+$total_record = mysql_num_rows($query2);
+$total_page = ceil($total_record / $perpage);
+//page
+  }
   if(mysql_num_rows($DATA) > 0)
   while ($rows = mysql_fetch_array($DATA)) {
     $id = $rows['PosiCode'];
@@ -58,21 +67,33 @@
   </td>
     </tr>
   </tbody>
-  <?php } ?>
+  <?php
+}
+else
+  echo "  <tbody>
+  <tr><td>ไม่พบข้อมูล ... <br/></td> 
+  </tr>
+  </tbody>";
+  ?>
   </table>
   <!--   Page List   -->
 <nav>
  <ul class="pagination">
  <li>
- <a href="systemcontrol.php?page=1" aria-label="Previous">
+ <a href="position.php?page=1" aria-label="Previous">
  <span aria-hidden="true">&laquo;</span> 
  </a>
  </li>
- <?php for($i=1;$i<=$total_page;$i++){?>
- <li><a class="btn btn-light" href="systemcontrol.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+ <?php for($i=1;$i<=$total_page;$i++){
+   	if($_GET['page']==$i){ //ถ้าตัวแปล page ตรง กับ เลขที่วนได้
+   echo '<li><a class="btn btn-light" href="position.php?page='.$i .' "><b style=" color: blue;">'. $i.'</b></a></li>';
+}else{
+      echo '<li><a class="btn btn-light" href="position.php?page='.$i .' "><b>'. $i.'</b></a></li>';; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+}
+   ?>
  <?php } ?>
  <li>
- <a href="systemcontrol.php?page=<?php echo  $total_page;?>" aria-label="Next">
+ <a href="position.php?page=<?php echo  $total_page;?>" aria-label="Next">
  <span aria-hidden="true">&raquo;</span>
  </a>
  </li>
@@ -91,10 +112,10 @@
 
 <!--Modal Create-->
 <div class="modal fade" id="modal_create" tabindex="-1" role="dialog" aria-labelledby="modal_create_label" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 1000px;" role="document">
+  <div class="modal-dialog" style="max-width: 700px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title" id="modal_create_label">Create Prepare for Monthly Closing</h1>
+        <h1 class="modal-title" id="modal_create_label">Create Position Allowance</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -108,40 +129,40 @@
         <div class="col-md-12">
           <dl class="row">
             <dt class="col-sm-4 info-box-label">รหัสตำแหน่ง : <span class="field-required">*</span></dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="PosiCode" type="text" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
+            <dd class="col-sm-5 info-box-label">
+            <input name="PosiCode" type="text" data-placement="top" required  class="form-control" maxlength="4" />      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ตำแหน่ง(ENG) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="PosiEDesc" type="text" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
+            <dt class="col-sm-4 info-box-label">ตำแหน่ง(ENG) : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="PosiEDesc" type="text" data-placement="top" required  class="form-control" maxlength="50"  />
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ตำแหน่ง(TH) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="PosiTDesc" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
+            <dt class="col-sm-4 info-box-label">ตำแหน่ง(TH) : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="PosiTDesc" type="text" data-placement="top" required  class="form-control"  maxlength="50"/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยง/เดือน : </dt>
+            <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยงต่อเดือน : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="PosiALW" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="PosiALW" type="number" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>
         </div>
 				<div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยง/วัน(เช้า) : </dt>
+            <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยงต่อวัน (ช่วงเช้า) : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="M_ShftALW_D" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="M_ShftALW_D" type="number" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>
         </div>
@@ -149,7 +170,7 @@
           <dl class="row">
             <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยง/วัน(บ่าย) : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="E_ShftALW_D" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="E_ShftALW_D" type="number" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>
         </div> 
@@ -157,18 +178,10 @@
           <dl class="row">
             <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยง/วัน(เย็น) : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="N_ShftALW_D" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="N_ShftALW_D" type="number" data-placement="top"  class="form-control"  maxlength="20"/>   
             </dd>
           </dl>
-        </div>
-        <div class="col-md-12">
-          <dl class="row">
-            <dt class="col-sm-4 info-box-label">SysPgmID : </dt>
-            <dd class="col-sm-4 info-box-label">
-						<input name="SysPgmID" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
-            </dd>
-          </dl>
-        </div>                   
+        </div>          
       
 
 
