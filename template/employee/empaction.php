@@ -231,8 +231,8 @@ if(isset($_POST["edit_id"]))
       <div class="col-md-8">
        <dl class="row">
         <dt class="col-sm-4 info-box-label">ประเภทพนักงาน : <span class="field-required">*</span></dt>
-        <dd class="col-sm-8 info-box-label">
-        <select class="form-control"  name="EmplType" required>
+        <dd class="col-sm-8 ">
+        <select class=""  name="EmplType" required>
           <option value="">Select</option>   
           <option value="D">Daily Employee</option>
           <option value="M">Monthly Employee</option>

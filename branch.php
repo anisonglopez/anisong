@@ -10,7 +10,7 @@ if($_SESSION['UserID'] == "")
 //getting required data
 //$DATA=dbgetarr("SELECT * FROM links");
 //page
-$perpage = 20;
+$perpage = 10;
 if (isset($_GET['page'])) {
 $page = $_GET['page'];
 } else {

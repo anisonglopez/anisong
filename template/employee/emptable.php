@@ -7,7 +7,7 @@
     <button class="btn btn-success" data-toggle="modal" data-target="#modal_create">Create New</button>
     </div>
     <div class="col-sm" style="text-align: right;">
-    <form name="search" method="post"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
+    <form name="search" method="get"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
         <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20" value="" /> 
         <input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
         <input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>
@@ -135,19 +135,20 @@
        
          <dl class="row">
           <dt class="col-sm-4 info-box-label">ประเภทพนักงาน : <span class="field-required">*</span></dt>
-          <dd class="col-sm-8 info-box-label">
-          <select class="form-control"  name="EmplType" required>
+          <dd class="col-sm-8">
+          <select  name="EmplType" required>
             <option value="">Select</option>   
             <option value="D">รานวัน</option>
             <option value="M">รายเดือน</option>
           </select>      
           </dd>
          </dl>
+         
        
          <dl class="row">
           <dt class="col-sm-4 info-box-label">ประเภทกระบวนการ : <span class="field-required">*</span></dt>
-          <dd class="col-sm-4 info-box-label">
-          <select class="form-control"  name="ProcCode" required>
+          <dd class="col-sm-4">
+          <select  name="ProcCode" required>
             <option value="">Select</option>   
             <option value="1">Automatic</option>
             <option value="2">Manual</option>
@@ -190,7 +191,7 @@
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">แผนก : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                         <select class="form-control"  name="DeptCode" required>
+                         <select   name="DeptCode" required>
                           <?php
                           $strSQL = "SELECT * FROM tm02_department";
                          $objQuery = mysql_query($strSQL);
