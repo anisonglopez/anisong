@@ -1,17 +1,19 @@
 <?php 
 	session_start();
-    include "../config/connect.php";
-	$strSQL = "SELECT * FROM tm01_user WHERE UserID = '".mysql_real_escape_string($_POST['txtUsername'])."' 
-	and Password = '".mysql_real_escape_string($_POST['txtPassword'])."'";
-	$objQuery = mysql_query($strSQL);
-	$objResult = mysql_fetch_array($objQuery);
+	include "../config/connect.php";
+	
+	$strSQL = "SELECT * FROM tm01_user WHERE UserID = '".mysqli_real_escape_string($conn, $_POST['txtUsername'])."' 
+	and Password = '".mysqli_real_escape_string($conn, $_POST['txtPassword'])."'";
+	$objQuery = mysqli_query($conn, $strSQL);
+	$objResult = mysqli_fetch_array($objQuery);
 	if(!$objResult)
 	{
             echo "<script language='javascript'>alert('ชื่อผู้ใช้งาน รหัสผ่านไม่ถูกต้อง')
-            window.location = './login/login.php';
+			window.location = './login/login.php';
             </script>";
             //header("location:./login/login.php");
 	}
+	
 	else
 	{
        // echo "Username and Password Ok!";
@@ -20,7 +22,7 @@
             date_default_timezone_set("Asia/Bangkok");
             $date = date('Y-m-d H:i:s');
             $strSQL = "UPDATE tm01_user SET LastLogon = '".$date ."' WHERE UserID = '".$_SESSION["UserID"]."' ";
-$objQuery = mysql_query($strSQL);
+$objQuery = mysqli_query($conn, $strSQL);
 
             session_write_close();		
             header("location: ./../index.php");
@@ -34,5 +36,5 @@ $objQuery = mysql_query($strSQL);
             }
             */
 	}
-	mysql_close();
+	mysqli_close($conn);
 ?>

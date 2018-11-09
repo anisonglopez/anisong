@@ -10,7 +10,7 @@ if($_SESSION['UserID'] == "")
 //getting required data
 //$DATA=dbgetarr("SELECT * FROM links");
 //page
-$perpage = 20;
+$perpage = 10;
 if (isset($_GET['page'])) {
 $page = $_GET['page'];
 } else {
@@ -21,17 +21,14 @@ $start = ($page - 1) * $perpage;
 include "config/connect.php";
 include "template/otherinc/otheraction.php";
 
-if(isset($_POST["search"])){
-    $sql = "SELECT * FROM tm02_otherinc WHERE OthINCCode like '%".$_POST['search']."%' OR OthINCEDesc like '%".$_POST['search']."%' OR OthINCTDesc like '%".$_POST['search']."%'";
-}else{
-    $sql = "SELECT * FROM tm02_otherinc";
-}
+   // $sql = "SELECT * FROM tm02_otherinc WHERE OthINCCode like '%".$_POST['search']."%' OR OthINCEDesc like '%".$_POST['search']."%' OR OthINCTDesc like '%".$_POST['search']."%'";
+    $sql = "SELECT * FROM tm02_otherinc ORDER BY OthINCCode ASC  LIMIT {$start} ,$perpage";
 
-$DATA = mysql_query($sql);
+$DATA = mysqli_query($conn, $sql);
 //page
 $sql2 = "SELECT * FROM tm02_otherinc";
-$query2 = mysql_query($sql2);
-$total_record = mysql_num_rows($query2);
+$query2 = mysqli_query($conn, $sql2);
+$total_record = mysqli_num_rows($query2);
 $total_page = ceil($total_record / $perpage);
 //page
 

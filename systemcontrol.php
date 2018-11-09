@@ -21,11 +21,11 @@ $start = ($page - 1) * $perpage;
 include "config/connect.php";
 include "template/systemcontrol/sysconaction.php";
 $sql = "SELECT * FROM tm00_control ORDER BY Period DESC LIMIT {$start} , {$perpage}";
-$DATA = mysql_query($sql);
+$DATA = mysqli_query($conn, $sql);
 //page
 $sql2 = "SELECT * FROM tm00_control ORDER BY Period DESC";
-$query2 = mysql_query($sql2);
-$total_record = mysql_num_rows($query2);
+$query2 = mysqli_query($conn, $sql2);
+$total_record = mysqli_num_rows($query2);
 $total_page = ceil($total_record / $perpage);
 //page
 

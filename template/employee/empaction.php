@@ -1,5 +1,5 @@
 <?php 
-
+error_reporting(0);
 if(isset($_POST["create"])) {
     date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d H:i:s');
@@ -173,7 +173,7 @@ if(isset($_POST["create"])) {
     '".$_POST["CooperativeMemId02"]."', 
     '".$_POST["CooperativeUnit02"]."')";
 
-    $objQuery = mysql_query($strSQL);
+    $objQuery = mysqli_query($conn, $strSQL);
     if($objQuery)
     {
         $result = '<script>alert("ทำการบันทึกข้อมูลสำเร็จ")</script>';
@@ -192,8 +192,8 @@ if(isset($_POST["edit_id"]))
 {  
     include "../../config/connect.php";
     $strSQL = "SELECT * FROM tm03_employee WHERE EmplCode = '".$_POST["edit_id"]."'";   
-    $objQuery = mysql_query($strSQL); 
-    while ($rows = mysql_fetch_array($objQuery)) { 
+    $objQuery = mysqli_query($conn, $strSQL); 
+    while ($rows = mysqli_fetch_array($objQuery)) { 
       
       $deptcode = $rows["DeptCode"];
       $bankcode = $rows["BankCode"];
@@ -286,8 +286,8 @@ if(isset($_POST["edit_id"]))
                    <select class="form-control"  name="DeptCode" required>';
                     
                     $strSQL = "SELECT * FROM tm02_department";
-                   $objQuery = mysql_query($strSQL);
-                    while($objResuut = mysql_fetch_array($objQuery))
+                   $objQuery = mysqli_query($conn, $strSQL);
+                    while($objResuut = mysqli_fetch_array($objQuery))
                     {
                     
                       if($objResuut["DeptCode"] == $deptcode)
@@ -310,8 +310,8 @@ if(isset($_POST["edit_id"]))
                   <select class="form-control"  name="BankCode" required>';
                     
                     $strSQL = "SELECT * FROM tm02_bank";
-                   $objQuery = mysql_query($strSQL);
-                    while($objResuut = mysql_fetch_array($objQuery))
+                   $objQuery = mysqli_query($conn, $strSQL);
+                    while($objResuut = mysqli_fetch_array($objQuery))
                     {
                     
                       if($objResuut["DeptCode"] == $bankcode)
@@ -339,8 +339,8 @@ if(isset($_POST["edit_id"]))
                  <select class="form-control"  name="PosiCode" required>';
                     
                     $strSQL = "SELECT * FROM tm02_position";
-                   $objQuery = mysql_query($strSQL);
-                    while($objResuut = mysql_fetch_array($objQuery))
+                   $objQuery = mysqli_query($conn, $strSQL);
+                    while($objResuut = mysqli_fetch_array($objQuery))
                     {
                     
                       if($objResuut["DeptCode"] == $posicode)
@@ -371,8 +371,8 @@ if(isset($_POST["edit_id"]))
                     <select class="form-control"  name="BranchCode" required>';
                     
                     $strSQL = "SELECT * FROM tm02_branch";
-                   $objQuery = mysql_query($strSQL);
-                    while($objResuut = mysql_fetch_array($objQuery))
+                   $objQuery = mysqli_query($conn, $strSQL);
+                    while($objResuut = mysqli_fetch_array($objQuery))
                     {
                     
                       if($objResuut["DeptCode"] == $branchcode)
@@ -872,7 +872,7 @@ if(isset($_POST["update"]))  {
                     `CooperativeUnit02`='".$_POST["CooperativeUnit02"]."' ";
         $strSQL .= " WHERE EmplCode = '".$_POST["id"]."'";
 
-        $objQuery = mysql_query($strSQL);    
+        $objQuery = mysqli_query($conn, $strSQL);    
          if($objQuery)
        {
            $result = '<script>alert("ทำการแก้ไขข้อมูลสำเร็จ")</script>';
@@ -890,7 +890,7 @@ if(isset($_POST["delete"])) {
 
     //echo $strSQL;
 
-    $objQuery = mysql_query($strSQL);
+    $objQuery = mysqli_query($conn, $strSQL);
     if($objQuery)
   {
       echo '<script>window.location.href="otherinc.php"</script>';

@@ -9,7 +9,9 @@
     </div>
     <div class="col-sm" style="text-align: right;">
     <form name="search" method="GET"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
+      <input type="hidden" name="page" id="page" class="" placeholder="ค้นหา" size="20" value="1"  /> 
         <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20" value="<?php echo $_GET["search"];?>"  /> 
+       
         <input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
 <!--<input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>-->
     </form>
@@ -32,17 +34,19 @@
   </thead>
 
   <?php 
-  if($_GET["search"] != ""){
-    $sql = "SELECT * FROM tm02_position WHERE PosiCode like '%".$_GET['search']."%' OR PosiEDesc like '%".$_GET['search']."%' OR PosiTDesc like '%".$_GET['search']."%'  ORDER BY PosiCode  LIMIT {$start} , {$perpage}";
-    $DATA = mysql_query($sql);
-    //page
-$query2 = mysql_query($sql);
-$total_record = mysql_num_rows($query2);
-$total_page = ceil($total_record / $perpage);
+if($_GET["search"] != ""){
+$sql = "SELECT * FROM tm02_position WHERE PosiCode like '%".$_GET['search']."%' OR PosiEDesc like '%".$_GET['search']."%' OR PosiTDesc like '%".$_GET['search']."%'  ORDER BY PosiCode ASC  LIMIT {$start} ,$perpage";
+$DATA = mysqli_query($conn, $sql);
 //page
-  }
-  if(mysql_num_rows($DATA) > 0)
-  while ($rows = mysql_fetch_array($DATA)) {
+$sql2 = "SELECT * FROM tm02_position WHERE PosiCode like '%".$_GET['search']."%' OR PosiEDesc like '%".$_GET['search']."%' OR PosiTDesc like '%".$_GET['search']."%'  ";
+$query2 = mysqli_query($conn, $sql2);
+$total_record2 = mysqli_num_rows($query2 );
+$total_page = ceil($total_record2 / $perpage);
+//page
+}
+  
+  if(mysqli_num_rows($DATA) > 0)
+  while ($rows = mysqli_fetch_array($DATA)) {
     $id = $rows['PosiCode'];
     $row1 = $rows['PosiEDesc'];
     $row2 = $rows['PosiTDesc'];
@@ -80,20 +84,20 @@ else
 <nav>
  <ul class="pagination">
  <li>
- <a href="position.php?page=1" aria-label="Previous">
+ <a href='position.php?page=1&search=<?php echo $_GET["search"] ?>' aria-label="Previous">
  <span aria-hidden="true">&laquo;</span> 
  </a>
  </li>
  <?php for($i=1;$i<=$total_page;$i++){
    	if($_GET['page']==$i){ //ถ้าตัวแปล page ตรง กับ เลขที่วนได้
-   echo '<li><a class="btn btn-light" href="position.php?page='.$i .' "><b style=" color: blue;">'. $i.'</b></a></li>';
+   echo '<li><a class="btn btn-light" href="position.php?page='.$i. "&search=" .$_GET["search"].' "><b style=" color: blue;">' .$i.'</b></a></li>';
 }else{
-      echo '<li><a class="btn btn-light" href="position.php?page='.$i .' "><b>'. $i.'</b></a></li>';; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+      echo '<li><a class="btn btn-light" href="position.php?page='.$i ."&search=" .$_GET["search"].' "><b>'. $i.'</b></a></li>';; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
 }
+ }
    ?>
- <?php } ?>
  <li>
- <a href="position.php?page=<?php echo  $total_page;?>" aria-label="Next">
+ <a href='position.php?page=<?php echo  $total_page;?>&search=<?php echo $_GET["search"] ?>' aria-label="Next">
  <span aria-hidden="true">&raquo;</span>
  </a>
  </li>
@@ -154,7 +158,7 @@ else
           <dl class="row">
             <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยงต่อเดือน : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="PosiALW" type="number" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="PosiALW" type="number" data-placement="top"  class="form-control" min="0"  maxlength="20" value="0" />   
             </dd>
           </dl>
         </div>
@@ -162,7 +166,7 @@ else
           <dl class="row">
             <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยงต่อวัน (ช่วงเช้า) : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="M_ShftALW_D" type="number" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="M_ShftALW_D" type="number" data-placement="top"  class="form-control"  min="0"  maxlength="20" value="0"/>   
             </dd>
           </dl>
         </div>
@@ -170,7 +174,7 @@ else
           <dl class="row">
             <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยง/วัน(บ่าย) : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="E_ShftALW_D" type="number" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="E_ShftALW_D" type="number" data-placement="top"  class="form-control"  min="0"  maxlength="20" value="0"/>   
             </dd>
           </dl>
         </div> 
@@ -178,7 +182,7 @@ else
           <dl class="row">
             <dt class="col-sm-4 info-box-label">เบี้ยเลี้ยง/วัน(เย็น) : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="N_ShftALW_D" type="number" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="N_ShftALW_D" type="number" data-placement="top"  class="form-control"  min="0"  maxlength="20" value="0"/>   
             </dd>
           </dl>
         </div>          

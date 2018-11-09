@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 session_start();
 if($_SESSION['UserID'] == "")
 {
@@ -10,7 +11,7 @@ if($_SESSION['UserID'] == "")
 //getting required data
 //$DATA=dbgetarr("SELECT * FROM links");
 //page
-$perpage = 20;
+$perpage = 10;
 if (isset($_GET['page'])) {
 $page = $_GET['page'];
 } else {
@@ -20,17 +21,15 @@ $start = ($page - 1) * $perpage;
 //page
 include "config/connect.php";
 include "template/attendance/attaction.php";
-if(isset($_POST["search"])){
-    $sql = "SELECT * FROM tm02_attncode WHERE AttnCode like '%".$_POST['search']."%' OR AttnEDesc like '%".$_POST['search']."%' OR AttnTDesc like '%".$_POST['search']."%' OR Ded_Flag like '%".$_POST['search']."%' OR Ded_Rate like '%".$_POST['search']."%'";
-}else{
-    $sql = "SELECT * FROM tm02_attncode";
-}
+    //$sql = "SELECT * FROM tm02_attncode WHERE AttnCode like '%".$_POST['search']."%' OR AttnEDesc like '%".$_POST['search']."%' OR AttnTDesc like '%".$_POST['search']."%' OR Ded_Flag like '%".$_POST['search']."%' OR Ded_Rate like '%".$_POST['search']."%'";
+    
+$sql = "SELECT * FROM tm02_attncode ORDER BY AttnCode  ASC  LIMIT {$start} , {$perpage}";
 
-$DATA = mysql_query($sql);
+$DATA = mysqli_query($conn, $sql);
 //page
 $sql2 = "SELECT * FROM tm02_attncode";
-$query2 = mysql_query($sql2);
-$total_record = mysql_num_rows($query2);
+$query2 = mysqli_query($conn, $sql2);
+$total_record = mysqli_num_rows($query2);
 $total_page = ceil($total_record / $perpage);
 //page
 

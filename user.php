@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 session_start();
 if($_SESSION['UserID'] == "")
 {
@@ -19,12 +20,12 @@ $start = ($page - 1) * $perpage;
 include "config/connect.php";
 include "template/user/useraction.php";
 $sql = "SELECT * FROM tm01_user  ORDER BY UserID ASC LIMIT {$start} , {$perpage}";
-$DATA = mysql_query($sql);
+$DATA = mysqli_query($conn,$sql);
 //etc
 //page
-$sql2 = "SELECT * FROM tm01_user ORDER BY UserID ASC";
-$query2 = mysql_query($sql2);
-$total_record = mysql_num_rows($query2);
+$sql2 = "SELECT * FROM tm01_user";
+$query2 = mysqli_query($conn, $sql2);
+$total_record = mysqli_num_rows($query2);
 $total_page = ceil($total_record / $perpage);
 
 //page

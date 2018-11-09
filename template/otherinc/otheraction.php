@@ -1,6 +1,11 @@
 <?php 
-
+error_reporting(0);
 if(isset($_POST["create"])) {
+  if($_POST["TaxCalFlag"] != 1)
+  {
+    $_POST["TaxCalFlag"] = 0;
+  } 
+  $SysPgmID = "FM02_OtherINC";
     date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d H:i:s');
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,9 +17,9 @@ if(isset($_POST["create"])) {
               '".$_POST["OthINCTDesc"]."',
               '".$_POST["OthIncAmt"]."',
               '".$_POST["TaxCalFlag"]."',
-              '".$date. "' , '" .$_POST["user_login"]."' , 'FM02_OtherINC' )";
+              '".$date. "' , '" .$_POST["user_login"]."' , '" .$SysPgmID ."' )";
 
-    $objQuery = mysql_query($strSQL);
+    $objQuery = mysqli_query($conn, $strSQL);
     if($objQuery)
     {
         $result = '<script>alert("ทำการบันทึกข้อมูลสำเร็จ")</script>';
@@ -33,47 +38,52 @@ if(isset($_POST["edit_id"]))
 {  
     include "../../config/connect.php";
     $strSQL = "SELECT * FROM tm02_otherinc WHERE OthINCCode = '".$_POST["edit_id"]."'";   
-    $objQuery = mysql_query($strSQL); 
-    while ($rows = mysql_fetch_array($objQuery)) {    
+    $objQuery = mysqli_query($conn, $strSQL); 
+    while ($rows = mysqli_fetch_array($objQuery)) {    
+      $taxflag =  ($rows["TaxCalFlag"] == 1 ? 'checked' : ''); 
     $output .= '<input type="hidden" name="id" value="'.$_POST["edit_id"].'">
     <div class="row">
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">รหัสรายได้ : <span class="field-required">*</span></dt>
+            <dt class="col-sm-4 info-box-label">Income No  : <span class="field-required">*</span></dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="OthINCCode" type="text" value="'.$rows["OthINCCode"].'" data-placement="top" required  class="form-control"  maxlength="20"/ >      
+            <input name="OthINCCode" type="text" value="'.$rows["OthINCCode"].'" data-placement="top" required  class="form-control" disabled/ >      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ชื่อรายได้(EN) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="OthINCEDesc" type="text" value="'.$rows["OthINCEDesc"].'" data-placement="top" required  class="form-control" maxlength="20"/>
+            <dt class="col-sm-4 info-box-label">Description (EN) : </dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="OthINCEDesc" type="text" value="'.$rows["OthINCEDesc"].'" data-placement="top" required  class="form-control" maxlength="100"/>
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ชื่อรายได้(TH) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="OthINCTDesc" type="text" value="'.$rows["OthINCTDesc"].'" data-placement="top"  class="form-control"  maxlength="20"/ >      
+            <dt class="col-sm-4 info-box-label">Description (TH) : </dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="OthINCTDesc" type="text" value="'.$rows["OthINCTDesc"].'" data-placement="top"  class="form-control"  maxlength="100"/ >      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">จำนวนเงินรายได้ : </dt>
+            <dt class="col-sm-4 info-box-label">Amount : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="OthIncAmt" type="text" value="'.$rows["OthIncAmt"].'" data-placement="top"  class="form-control"  maxlength="20"/ >   
+						<input name="OthIncAmt" type="number" value="'.$rows["OthIncAmt"].'" data-placement="top"  class="form-control" min="0"/ >   
             </dd>
           </dl>
         </div>
 				<div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">นำไปคำนวนภาษีภาษี : </dt>
-            <dd class="col-sm-4 info-box-label">
-			<input name="TaxCalFlag" type="text" data-placement="top" value="'.$rows["TaxCalFlag"].'"  class="form-control"  maxlength="20"/ >   
+            <dt class="col-sm-4 info-box-label">Tax Calculate Flag : </dt>
+            <dd class="col-sm-4">
+            <div class="material-switch pull-right">
+            <input id="TaxCalFlag" name="TaxCalFlag" type="checkbox" value="1" 
+            '.$taxflag .'/>
+             <label for="TaxCalFlag" class="label-success"></label>
+         </div>  
             </dd>
           </dl>
         </div>                
@@ -102,7 +112,7 @@ if(isset($_POST["update"]))  {
         $strSQL .= "SET OthINCEDesc='".$_POST["OthINCEDesc"]."',OthINCTDesc='".$_POST["OthINCTDesc"]."',OthIncAmt='".$_POST["OthIncAmt"]."',TaxCalFlag='".$_POST["TaxCalFlag"]."'";
         $strSQL .= " WHERE OthINCCode = '".$_POST["id"]."'";
 
-        $objQuery = mysql_query($strSQL);    
+        $objQuery = mysqli_query($conn, $strSQL);    
          if($objQuery)
        {
            $result = '<script>alert("ทำการแก้ไขข้อมูลสำเร็จ")</script>';
@@ -120,7 +130,7 @@ if(isset($_POST["delete"])) {
 
     //echo $strSQL;
 
-    $objQuery = mysql_query($strSQL);
+    $objQuery = mysqli_query($conn, $strSQL);
     if($objQuery)
   {
       echo '<script>window.location.href="otherinc.php"</script>';

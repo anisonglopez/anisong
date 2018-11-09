@@ -1,6 +1,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<h1>รายได้ต่างๆ</h1>
+<h1>Employee Income</h1>
 <hr>
 <div class="container">
   <div class="row">
@@ -8,8 +8,9 @@
     <button class="btn btn-success" data-toggle="modal" data-target="#modal_create">Create New</button>
     </div>
     <div class="col-sm" style="text-align: right;">
-    <form name="search" method="post"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
-        <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20" value="" /> 
+    <form name="search" method="GET"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
+      <input type="hidden" name="page" id="page" class="" placeholder="ค้นหา" size="20" value="1"  /> 
+        <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20" value="<?php echo $_GET["search"];?>" /> 
         <input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
 <!--<input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>-->
     </form>
@@ -20,25 +21,40 @@
 <table class="table table-hover">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">รหัสรายได้</th>
-      <th scope="col">ชื่อรายได้(EN)</th>
-      <th scope="col">ชื่อรายได้(TH)</th>
-      <th scope="col">จำนวนเงินรายได้</th>
-      <th scope="col">นำไปคำนวนภาษีภาษี</th>
-      <th scope="col">SysUserID</th>
+      <th scope="col">Income No</th>
+      <th scope="col">Description (EN)</th>
+      <th scope="col">Description (TH)</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Tax</th>
       <th scope="col" style="text-align: center;">Action</th>
     </tr>
   </thead>
 
   <?php 
-  if(mysql_num_rows($DATA) > 0)
-  while ($rows = mysql_fetch_array($DATA)) {
+    if($_GET["search"] != ""){
+      $sql = "SELECT * FROM tm02_otherinc WHERE OthINCCode like '%".$_GET['search']."%' OR OthINCEDesc like '%".$_GET['search']."%' OR OthINCTDesc like '%".$_GET['search']."%' ORDER BY OthINCCode ASC  LIMIT {$start} ,$perpage";
+      $DATA = mysqli_query($conn, $sql);
+      //page
+      $sql2 = "SELECT * FROM tm02_otherinc WHERE OthINCCode like '%".$_GET['search']."%' OR OthINCEDesc like '%".$_GET['search']."%' OR OthINCTDesc like '%".$_GET['search']."%'  ";
+      $query2 = mysqli_query($conn, $sql2);
+      $total_record2 = mysqli_num_rows($query2 );
+      $total_page = ceil($total_record2 / $perpage);
+      //page
+      }
+
+  if(mysqli_num_rows($DATA) > 0)
+  while ($rows = mysqli_fetch_array($DATA)) {
     $OthINCCode = $rows['OthINCCode'];
     $OthINCEDesc = $rows['OthINCEDesc'];
     $OthINCTDesc = $rows['OthINCTDesc'];
     $OthINCAmt = $rows['OthIncAmt'];
     $TaxCalFlag = $rows['TaxCalFlag'];
-    $SysUserID = $rows['SysUserID'];
+    if( $TaxCalFlag == "1"){
+      $TaxCalFlag = "<p style='color :green; font-weight: 800;'>✓</p>";
+    }
+    else{
+      $TaxCalFlag = "<p style='color :red;'>✘</p>";
+    }
   ?>
   <tbody>
     <tr>
@@ -47,7 +63,6 @@
       <td><?php echo $OthINCTDesc; ?></td>
       <td><?php echo $OthINCAmt; ?></td>
       <td><?php echo $TaxCalFlag; ?></td>
-      <td><?php echo $SysUserID; ?></td>
       <td><center>
     <button  class="btn btn-warning edit_id "  id="<?php echo $OthINCCode; ?>">Edit</button>
   <button  class="btn btn-danger delete_id "  id="<?php echo $OthINCCode; ?>">Delete</button>
@@ -55,21 +70,32 @@
   </td>
     </tr>
   </tbody>
-  <?php } ?>
+  <?php } 
+  else
+  echo "  <tbody>
+  <tr><td>ไม่พบข้อมูล ... <br/></td> 
+  </tr>
+  </tbody>";
+  ?>
   </table>
   <!--   Page List   -->
 <nav>
  <ul class="pagination">
  <li>
- <a href="otherinc.php?page=1" aria-label="Previous">
+ <a href='otherinc.php?page=1&search=<?php echo $_GET["search"] ?>' aria-label="Previous">
  <span aria-hidden="true">&laquo;</span> 
  </a>
  </li>
- <?php for($i=1;$i<=$total_page;$i++){?>
- <li><a class="btn btn-light" href="otherinc.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
- <?php } ?>
+ <?php for($i=1;$i<=$total_page;$i++){
+   	if($_GET['page']==$i){ //ถ้าตัวแปล page ตรง กับ เลขที่วนได้
+   echo '<li><a class="btn btn-light" href="otherinc.php?page='.$i. "&search=" .$_GET["search"].' "><b style=" color: blue;">' .$i.'</b></a></li>';
+}else{
+      echo '<li><a class="btn btn-light" href="otherinc.php?page='.$i ."&search=" .$_GET["search"].' "><b>'. $i.'</b></a></li>';; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+}
+ }
+   ?>
  <li>
- <a href="otherinc.php?page=<?php echo  $total_page;?>" aria-label="Next">
+ <a href='otherinc.php?page=<?php echo  $total_page;?>&search=<?php echo $_GET["search"] ?>' aria-label="Next">
  <span aria-hidden="true">&raquo;</span>
  </a>
  </li>
@@ -88,10 +114,10 @@
 
 <!--Modal Create-->
 <div class="modal fade" id="modal_create" tabindex="-1" role="dialog" aria-labelledby="modal_create_label" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 1000px;" role="document">
+  <div class="modal-dialog" style="max-width: 700px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title" id="modal_create_label">เพิ่มรายได้ต่างๆ</h1>
+        <h1 class="modal-title" id="modal_create_label">Create Employee Income</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -104,41 +130,44 @@
       <div class="row">
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">รหัสรายได้ : <span class="field-required">*</span></dt>
+            <dt class="col-sm-4 info-box-label">Income No : <span class="field-required">*</span></dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="OthINCCode" type="text" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
+            <input name="OthINCCode" type="text" data-placement="top" required  class="form-control" maxlength="20"/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ชื่อรายได้(EN) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="OthINCEDesc" type="text" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
+            <dt class="col-sm-4 info-box-label">Description (EN) : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="OthINCEDesc" type="text" data-placement="top" required  class="form-control" maxlength="100" />
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ชื่อรายได้(TH) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="OthINCTDesc" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
+            <dt class="col-sm-4 info-box-label">Description (TH) : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="OthINCTDesc" type="text" data-placement="top" required  class="form-control"  maxlength="100"/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">จำนวนเงินรายได้ : </dt>
+            <dt class="col-sm-4 info-box-label">Amount : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="OthIncAmt" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="OthIncAmt" type="number" data-placement="top" min="0"  class="form-control"   value="0"/>   
             </dd>
           </dl>
         </div>
 				<div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">นำไปคำนวนภาษีภาษี : </dt>
-            <dd class="col-sm-4 info-box-label">
-						<input name="TaxCalFlag" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+            <dt class="col-sm-4 info-box-label">Tax Calculate Flag : </dt>
+            <dd class="col-sm-4 ">
+						 <div class="material-switch pull-right">
+               <input id="TaxCalFlag" name="TaxCalFlag" type="checkbox" value="1"/>
+                <label for="TaxCalFlag" class="label-success"></label>
+            </div>
             </dd>
           </dl>
         </div>                

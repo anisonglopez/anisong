@@ -10,7 +10,7 @@ if($_SESSION['UserID'] == "")
 //getting required data
 //$DATA=dbgetarr("SELECT * FROM links");
 //page
-$perpage = 20;
+$perpage = 10;
 if (isset($_GET['page'])) {
 $page = $_GET['page'];
 } else {
@@ -21,17 +21,13 @@ $start = ($page - 1) * $perpage;
 include "config/connect.php";
 include "template/bank/bankaction.php";
 
-if(isset($_POST["search"])){
-    $sql = "SELECT * FROM tm02_bank WHERE bankcode like '%".$_POST['search']."%' OR BankEName like '%".$_POST['search']."%' OR BankTName like '%".$_POST['search']."%'";
-}else{
-    $sql = "SELECT * FROM tm02_bank";
-}
-
-$DATA = mysql_query($sql);
+   // $sql = "SELECT * FROM tm02_bank WHERE bankcode like '%".$_POST['search']."%' OR BankEName like '%".$_POST['search']."%' OR BankTName like '%".$_POST['search']."%'";
+$sql = "SELECT * FROM tm02_bank ORDER BY bankcode ASC  LIMIT {$start} ,$perpage";
+$DATA = mysqli_query($conn, $sql);
 //page
 $sql2 = "SELECT * FROM tm02_bank";
-$query2 = mysql_query($sql2);
-$total_record = mysql_num_rows($query2);
+$query2 = mysqli_query($conn, $sql2);
+$total_record = mysqli_num_rows($query2);
 $total_page = ceil($total_record / $perpage);
 //page
 

@@ -1,6 +1,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<h1>ข้อมูลประเภทการลา</h1>
+<h1>Leave Type</h1>
 <hr>
 <div class="container">
   <div class="row">
@@ -8,8 +8,9 @@
     <button class="btn btn-success" data-toggle="modal" data-target="#modal_create">Create New</button>
     </div>
     <div class="col-sm" style="text-align: right;">
-    <form name="search" method="post"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
-        <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20" value="" /> 
+    <form name="search" method="get"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
+      <input type="hidden" name="page" id="page" class="" placeholder="ค้นหา" size="20" value="1"  /> 
+        <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20" value="<?php echo $_GET["search"];?>" /> 
         <input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
 <!--<input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>-->
     </form>
@@ -24,31 +25,44 @@
       <th scope="col">รหัสการลา</th>
       <th scope="col">คำอธิบาย(ENG)</th>
       <th scope="col">คำอธิบาย(ไทย)</th>
-      <th scope="col">Ded_Flag</th>
       <th scope="col">อัตราหัก</th>
-      <th scope="col">SysUserID</th>
+      <th scope="col">Deduct Flag</th>
       <th scope="col" style="text-align: center;">Action</th>
     </tr>
   </thead>
 
   <?php 
-  if(mysql_num_rows($DATA) > 0)
-  while ($rows = mysql_fetch_array($DATA)) {
+if($_GET["search"] != ""){
+  $sql = "SELECT * FROM tm02_attncode WHERE AttnCode like '%".$_GET['search']."%' OR AttnEDesc like '%".$_GET['search']."%' OR AttnTDesc like '%".$_GET['search']."%'  ORDER BY AttnCode ASC  LIMIT {$start} ,$perpage";
+  $DATA = mysqli_query($conn, $sql);
+  //page
+  $sql2 = "SELECT * FROM tm02_attncode WHERE AttnCode like '%".$_GET['search']."%' OR AttnEDesc like '%".$_GET['search']."%' OR AttnTDesc like '%".$_GET['search']."%' ";
+  $query2 = mysqli_query($conn, $sql2);
+  $total_record2 = mysqli_num_rows($query2 );
+  $total_page = ceil($total_record2 / $perpage);
+  //page
+  }
+  if(mysqli_num_rows($DATA) > 0)
+  while ($rows = mysqli_fetch_array($DATA)) {
     $id = $rows['AttnCode'];
     $row1 = $rows['AttnEDesc'];
     $row2 = $rows['AttnTDesc'];
-    $row3 = $rows['Ded_Flag'];
-    $row4 = $rows['Ded_Rate'];
-    $row5 = $rows['SysUserID'];
+    $row3 = $rows['Ded_Rate'];
+    $row4 = $rows['Ded_Flag'];
+    if( $row4 == "1"){
+      $row4 = "<p style='color :green; font-weight: 800;'>✓</p>";
+    }
+    else{
+      $row4 = "<p style='color :red;'>✘</p>";
+    }
   ?>
   <tbody>
     <tr>
-      <td><?php echo $id; ?></td>
+      <td style="text-align: center;"><?php echo $id; ?></td>
       <td><?php echo $row1; ?></td>
       <td><?php echo $row2; ?></td>
-      <td><?php echo $row3; ?></td>
-      <td><?php echo $row4; ?></td>
-      <td><?php echo $row5; ?></td>
+      <td style="text-align: center;"><?php echo $row3; ?></td>
+      <td style="text-align: center;"><?php echo $row4; ?></td>
       <td><center>
     <button  class="btn btn-warning edit_id "  id="<?php echo $id?>">Edit</button>
   <button  class="btn btn-danger delete_id "  id="<?php echo $id?>">Delete</button>
@@ -62,15 +76,20 @@
 <nav>
  <ul class="pagination">
  <li>
- <a href="systemcontrol.php?page=1" aria-label="Previous">
+ <a href="attendance.php?page=1&search=<?php echo $_GET["search"] ?>" aria-label="Previous">
  <span aria-hidden="true">&laquo;</span> 
  </a>
  </li>
- <?php for($i=1;$i<=$total_page;$i++){?>
- <li><a class="btn btn-light" href="systemcontrol.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
- <?php } ?>
+ <?php for($i=1;$i<=$total_page;$i++){
+   	if($_GET['page']==$i){ //ถ้าตัวแปล page ตรง กับ เลขที่วนได้
+   echo '<li><a class="btn btn-light" href="attendance.php?page='.$i. "&search=" .$_GET["search"].' "><b style=" color: blue;">' .$i.'</b></a></li>';
+}else{
+      echo '<li><a class="btn btn-light" href="attendance.php?page='.$i ."&search=" .$_GET["search"].' "><b>'. $i.'</b></a></li>';; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+}
+ }
+   ?>
  <li>
- <a href="systemcontrol.php?page=<?php echo  $total_page;?>" aria-label="Next">
+ <a href='attendance.php?page=<?php echo  $total_page;?>&search=<?php echo $_GET["search"] ?>' aria-label="Next">
  <span aria-hidden="true">&raquo;</span>
  </a>
  </li>
@@ -89,10 +108,10 @@
 
 <!--Modal Create-->
 <div class="modal fade" id="modal_create" tabindex="-1" role="dialog" aria-labelledby="modal_create_label" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 1000px;" role="document">
+  <div class="modal-dialog" style="max-width: 700px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title" id="modal_create_label">Create Prepare for Monthly Closing</h1>
+        <h1 class="modal-title" id="modal_create_label">Create Leave Type</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -106,51 +125,47 @@
         <div class="col-md-12">
           <dl class="row">
             <dt class="col-sm-4 info-box-label">รหัสการลา : <span class="field-required">*</span></dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="AttnCode" type="text" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
+            <dd class="col-sm-5 info-box-label">
+            <input name="AttnCode" type="text" data-placement="top" required  class="form-control" maxlength="5"/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">คำอธิบาย(ENG) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="AttnEDesc" type="text" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
+            <dt class="col-sm-4 info-box-label">คำอธิบาย(ENG) : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="AttnEDesc" type="text" data-placement="top" required  class="form-control" maxlength="50"  />
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">คำอธิบาย(TH) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="AttnTDesc" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
+            <dt class="col-sm-4 info-box-label">คำอธิบาย(TH) : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="AttnTDesc" type="text" data-placement="top"  required  class="form-control"  maxlength="50"/>      
             </dd>
           </dl>
         </div>
-        <div class="col-md-12">
-          <dl class="row">
-            <dt class="col-sm-4 info-box-label">Ded_Flag : </dt>
-            <dd class="col-sm-4 info-box-label">
-						<input name="Ded_Flag" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
-            </dd>
-          </dl>
-        </div>
+
 				<div class="col-md-12">
           <dl class="row">
             <dt class="col-sm-4 info-box-label">อัตราหัก : </dt>
             <dd class="col-sm-4 info-box-label">
-						<input name="Ded_Rate" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+						<input name="Ded_Rate" type="number" data-placement="top"  class="form-control"  min="0" maxlength="20"/>   
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">SysPgmID : </dt>
-            <dd class="col-sm-4 info-box-label">
-						<input name="SysPgmID" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
+            <dt class="col-sm-4 info-box-label">Deduct Flag : </dt>
+            <dd class="col-sm-8 ">
+            <div class="material-switch pull-right">
+               <input id="Ded_Flag" name="Ded_Flag" type="checkbox" value="1"/>
+                <label for="Ded_Flag" class="label-success"></label>
+            </div>
             </dd>
           </dl>
-        </div>                   
+        </div>   
       
 
 

@@ -1,18 +1,12 @@
 <?php 
+error_reporting(0);
 if(isset($_POST["create"])) {
-  /*  echo "period = ".$_POST["period"]. "<br/>";
-    echo "term = ".$_POST["term"]. "<br/>";
-    echo "paydate = ".$_POST["paydate"]. "<br/>";
-    echo "emp_type = ".$_POST["emp_type"]. "<br/>";
-    echo "salary_date_from = ".$_POST["salary_date_from"]. "<br/>";
-    echo "salary_date_to = ".$_POST["salary_date_to"]. "<br/>";
-    echo "overtime_date_from = ".$_POST["overtime_date_from"]. "<br/>";
-    echo "overtime_date_to = ".$_POST["overtime_date_to"]. "<br/>";
-    echo "lev_date_from = ".$_POST["lev_date_from"]. "<br/>";
-    echo "lev_date_to = ".$_POST["lev_date_to"]. "<br/>";
-   */ 
+  if($_POST["Ded_Flag"] != 1)
+        {
+          $_POST["Ded_Flag"] = 0;
+        } 
     $ConvertPeriodDate = date("Ym", strtotime($_POST["period"]));
-    $SysPgmID = "FT05_PrepareMonthlyData";
+    $SysPgmID = "FM02_AttnCode";
     date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d H:i:s');
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -23,16 +17,16 @@ if(isset($_POST["create"])) {
     $strSQL .="VALUES ";
     $strSQL .="('".$_POST["AttnCode"]."','".$_POST["AttnEDesc"]."','".$_POST["AttnTDesc"]."',
                 '".$_POST["Ded_Flag"]."','".$_POST["Ded_Rate"]."','".$date."','".$_SESSION['UserID']."',
-                '".$_POST["SysPgmID"]."', )";
-    //$strSQL .="('".mysql_real_escape_string($_POST["period"])."', '"($_POST["term"])."', '".mysql_real_escape_string($_POST["emp_type"])."', '".($_POST["salary_date_from"])."', '".$_POST["salary_date_to"]. "' , '" .$_POST["overtime_date_from"]."' ,'" .$_POST["overtime_date_to"]."' , '" .$_POST["user_login"]."' , 'FM01_User' )";
-    $objQuery = mysql_query($strSQL);
+                '".$SysPgmID ."' )";
+    //$strSQL .="('".mysqli_real_escape_string($_POST["period"])."', '"($_POST["term"])."', '".mysqli_real_escape_string($_POST["emp_type"])."', '".($_POST["salary_date_from"])."', '".$_POST["salary_date_to"]. "' , '" .$_POST["overtime_date_from"]."' ,'" .$_POST["overtime_date_to"]."' , '" .$_POST["user_login"]."' , 'FM01_User' )";
+    $objQuery = mysqli_query($conn, $strSQL);
     if($objQuery)
     {
         $result = '<script> alert("ทำการบันทึกข้อมูลสำเร็จ");</script>';
     }
     else
     {
-        $result = '<script>alert("ขออภัย! เนื่องจากมี Period นี้แล้วในระบบ ไม่สามารถทำการบันทึกข้อมูลได้")</script>';
+        $result = '<script>alert("ขออภัย! เนื่องจากมี รหัสการลา นี้แล้วในระบบ ไม่สามารถทำการบันทึกข้อมูลได้")</script>';
         //header("Location: " . $_SERVER['REQUEST_URI']);
        // header("location: ../../user.php");
     }
@@ -42,39 +36,33 @@ if(isset($_POST["edit_id"]))
 {  
     include "../../config/connect.php";
     $strSQL = "SELECT * FROM tm02_attncode WHERE AttnCode = '".$_POST["edit_id"]."'";   
-    $objQuery = mysql_query($strSQL); 
-    while ($rows = mysql_fetch_array($objQuery)) {    
+    $objQuery = mysqli_query($conn, $strSQL); 
+    while ($rows = mysqli_fetch_array($objQuery)) {    
+   $deductFlg =  ($rows["Ded_Flag"] == 1 ? 'checked' : ''); 
     $output .= '<input type="hidden" name="id" value="'.$_POST["edit_id"].'">
+    <br>
     <div class="row">
         <div class="col-md-12">
           <dl class="row">
             <dt class="col-sm-4 info-box-label">รหัสการลา : <span class="field-required">*</span></dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="AttnCode" type="text" value="'.$rows["AttnCode"].'" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
+            <dd class="col-sm-5 info-box-label">
+            <input name="AttnCode" type="text" value="'.$rows["AttnCode"].'" data-placement="top" required  class="form-control" maxlength="5" disabled />      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">คำอธิบาย(ENG) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="AttnEDesc" type="text" value="'.$rows["AttnEDesc"].'" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
+            <dt class="col-sm-4 info-box-label">คำอธิบาย(ENG) : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="AttnEDesc" type="text" value="'.$rows["AttnEDesc"].'" data-placement="top" required  class="form-control" maxlength="50" />
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">คำอธิบาย(TH) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="AttnTDesc" type="text" value="'.$rows["AttnTDesc"].'" data-placement="top"  class="form-control"  maxlength="20"/>      
-            </dd>
-          </dl>
-        </div>
-        <div class="col-md-12">
-          <dl class="row">
-            <dt class="col-sm-4 info-box-label">Ded_Flag : </dt>
-            <dd class="col-sm-4 info-box-label">
-						<input name="Ded_Flag" type="text" value="'.$rows["Ded_Flag"].'" data-placement="top"  class="form-control"  maxlength="20"/>   
+            <dt class="col-sm-4 info-box-label">คำอธิบาย(TH) : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="AttnTDesc" type="text" value="'.$rows["AttnTDesc"].'" data-placement="top" required  class="form-control"  maxlength="50"/>      
             </dd>
           </dl>
         </div>
@@ -87,13 +75,17 @@ if(isset($_POST["edit_id"]))
           </dl>
         </div>
         <div class="col-md-12">
-          <dl class="row">
-            <dt class="col-sm-4 info-box-label">SysPgmID : </dt>
-            <dd class="col-sm-4 info-box-label">
-						<input name="SysPgmID" type="text" value="'.$rows["SysPgmID"].'" data-placement="top"  class="form-control"  maxlength="20"/>   
-            </dd>
-          </dl>
-        </div> 
+        <dl class="row">
+          <dt class="col-sm-4 info-box-label">Deduct Flag : </dt>
+          <dd class="col-sm-8">
+          <div class="material-switch pull-right">
+          <input id="Ded_Flag" name="Ded_Flag" type="checkbox" value="1" 
+          '.$deductFlg.'/>
+           <label for="Ded_Flag" class="label-success"></label>
+       </div>
+          </dd>
+        </dl>
+      </div>
 
 </div>
 
@@ -109,14 +101,15 @@ if(isset($_POST["delete_id"]))  {
 }
 
 if(isset($_POST["update"]))  {
+  $SysPgmID = "FM02_AttnCode";
     date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d H:i:s');
     $strSQL = "UPDATE tm02_attncode ";
     $strSQL .= "SET AttnEDesc='".$_POST["AttnEDesc"]."',AttnTDesc='".$_POST["AttnTDesc"]."',Ded_Flag='".$_POST["Ded_Flag"]."',
                   Ded_Rate='".$_POST["Ded_Rate"]."',SysUpdDate='".$date."',SysUserID='".$_SESSION["UserID"]."',
-                    SysPgmID='".$_POST["SysPgmID"]."'";
+                    SysPgmID='".$SysPgmID."'";
     $strSQL .= " WHERE AttnCode = '".$_POST["id"]."'";
-        $objQuery = mysql_query($strSQL);    
+        $objQuery = mysqli_query($conn, $strSQL);    
          if($objQuery)
        {
            $result = '<script>alert("ทำการแก้ไขข้อมูลสำเร็จ")</script>';
@@ -131,7 +124,7 @@ if(isset($_POST["update"]))  {
 if(isset($_POST["delete"])) {    
     $strSQL = "DELETE FROM tm02_attncode ";
     $strSQL .="WHERE AttnCode = '".$_POST["delete"]."' ";
-    $objQuery = mysql_query($strSQL);
+    $objQuery = mysqli_query($conn, $strSQL);
     if($objQuery)
   {
       echo '<script>window.location.href="attendance.php"</script>';

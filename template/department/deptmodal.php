@@ -1,6 +1,6 @@
 	    <!--- Modal  Edit-->
       <div class="modal fade" id="editModal" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 1000px;" role="document">
+  <div class="modal-dialog" style="max-width: 700px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title">Update Department</h1>
@@ -15,7 +15,7 @@
       </div>
       <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Update</button>
         </form>
       </div>
     </div>

@@ -89,19 +89,19 @@
 					<li><a href="employee.php">Employee</a></li>
 						<li><a href="branch.php">Branch</a></li>
 						<li><a href="position.php">Position Allowance</a></li>
-						<li><a href="attendance.php">ข้อมูลประเภทการลา</a></li>
-						<li><a href="deducttype.php">ข้อมูลประเภทการหักเงิน</a></li>
-						<li><a href="department.php">ข้อมูลแผนก</a></li>
-						<li><a href="otherinc.php">รายได้อื่น ๆ</a></li>
-						<li><a href="bank.php">ข้อมูลธนาคาร</a></li>
+						<li><a href="attendance.php">Leave Type</a></li>
+						<li><a href="deducttype.php">Deduct Type</a></li>
+						<li><a href="department.php">Department</a></li>
+						<li><a href="otherinc.php">Employee Income</a></li>
+						<li><a href="bank.php">Bank Information</a></li>
                     </ul>
 				</li>
 		<li class="">
                     <a href="#configSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">Configuration</a>
                     <ul class="list-unstyled collapse" id="configSubmenu" style="">
-					<li><a href="systemcontrol.php">กำหนดค่าระบบ</a></li>
-						<li><a href="systemcondition.php">กำหนดเงื่อนไขระบบ</a></li>
-						<li><a href="communication-allowance.php">ค่าเดินทาง</a></li>
+					<li><a href="systemcontrol.php">Prepare for Monthly Closing</a></li>
+						<li><a href="systemcondition.php">System Condition</a></li>
+						<li><a href="communication-allowance.php">Transportation Cost</a></li>
                     </ul>
 				</li>
 			</ul>
@@ -110,7 +110,7 @@
 			<li class="">
                     <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle collapsed">Administrator</a>
                     <ul class="list-unstyled collapse" id="adminSubmenu" style="">
-					<li><a href="user.php">ผู้ใช้งานระบบ</a></li>
+					<li><a href="user.php">User Profile</a></li>
                     </ul>
 				</li>
 			</ul>

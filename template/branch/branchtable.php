@@ -21,16 +21,16 @@
   <thead class="thead-dark" >
     <tr>
       <th scope="col">รหัสสาขา</th>
-      <th scope="col">ชื่อสาขา(ENG)</th>
-      <th scope="col">ชื่อสาขา(ไทย)</th>
+      <th scope="col">ชื่อสาขา (ENG)</th>
+      <th scope="col">ชื่อสาขา (ไทย)</th>
       <th scope="col">เบอร์</th>
       <th scope="col" style="text-align: center;">Action</th>
     </tr>
   </thead>
 
   <?php 
-  if(mysql_num_rows($DATA) > 0)
-  while ($rows = mysql_fetch_array($DATA)) {
+  if(mysqli_num_rows($DATA) > 0)
+  while ($rows = mysqli_fetch_array($DATA)) {
     $id = $rows['BranchCode'];
     $row1 = $rows['BranchEName'];
     $row2 = $rows['BranchTName'];
@@ -82,11 +82,11 @@
     ?>  
 
 <!--Modal Create-->
-<div class="modal fade" id="modal_create" tabindex="-1" role="dialog" aria-labelledby="modal_create_label" aria-hidden="true">
+<div class="modal fade" id="modal_create" tabindex="-1" role="dialog"  aria-hidden="true">
   <div class="modal-dialog" style="max-width: 600px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title" id="modal_create_label">Create Branch</h1>
+        <h1 class="modal-title" >Create Branch</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

@@ -1,4 +1,4 @@
-<h1>Communication Allowance</h1>
+<h1>Transportation Cost</h1>
 <hr>
 <div class="container">
   <div class="row">
@@ -29,8 +29,8 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
   </thead>
 
   <?php 
-  if(mysql_num_rows($DATA) > 0)
-  while ($rows = mysql_fetch_array($DATA)) {
+  if(mysqli_num_rows($DATA) > 0)
+  while ($rows = mysqli_fetch_array($DATA)) {
     $id = $rows[''];
     $row1 = $rows['EmplCode'];
     $row2 = $rows['EmplTName'];

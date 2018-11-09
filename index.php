@@ -5,7 +5,7 @@ if($_SESSION['UserID'] == "")
     header("location: ./template/login/login.php");
     exit();
 }
-
+include "config/connect.php";
 //include our settings, connect to database etc.
 //include dirname($_SERVER['DOCUMENT_ROOT']).'/cfg/settings.php';
 //getting required data

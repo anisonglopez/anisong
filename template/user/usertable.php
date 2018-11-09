@@ -1,7 +1,5 @@
-<link rel="stylesheet" href="dependencies/bootstrap-4.1.3-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="dependencies/css/custom-main.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<h1>จัดการข้อมูลผู้ใช้งาน</h1>
+
+<h1>User Profile</h1>
 <hr>
 <div class="container">
   <div class="row">
@@ -12,7 +10,6 @@
     <form name="search_user" method="get"  action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
 Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholder="ค้นหาผู้ใช้งาน" size="20" value="<?php echo $_GET["txtKeyword"];?>" /> 
 <input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
-<input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>
 </form>
 </div>
 </div>
@@ -37,11 +34,11 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
   // Search By Name or Email
   $strSQL = "SELECT * FROM tm01_user ";
   $strSQL .="WHERE (UserID LIKE '%".$_GET["txtKeyword"]."%' or UserTName LIKE '%".$_GET["txtKeyword"]."%' or UserEName LIKE '%".$_GET["txtKeyword"]."%' )  ";
-     $objQuery = mysql_query($strSQL);
+     $objQuery = mysqli_query($conn, $strSQL);
      $DATA = $objQuery;
   }
-  if(mysql_num_rows($DATA) > 0)
-  while ($rows = mysql_fetch_array($DATA)) {
+  if(mysqli_num_rows($DATA) > 0)
+  while ($rows = mysqli_fetch_array($DATA)) {
     $row1 = $rows['UserID'];
     $row2 = $rows['UserEName'];
     $row3 = $rows['UserTName'];
@@ -100,7 +97,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
   <div class="modal-dialog" role="document" style="max-width: 600px;">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title" id="deleteModalLabel">แก้ไขข้อมูลผู้ใช้งาน</h1>
+        <h1 class="modal-title" id="deleteModalLabel">Update User Profile</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -202,7 +199,7 @@ else
   <div class="modal-dialog" style="max-width: 600px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title" id="modal_create_label">เพิ่มผู้ใช้งาน</h1>
+        <h1 class="modal-title" id="modal_create_label">Create User Profile</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

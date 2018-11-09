@@ -1,16 +1,6 @@
 <?php 
+error_reporting(0);
 if(isset($_POST["create"])) {
-  /*  echo "period = ".$_POST["period"]. "<br/>";
-    echo "term = ".$_POST["term"]. "<br/>";
-    echo "paydate = ".$_POST["paydate"]. "<br/>";
-    echo "emp_type = ".$_POST["emp_type"]. "<br/>";
-    echo "salary_date_from = ".$_POST["salary_date_from"]. "<br/>";
-    echo "salary_date_to = ".$_POST["salary_date_to"]. "<br/>";
-    echo "overtime_date_from = ".$_POST["overtime_date_from"]. "<br/>";
-    echo "overtime_date_to = ".$_POST["overtime_date_to"]. "<br/>";
-    echo "lev_date_from = ".$_POST["lev_date_from"]. "<br/>";
-    echo "lev_date_to = ".$_POST["lev_date_to"]. "<br/>";
-   */ 
     $SysPgmID = "FM02_Branch";
     date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d H:i:s');
@@ -21,7 +11,7 @@ if(isset($_POST["create"])) {
     $strSQL .="VALUES ";
     $strSQL .="('".$_POST["BranchCode"]."','".$_POST["BranchEName"]."','".$_POST["BranchTName"]."','".$_POST["Address"]."','".$_POST["PhoneNo"]."',
                 '".$date."','".$_SESSION['UserID']."','".$SysPgmID."')";
-    $objQuery = mysql_query($strSQL);
+    $objQuery = mysqli_query($conn, $strSQL);
     if($objQuery)
     {
         $result = '<script> alert("ทำการบันทึกข้อมูลสำเร็จ");</script>';
@@ -38,8 +28,8 @@ if(isset($_POST["edit_id"]))
 {  
     include "../../config/connect.php";
     $strSQL = "SELECT * FROM tm02_branch WHERE branchCode = '".$_POST["edit_id"]."'";   
-    $objQuery = mysql_query($strSQL); 
-    while ($rows = mysql_fetch_array($objQuery)) {    
+    $objQuery = mysqli_query($conn, $strSQL); 
+    while ($rows = mysqli_fetch_array($objQuery)) {    
     $output .= '<input type="hidden" name="id" value="'.$_POST["edit_id"].'">
     <div class="row">
         <div class="col-md-12">
@@ -104,7 +94,7 @@ if(isset($_POST["update"]))  {
                 Address='".$_POST["Address"]."',PhoneNo='".$_POST["PhoneNo"]."',
                 SysUpdDate='".$date."',SysUserID='".$_SESSION["UserID"]."'";
     $strSQL .= " WHERE BranchCode = '".$_POST["id"]."'";
-        $objQuery = mysql_query($strSQL);    
+        $objQuery = mysqli_query($conn, $strSQL);    
          if($objQuery)
        {
            $result = '<script>alert("ทำการแก้ไขข้อมูลสำเร็จ")</script>';
@@ -119,7 +109,7 @@ if(isset($_POST["update"]))  {
 if(isset($_POST["delete"])) {    
     $strSQL = "DELETE FROM tm02_branch ";
     $strSQL .="WHERE BranchCode = '".$_POST["delete"]."' ";
-    $objQuery = mysql_query($strSQL);
+    $objQuery = mysqli_query($conn, $strSQL);
     if($objQuery)
   {
       echo '<script>window.location.href="branch.php"</script>';

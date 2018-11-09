@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 session_start();
 if($_SESSION['UserID'] == "")
 {
@@ -22,11 +23,11 @@ $start = ($page - 1) * $perpage;
 include "config/connect.php";
 include "template/systemcondition/sysconditaction.php";
 $sql = "SELECT * FROM tm01_system_condition";
-$DATA = mysql_query($sql);
+$DATA = mysqli_query($conn, $sql);
 //page
 /*$sql2 = "SELECT * FROM tm00_control ORDER BY Period DESC";
-$query2 = mysql_query($sql2);
-$total_record = mysql_num_rows($query2);
+$query2 = mysqli_query($sql2);
+$total_record = mysqli_num_rows($query2);
 $total_page = ceil($total_record / $perpage);
 */
 //page
@@ -36,6 +37,7 @@ $total_page = ceil($total_record / $perpage);
 $title = "เงื่อนไขระบบ";
 $tpl = "";
 $detail = "template/systemcondition/syscondit.php";
+$modal = "";
 //$modal = "template/systemcontrol/sysconmodal.php";
 //$script = "template/systemcontrol/sysscript.php";
 $footer = "";

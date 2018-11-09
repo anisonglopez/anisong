@@ -23,18 +23,18 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
   <thead class="thead-dark">
     <tr>
       <th scope="col">Period</th>
-      <th scope="col">รอบ</th>
-      <th scope="col">ประเภทพนักงาน</th>
-      <th scope="col">วันที่เริ่ม</th>
-      <th scope="col">วันที่สิ้นสุด</th>
-      <th scope="col">วันที่จ่าย</th>
+      <th scope="col">Trem</th>
+      <th scope="col">Emp Type</th>
+      <th scope="col">Salary Date from</th>
+      <th scope="col">Salary Date to</th>
+      <th scope="col">Payment Date</th>
       <th scope="col" style="text-align: center;">Action</th>
     </tr>
   </thead>
 
   <?php 
-  if(mysql_num_rows($DATA) > 0)
-  while ($rows = mysql_fetch_array($DATA)) {
+  if(mysqli_num_rows($DATA) > 0)
+  while ($rows = mysqli_fetch_array($DATA)) {
     $id = $rows['auto_increment'];
     $row1 = $rows['Period'];
     $row2 = $rows['Term'];
@@ -42,15 +42,21 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
     $row4 = $rows['FmAttnDate'];
     $row5 = $rows['ToAttnDate'];
     $row6 = $rows['PayDate'];
+    if( $row3 == "D"){
+      $row3 = "รายวัน";
+    }
+    else{
+      $row3 = "รายเดือน";
+    }
   ?>
   <tbody>
     <tr>
       <td><?php echo $row1; ?></td>
-      <td><?php echo $row2; ?></td>
-      <td><?php echo $row3; ?></td>
-      <td><?php echo date("d/m/Y", strtotime($row4));?></td>
-      <td><?php echo date("d/m/Y", strtotime($row5)); ?></td>
-      <td><?php echo date("d/m/Y", strtotime($row6));?></td>
+      <td style="text-align: center;"><?php echo $row2; ?></td>
+      <td style="text-align: center;"><?php echo $row3; ?></td>
+      <td style="text-align: center;"><?php echo date("d/m/Y", strtotime($row4));?></td>
+      <td style="text-align: center;"><?php echo date("d/m/Y", strtotime($row5)); ?></td>
+      <td style="text-align: center;"><?php echo date("d/m/Y", strtotime($row6));?></td>
       <td><center>
     <button  class="btn btn-warning edit_id "  id="<?php echo $id?>">Edit</button>
   <button  class="btn btn-danger delete_id "  id="<?php echo $id?>">Delete</button>
@@ -68,9 +74,14 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
  <span aria-hidden="true">&laquo;</span> 
  </a>
  </li>
- <?php for($i=1;$i<=$total_page;$i++){?>
- <li><a class="btn btn-light" href="systemcontrol.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
- <?php } ?>
+ <?php for($i=1;$i<=$total_page;$i++){
+   	if($_GET['page']==$i){ //ถ้าตัวแปล page ตรง กับ เลขที่วนได้
+   echo '<li><a class="btn btn-light" href="systemcontrol.php?page='.$i. "&search=" .$_GET["search"].' "><b style=" color: blue;">' .$i.'</b></a></li>';
+}else{
+      echo '<li><a class="btn btn-light" href="systemcontrol.php?page='.$i ."&search=" .$_GET["search"].' "><b>'. $i.'</b></a></li>';; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+}
+ }
+   ?>
  <li>
  <a href="systemcontrol.php?page=<?php echo  $total_page;?>" aria-label="Next">
  <span aria-hidden="true">&raquo;</span>
@@ -135,8 +146,8 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
                                 <dd class="col-sm-8 info-box-label">
                                 <select class="form-control"  name="emp_type" required>
                                 <option value="">Select</option>   
-                                <option value="D">Daily Employee</option>
-                                <option value="M">Monthly Employee</option>
+                                <option value="D">รายวัน</option>
+                                <option value="M">รายเดือน</option>
                                 </select>   
                                 </dd>
                             </dl>

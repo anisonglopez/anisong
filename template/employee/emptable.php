@@ -19,16 +19,16 @@
 <table class="table table-hover table-bordered">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">รหัสพนักงาน</th>
-      <th scope="col">ประเภทพนักงาน</th>
-      <th scope="col">ชื่อพนักงาน</th>
-      <th scope="col">แผนก</th>
-      <th scope="col">ตำแหน่ง</th>
+      <th scope="col">Emp ID</th>
+      <th scope="col">Employee Type</th>
+      <th scope="col">Name - Lastname</th>
+      <th scope="col">Department</th>
+      <th scope="col">Position</th>
       <th scope="col">เพศ</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
-  <?php while ($rows = mysql_fetch_array($DATA)) {
+  <?php while ($rows = mysqli_fetch_array($DATA)) {
     $EmplCode = $rows['EmplCode'];
     $EmplType = $rows['EmplType'];
     $EmplTName = $rows['EmplTName'];
@@ -94,10 +94,10 @@
   <?php 
     echo $result;
     ?>  
-
+   
 <!--Modal Create-->
 <div class="modal fade" id="modal_create" tabindex="-1" role="dialog" aria-labelledby="modal_create_label" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 1000px;" role="document">
+  <div class="modal-dialog" style="max-width: 1100px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title" id="modal_create_label">Create Employee</h1>
@@ -111,31 +111,50 @@
       <div class="modal-body" >
       <br/>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-7">
          <dl class="row">
            <dt class="col-sm-4 info-box-label">รหัสพนักงาน : <span class="field-required">*</span></dt>
-           <dd class="col-sm-8 info-box-label">
-           <input name="EmplCode" type="text" data-placement="top" required  class="form-control"  maxlength="20"/>      
+           <dd class="col-sm-4 info-box-label">
+           <input name="EmplCode" type="text" data-placement="top" required  class="form-control"  maxlength="10"/>      
            </dd>
          </dl>
        
          <dl class="row">
-          <dt class="col-sm-4 info-box-label">ชื่อพนักงาน(ไทย) : <span class="field-required">*</span></dt>
+         <dt class="col-sm-4 info-box-label">คำนำหน้า : <span class="field-required">*</span></dt>
+         <dd class="col-sm-4 info-box-label">
+          <input name="EmplTName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
+          </dd>
+          <dd class="col-sm-4 info-box-label"></dd>
+          <dt class="col-sm-4 info-box-label">ชื่อ : <span class="field-required">*</span></dt>
+          <dd class="col-sm-8 info-box-label">
+          <input name="EmplTName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
+          </dd>
+          <dt class="col-sm-4 info-box-label">นามสกุล  : <span class="field-required">*</span></dt>
           <dd class="col-sm-8 info-box-label">
           <input name="EmplTName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
           </dd>
          </dl>
-       
-         <dl class="row">
-          <dt class="col-sm-4 info-box-label">ชื่อพนักงาน(ENG) : <span class="field-required">*</span></dt>
+
+            <dl class="row">
+         <dt class="col-sm-4 info-box-label">Name Title : <span class="field-required">*</span></dt>
+         <dd class="col-sm-4 info-box-label">
+          <input name="EmplTName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
+          </dd>
+          <dd class="col-sm-4 info-box-label"></dd>
+          <dt class="col-sm-4 info-box-label">First Name : <span class="field-required">*</span></dt>
           <dd class="col-sm-8 info-box-label">
-          <input name="EmplEName" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
+          <input name="EmplTName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
+          </dd>
+          <dt class="col-sm-4 info-box-label">Lastname  : <span class="field-required">*</span></dt>
+          <dd class="col-sm-8 info-box-label">
+          <input name="EmplEName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
           </dd>
          </dl>
+      
        
          <dl class="row">
-          <dt class="col-sm-4 info-box-label">ประเภทพนักงาน : <span class="field-required">*</span></dt>
-          <dd class="col-sm-8 info-box-label">
+          <dt class="col-sm-4 info-box-label">Employee Type : <span class="field-required">*</span></dt>
+          <dd class="col-sm-4 info-box-label">
           <select class="form-control"  name="EmplType" required>
             <option value="">Select</option>   
             <option value="D">รานวัน</option>
@@ -145,7 +164,7 @@
          </dl>
        
          <dl class="row">
-          <dt class="col-sm-4 info-box-label">ประเภทกระบวนการ : <span class="field-required">*</span></dt>
+          <dt class="col-sm-4 info-box-label">Process Type : <span class="field-required">*</span></dt>
           <dd class="col-sm-4 info-box-label">
           <select class="form-control"  name="ProcCode" required>
             <option value="">Select</option>   
@@ -155,10 +174,33 @@
           </dd>
          </dl>
         </div>
-        
-        <div class="col-md-2">
-        <img src="paris.jpg" alt="Paris" width="300" height="300">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+        <form action="" method="post" enctype="multipart/form-data" name="personal_image" id="newHotnessForm">
+    <p><label for="image">รูปประจำตัวพนักงาน :</label>
+     <div id="preview">
+            <img width="200px" height="250px" src="profile pic.jpg" id="blah" src="#" class="img-thumbnail-personal" />
         </div>
+    <input type="file" onchange="readURL(this);" id="imageUpload" class="btn"/></p>
+    <p>* ควรอัพโหลดเป็นรูปภาพแนวตั้ง</p>
+    </form>
+        </div>
+<script>
+  function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+                        .width(200)
+                        .height(250);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+</script>
         <div class="col-md-12">
         <br>
 <!--Start-->
@@ -166,16 +208,16 @@
           <div class="title-header-info-box add-pad">
             <ul class="nav nav-tabs" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active " data-toggle="tab" href="#tab1" id="tabspecification" role="tab">ข้อมูลพื้นฐาน</a>
+                <a class="nav-link active " data-toggle="tab" href="#tabEmp" id="tabspecification" role="tab">Employee Information</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab2" id="tabspecification" role="tab">ข้อมูลครอบครัว</a>
+                <a class="nav-link" data-toggle="tab" href="#tabFamily" id="tabspecification" role="tab">Family</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab3" id="tabspecification" role="tab">ข้อมูลส่วนตัว</a>
+                <a class="nav-link" data-toggle="tab" href="#tabPersonal" id="tabspecification" role="tab">Personal Info</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab4" id="tabspecification" role="tab">other</a>
+                <a class="nav-link" data-toggle="tab" href="#tabOther" id="tabspecification" role="tab">Other Information</a>
               </li>
             </ul>
           </div>
@@ -183,18 +225,19 @@
             <div class="tab-content">
             <br/>
             <!-- ///////////////////////////////employee///////////////////////////////////////// -->
-              <div class="tab-pane active" id="tab1">
+              <div class="tab-pane active" id="tabEmp">
                 <div class="header-info-content-box content-box-padding">
                   <div class="row">
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">แผนก : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">Department : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
                          <select class="form-control"  name="DeptCode" required>
+                         <option value="">Select</option>   
                           <?php
                           $strSQL = "SELECT * FROM tm02_department";
-                         $objQuery = mysql_query($strSQL);
-                          while($objResuut = mysql_fetch_array($objQuery))
+                         $objQuery = mysqli_query($conn, $strSQL);
+                          while($objResuut = mysqli_fetch_array($objQuery))
                           {
                           ?>
                             <option value="<?=$objResuut["DeptCode"];?>"><?=$objResuut["DeptCode"]." - ".$objResuut["DeptTDesc"];?></option>
@@ -203,13 +246,14 @@
                           ?>
                         </select>      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">ธนาคาร : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">Bank : </dt>
                         <dd class="col-sm-3 info-box-label">
-                        <select class="form-control"  name="BankCode" required>
+                        <select class="form-control"  name="BankCode" \>
+                        <option value="">Select</option>   
                           <?php
                           $strSQL = "SELECT * FROM tm02_bank";
-                         $objQuery = mysql_query($strSQL);
-                          while($objResuut = mysql_fetch_array($objQuery))
+                         $objQuery = mysqli_query($conn, $strSQL);
+                          while($objResuut = mysqli_fetch_array($objQuery))
                           {
                           ?>
                             <option value="<?=$objResuut["bankcode"];?>"><?=$objResuut["bankcode"]." - ".$objResuut["BankTName"];?></option>
@@ -223,13 +267,14 @@
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                       <dt class="col-sm-3 info-box-label">ตำแหน่ง : <span class="field-required">*</span></dt>
+                       <dt class="col-sm-3 info-box-label">Position : <span class="field-required">*</span></dt>
                        <dd class="col-sm-3 info-box-label">
                        <select class="form-control"  name="PosiCode" required>
+                       <option value="">Select</option>   
                           <?php
                           $strSQL = "SELECT * FROM tm02_position";
-                         $objQuery = mysql_query($strSQL);
-                          while($objResuut = mysql_fetch_array($objQuery))
+                         $objQuery = mysqli_query($conn, $strSQL);
+                          while($objResuut = mysqli_fetch_array($objQuery))
                           {
                           ?>
                             <option value="<?=$objResuut["PosiCode"];?>"><?=$objResuut["PosiCode"]." - ".$objResuut["PosiTDesc"];?></option>
@@ -238,9 +283,9 @@
                           ?>
                         </select>      
                        </dd>
-                       <dt class="col-sm-2 info-box-label">เลขที่บัญชี : <span class="field-required">*</span></dt>
+                       <dt class="col-sm-2 info-box-label">เลขที่บัญชี :</dt>
                        <dd class="col-sm-3 info-box-label">
-                         <input name="BankAccCode" type="text" data-placement="top" required  class="form-control" />      
+                         <input name="BankAccCode" type="text" data-placement="top"   class="form-control" maxlength="20"/>      
                        </dd>
                        <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -252,8 +297,8 @@
                           <select class="form-control"  name="BranchCode" required>
                           <?php
                           $strSQL = "SELECT * FROM tm02_branch";
-                         $objQuery = mysql_query($strSQL);
-                          while($objResuut = mysql_fetch_array($objQuery))
+                         $objQuery = mysqli_query($conn, $strSQL);
+                          while($objResuut = mysqli_fetch_array($objQuery))
                           {
                           ?>
                             <option value="<?=$objResuut["BranchCode"];?>"><?=$objResuut["BranchCode"]." - ".$objResuut["BranchTName"];?></option>
@@ -262,9 +307,9 @@
                           ?>
                         </select>      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">กองทุนสำรองเลี้ยงชีพ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">กองทุนสำรองเลี้ยงชีพ : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="PF_Flag" type="text" data-placement="top" required  class="form-control" />      
+                          <input name="PF_Flag" type="text" data-placement="top"  class="form-control" />      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -273,37 +318,37 @@
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">เงินเดือน : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Salary" type="text" data-placement="top" required  class="form-control"/>      
+                          <input name="Salary" type="number" data-placement="top" required  min="0" class="form-control" value="0"/>      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">รหัสสมาชิก : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">รหัสสมาชิก : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="PF_MemNo" type="text" data-placement="top" required  class="form-control" />      
+                          <input name="PF_MemNo" type="text" data-placement="top"  class="form-control" />      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">วันที่เข้างาน : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">วันที่เริ่มงาน : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
                           <input name="EnterDate" type="date" data-placement="top" required  class="form-control"/>      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">วันที่พ้นสถาพ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">วันที่พ้นสถาพ : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="ProbDate" type="date" data-placement="top" required  class="form-control" />      
+                          <input name="ProbDate" type="date" data-placement="top"   class="form-control" />      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">วันที่ลาออก : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">วันที่ลาออก : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="ResignDate" type="date" data-placement="top" required  class="form-control"/>      
+                          <input name="ResignDate" type="date" data-placement="top"   class="form-control"/>      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">พ้นสถาพ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">สาเหตุการพ้นสถาพ : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="ProbFlag" type="text" data-placement="top" required  class="form-control" />      
+                          <input name="ProbFlag" type="text" data-placement="top"   class="form-control" />      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -311,8 +356,9 @@
                     <div class="col-md-12">
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">เงื่อนไขภาษี : <span class="field-required">*</span></dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="TaxCond" type="text" data-placement="top" required  class="form-control"/>      
+                        <dd class="col-sm-3">
+                        <input   type="radio" name="TaxCond" value="C" required> Company 
+                      <input type="radio" name="TaxCond" value="E" required> Employee
                         </dd>
                         <dt class="col-sm-2 info-box-label"></dt>
                         <dd class="col-sm-3 info-box-label"></dd>
@@ -326,13 +372,13 @@
                       <table width="80%">
                           <tbody>
                             <tr>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="UM_Flag" value="1">สมาชิกสหภาพฯ</label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="Cooperative_F" value="1">สมาชิกสหกรณ์ออมทรัพย์</label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="GHB_F" value="1">สมาชิก ธอส.</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="UM_Flag" value="1"> สมาชิกสหภาพฯ</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="Cooperative_F" value="1"> สมาชิกสหกรณ์ออมทรัพย์</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="GHB_F" value="1"> สมาชิก ธอส.</label></td>
                             </tr>
                             <tr>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="Feneral_F" value="1">สมาชิกฌาปนกิจสงเคราะห์</label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="MoneyLoan_F" value="1">สมาชิก สินเชื่อเงินกู้</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="Feneral_F" value="1"> สมาชิกฌาปนกิจสงเคราะห์</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="MoneyLoan_F" value="1"> สมาชิกสินเชื่อเงินกู้</label></td>
                               <td></td>
                             </tr>
                           </tbody>
@@ -345,31 +391,38 @@
             <!-- ///////////////////////////////employee///////////////////////////////////////// --> 
             
             <!-- ///////////////////////////////family///////////////////////////////////////// -->
-            <div class="tab-pane" id="tab2">
+            <div class="tab-pane" id="tabFamily">
                 <div class="header-info-content-box content-box-padding">
                   <div class="row">
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">สถานะ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">สถานะ :</dt>
                         <dd class="col-sm-3 info-box-label">
-                         <input name="Marital" type="text" data-placement="top" required  class="form-control"/ >      
+                        <select class="form-control"  name="Marital">
+            <option value="">Select</option>   
+            <option value="โสด">โสด</option>
+            <option value="แต่งงานแล้ว">แต่งงานแล้ว</option>
+            <option value="หม้าย">หม้าย</option>
+            <option value="หย่า">หย่า</option>
+            <option value="แยกกันอยู่">แยกกันอยู่</option>
+          </select>     
                         </dd>
-                        <dt class="col-sm-2 info-box-label">หมายเลขสมรถ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">หมายเลขสมรส : </dt>
                         <dd class="col-sm-3 info-box-label">
-                         <input name="MarriageNo" type="text" data-placement="top" required  class="form-control"/ >      
+                         <input name="MarriageNo" type="text" data-placement="top"   class="form-control"/ >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                       <dt class="col-sm-3 info-box-label">วันที่สมรถ : <span class="field-required">*</span></dt>
+                       <dt class="col-sm-3 info-box-label">วันที่สมรส : </dt>
                        <dd class="col-sm-3 info-box-label">
-                         <input name="MarriagedDate" type="date" data-placement="top" required  class="form-control"/ >      
+                         <input name="MarriagedDate" type="date" data-placement="top"   class="form-control"/ >      
                        </dd>
-                       <dt class="col-sm-2 info-box-label">ชื่อ-สกุลคู่สมรถ : <span class="field-required">*</span></dt>
+                       <dt class="col-sm-2 info-box-label">ชื่อ - สกุลคู่สมรส :</dt>
                        <dd class="col-sm-3 info-box-label">
-                         <input name="SpouseName" type="text" data-placement="top" required  class="form-control" / >      
+                         <input name="SpouseName" type="text" data-placement="top"   class="form-control" / >      
                        </dd>
                        <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -379,19 +432,20 @@
                         <dt class="col-sm-1 info-box-label"></dt>
                         <dd class="col-sm-3">
                           <h3>ข้อมูลบุตร</h3>      
+                          <hr>
                         </dd>
                         
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">กำลังศึกษา : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">จำนวนบุตรที่กำลังเรียน : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="ChildInEduc" type="text" data-placement="top" required  class="form-control"/ >      
+                          <input name="ChildInEduc" type="text" data-placement="top"   class="form-control"/ >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">ไม่ได้ศึกษา : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">จำนวนบุตรที่ไม่ได้เรียนแล้ว : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="ChildNotEduc" type="text" data-placement="top" required  class="form-control" / >      
+                          <input name="ChildNotEduc" type="text" data-placement="top"   class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -400,7 +454,8 @@
                       <dl class="row">
                         <dt class="col-sm-1 info-box-label"></dt>
                         <dd class="col-sm-4">
-                          <h3>ข้อมูลผู้ปกครอง(เลขประจำตัวประชาชน)</h3>      
+                          <h3>ข้อมูลผู้ปกครอง</h3>      
+                          <hr>
                         </dd>
                         
                         
@@ -408,26 +463,26 @@
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">บิดา : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">บิดา :</dt>
                         <dd class="col-sm-3 info-box-label">
                           <input name="Own_Fath_ID" type="text" data-placement="top" required  class="form-control"/ >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">มารดา : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">มารดา : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Own_Moth_ID" type="text" data-placement="top" required  class="form-control" / >      
+                          <input name="Own_Moth_ID" type="text" data-placement="top"   class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">บิดาคู่สมรถ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">คู่สมรสของบิดา : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="SP_Fath_ID" type="text" data-placement="top" required  class="form-control"/ >      
+                          <input name="SP_Fath_ID" type="text" data-placement="top"   class="form-control"/ >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">มารดาคู่สมรถ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">คู่สมรสของมารดา : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="SP_Moth_ID" type="text" data-placement="top" required  class="form-control" / >      
+                          <input name="SP_Moth_ID" type="text" data-placement="top"   class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -438,7 +493,7 @@
             <!-- ///////////////////////////////family///////////////////////////////////////// -->
             
             <!-- ///////////////////////////////personal///////////////////////////////////////// -->
-            <div class="tab-pane" id="tab3">
+            <div class="tab-pane" id="tabPersonal">
                 <div class="header-info-content-box content-box-padding">
                   <div class="row">
                     <div class="col-md-12">
@@ -449,7 +504,7 @@
                         </dd>
                         <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชน : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                         <input name="IDno" type="text" data-placement="top" required  class="form-control"/ >      
+                         <input name="IDno" type="text" data-placement="top" required  class="form-control" maxlength="13"/ >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -460,22 +515,22 @@
                        <dd class="col-sm-3 info-box-label">
                          <input name="Nationality" type="text" data-placement="top" required  class="form-control"/ >      
                        </dd>
-                       <dt class="col-sm-2 info-box-label">ศาสนา : <span class="field-required">*</span></dt>
+                       <dt class="col-sm-2 info-box-label">ศาสนา : </dt>
                        <dd class="col-sm-3 info-box-label">
-                         <input name="Religion" type="text" data-placement="top" required  class="form-control" / >      
+                         <input name="Religion" type="text" data-placement="top"   class="form-control" / >      
                        </dd>
                        <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">น้ำหนัก : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">น้ำหนัก : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Weight" type="text" data-placement="top" required  class="form-control"/ >      
+                          <input name="Weight" type="number" data-placement="top" min="0"   class="form-control"/ >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">ส่วนสูง : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">ส่วนสูง : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Height" type="text" data-placement="top" required  class="form-control" / >      
+                          <input name="Height" type="number" data-placement="top"  min="0"   class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -484,7 +539,12 @@
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">เพศ : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Sex" type="text" data-placement="top" required  class="form-control"/ >      
+                        <select class="form-control"  name="Sex" required>
+            <option value="">Select</option>   
+            <option value="M">ชาย</option>
+            <option value="F">หญิง</option>
+          </select>     
+              
                         </dd>
                         <dt class="col-sm-2 info-box-label">เบอร์โทรศัพท์ : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
@@ -510,7 +570,7 @@
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">เลขประจำตัวผู้เสียภาษี : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="TaxID" type="text" data-placement="top" required  class="form-control"/ >      
+                          <input name="TaxID" type="text" data-placement="top" required  class="form-control" maxlength="13"/ >      
                         </dd>
                         <dt class="col-sm-2 info-box-label"></dt>
                         <dd class="col-sm-3 info-box-label">
@@ -525,83 +585,83 @@
             <!-- ///////////////////////////////personal///////////////////////////////////////// -->
             
             <!-- ///////////////////////////////other///////////////////////////////////////// -->
-            <div class="tab-pane" id="tab4">
+            <div class="tab-pane" id="tabOther">
                 <div class="header-info-content-box content-box-padding">
                   <div class="row">
                   <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">Last Company Gross : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">Last Company Gross : </dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="L_C_Gross" type="text" data-placement="top" required  class="form-control" / >      
+                        <input name="L_C_Gross" type="text" data-placement="top"   class="form-control" / >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">Last Company Tax : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">Last Company Tax : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="L_C_Tax" type="text" data-placement="top" required  class="form-control" / >      
-                        </dd>
-                        <dd class="col-sm-1 info-box-label"></dd>
-                      </dl>
-                    </div>
-                    <div class="col-md-12">
-                      <dl class="row">
-                        <dt class="col-sm-3 info-box-label">Last Company Social : <span class="field-required">*</span></dt>
-                        <dd class="col-sm-3 info-box-label">
-                        <input name="L_C_SOC" type="text" data-placement="top" required  class="form-control" / >     
-                        </dd>
-                        <dt class="col-sm-2 info-box-label">Company Loan/Month : <span class="field-required">*</span></dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="CompLoan" type="text" data-placement="top" required  class="form-control" / >      
+                          <input name="L_C_Tax" type="text" data-placement="top"   class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">Overtime Flag : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">Last Company Social : </dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="OT_Cal_F" type="text" data-placement="top" required  class="form-control" / >      
+                        <input name="L_C_SOC" type="text" data-placement="top"   class="form-control" / >     
                         </dd>
-                        <dt class="col-sm-2 info-box-label">Attendance Flag : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">Company Loan/Month : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Attn_Cal_F" type="text" data-placement="top" required  class="form-control" / >      
-                        </dd>
-                        <dd class="col-sm-1 info-box-label"></dd>
-                      </dl>
-                    </div>
-                    <div class="col-md-12">
-                      <dl class="row">
-                        <dt class="col-sm-3 info-box-label">Office Shift : <span class="field-required">*</span></dt>
-                        <dd class="col-sm-3 info-box-label">
-                        <input name="O_Shft_D_PM" type="text" data-placement="top" required  class="form-control" / >      
-                        </dd>
-                        <dt class="col-sm-2 info-box-label">Morning Shift : <span class="field-required">*</span></dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="M_Shft_D_PM" type="text" data-placement="top" required  class="form-control" / >      
+                          <input name="CompLoan" type="text" data-placement="top"   class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">Evening Shift : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">Overtime Flag : </dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="E_Shft_D_PM" type="text" data-placement="top" required  class="form-control" / >      
+                        <input name="OT_Cal_F" type="text" data-placement="top"   class="form-control" / >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">Night Shift : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">Attendance Flag : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="N_Shft_D_PM" type="text" data-placement="top" required  class="form-control" / >      
+                          <input name="Attn_Cal_F" type="text" data-placement="top"   class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">Sick Leave : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">Office Shift : </dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="SL_Day" type="text" data-placement="top" required  class="form-control" / >      
+                        <input name="O_Shft_D_PM" type="text" data-placement="top"   class="form-control" / >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">A/L Remaining : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">Morning Shift : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="AL_Rem_Hrs" type="text" data-placement="top" required  class="form-control" / >      
+                          <input name="M_Shft_D_PM" type="text" data-placement="top"   class="form-control" / >      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+                    <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-3 info-box-label">Evening Shift : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                        <input name="E_Shft_D_PM" type="text" data-placement="top"   class="form-control" / >      
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">Night Shift : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="N_Shft_D_PM" type="text" data-placement="top"   class="form-control" / >      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+                    <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-3 info-box-label">Sick Leave : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                        <input name="SL_Day" type="text" data-placement="top"   class="form-control" / >      
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">A/L Remaining : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="AL_Rem_Hrs" type="text" data-placement="top"   class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>

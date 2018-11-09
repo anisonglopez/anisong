@@ -7,9 +7,9 @@ if(isset($_POST["create"])) {
     $strSQL = "INSERT INTO tm01_user ";
     $strSQL .="(UserID, Password, UserEName, UserTName, SysUpdDate, SysUserID, SysPgmID) ";
     $strSQL .="VALUES ";
-    $strSQL .="('".mysql_real_escape_string($_POST["username"])."', '".mysql_real_escape_string($_POST["password"])."', '".mysql_real_escape_string($_POST["descTH"])."',
- '".mysql_real_escape_string($_POST["descEN"])."', '".$date. "' , '" .$_POST["user_login"]."' , 'FM01_User' )";
-    $objQuery = mysql_query($strSQL);
+    $strSQL .="('".mysqli_real_escape_string($_POST["username"])."', '".mysqli_real_escape_string($_POST["password"])."', '".mysqli_real_escape_string($_POST["descTH"])."',
+ '".mysqli_real_escape_string($_POST["descEN"])."', '".$date. "' , '" .$_POST["user_login"]."' , 'FM01_User' )";
+    $objQuery = mysqli_query($conn, $strSQL);
     if($objQuery)
     {
         $result = '<script> alert("ทำการบันทึกข้อมูลสำเร็จ");</script>';
@@ -25,7 +25,7 @@ if(isset($_POST["create"])) {
 if(isset($_POST["delete_id"])) {
  $strSQL = "DELETE FROM tm01_user ";
   $strSQL .="WHERE UserID = '".$_POST["delete_id"]."' ";
-  $objQuery = mysql_query($strSQL);
+  $objQuery = mysqli_query($conn, $strSQL);
   if($objQuery)
 {
     echo '<script>window.location.href="user.php"</script>';
@@ -42,14 +42,14 @@ if(isset($_POST["edit_id"])) {
         date_default_timezone_set("Asia/Bangkok");
         $date = date('Y-m-d H:i:s');
         $strSQL = "UPDATE tm01_user ";
-        $strSQL .="SET Password = '".mysql_real_escape_string($_POST["password"])."',
-        UserEName = '".mysql_real_escape_string($_POST["descEN"])."',
-        UserTName = '".mysql_real_escape_string($_POST["descTH"])."', 
+        $strSQL .="SET Password = '".mysqli_real_escape_string($_POST["password"])."',
+        UserEName = '".mysqli_real_escape_string($_POST["descEN"])."',
+        UserTName = '".mysqli_real_escape_string($_POST["descTH"])."', 
         SysUserID = '".($_POST["user_login"])."',
         SysUpdDate = '".($date )."'
         ";
         $strSQL .="WHERE UserID = '".$_POST["edit_id"]."'";
-        $objQuery = mysql_query($strSQL);    
+        $objQuery = mysqli_query($conn, $strSQL);    
          if($objQuery)
        {
            $result = '<script>alert("ทำการแก้ไขข้อมูลสำเร็จ")</script>';

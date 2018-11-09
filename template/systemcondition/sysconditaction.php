@@ -224,7 +224,7 @@ date_default_timezone_set("Asia/Bangkok");
         SysPgmID = 'FM01_System_Condition'
         ";
         $strSQL .="WHERE System_Name = '".$_POST["System_Name"]."'";
-        $objQuery = mysql_query($strSQL);  
+        $objQuery = mysqli_query($conn, $strSQL);  
         
          if($objQuery)
        {

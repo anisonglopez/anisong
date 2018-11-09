@@ -1,6 +1,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<h1>ข้อมูลธนาคาร</h1>
+<h1>Bank Information</h1>
 <hr>
 <div class="container">
   <div class="row">
@@ -8,8 +8,9 @@
     <button class="btn btn-success" data-toggle="modal" data-target="#modal_create">Create New</button>
     </div>
     <div class="col-sm" style="text-align: right;">
-    <form name="search" method="post"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
-        <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20" value="" /> 
+    <form name="search" method="GET"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
+      <input type="hidden" name="page" id="page" class="" placeholder="ค้นหา" size="20" value="1"  /> 
+        <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20" value="<?php echo $_GET["search"];?>" /> 
         <input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
 <!--<input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>-->
     </form>
@@ -20,21 +21,32 @@
 <table class="table table-hover">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">รหัสธนาคาร</th>
-      <th scope="col">ชื่อธนาคาร(ENG)</th>
-      <th scope="col">ชื่อธนาคาร(ไทย)</th>
-      <th scope="col">SysUserID</th>
+      <th scope="col">Bank No</th>
+      <th scope="col">Bank Name(EN)</th>
+      <th scope="col">Bank Name (TH)</th>
+      <th scope="col">Tel</th>
       <th scope="col" style="text-align: center;">Action</th>
     </tr>
   </thead>
 
   <?php 
-  if(mysql_num_rows($DATA) > 0)
-  while ($rows = mysql_fetch_array($DATA)) {
+    if($_GET["search"] != ""){
+      $sql = "SELECT * FROM tm02_bank WHERE bankcode like '%".$_GET['search']."%' OR BankEName like '%".$_GET['search']."%' OR BankTName like '%".$_GET['search']."%' ORDER BY bankcode ASC  LIMIT {$start} ,$perpage";
+      $DATA = mysqli_query($conn, $sql);
+      //page
+      $sql2 = "SELECT * FROM tm02_bank WHERE bankcode like '%".$_GET['search']."%' OR BankEName like '%".$_GET['search']."%' OR BankTName like '%".$_GET['search']."%' ";
+      $query2 = mysqli_query($conn, $sql2);
+      $total_record2 = mysqli_num_rows($query2 );
+      $total_page = ceil($total_record2 / $perpage);
+      //page
+      }
+
+  if(mysqli_num_rows($DATA) > 0)
+  while ($rows = mysqli_fetch_array($DATA)) {
     $id = $rows['bankcode'];
     $row1 = $rows['BankEName'];
     $row2 = $rows['BankTName'];
-    $row3 = $rows['SysUserID'];
+    $row3 = $rows['PhoneNo'];
   ?>
   <tbody>
     <tr>
@@ -49,21 +61,32 @@
   </td>
     </tr>
   </tbody>
-  <?php } ?>
+  <?php } 
+  else
+  echo "  <tbody>
+  <tr><td>ไม่พบข้อมูล ... <br/></td> 
+  </tr>
+  </tbody>";
+  ?>
   </table>
   <!--   Page List   -->
 <nav>
  <ul class="pagination">
  <li>
- <a href="systemcontrol.php?page=1" aria-label="Previous">
+ <a href='bank.php?page=1&search=<?php echo $_GET["search"] ?>' aria-label="Previous">
  <span aria-hidden="true">&laquo;</span> 
  </a>
  </li>
- <?php for($i=1;$i<=$total_page;$i++){?>
- <li><a class="btn btn-light" href="systemcontrol.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
- <?php } ?>
+ <?php for($i=1;$i<=$total_page;$i++){
+   	if($_GET['page']==$i){ //ถ้าตัวแปล page ตรง กับ เลขที่วนได้
+   echo '<li><a class="btn btn-light" href="bank.php?page='.$i. "&search=" .$_GET["search"].' "><b style=" color: blue;">' .$i.'</b></a></li>';
+}else{
+      echo '<li><a class="btn btn-light" href="bank.php?page='.$i ."&search=" .$_GET["search"].' "><b>'. $i.'</b></a></li>';; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+}
+ }
+   ?>
  <li>
- <a href="systemcontrol.php?page=<?php echo  $total_page;?>" aria-label="Next">
+ <a href='bank.php?page=<?php echo  $total_page;?>&search=<?php echo $_GET["search"] ?>' aria-label="Next">
  <span aria-hidden="true">&raquo;</span>
  </a>
  </li>
@@ -82,10 +105,10 @@
 
 <!--Modal Create-->
 <div class="modal fade" id="modal_create" tabindex="-1" role="dialog" aria-labelledby="modal_create_label" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 1000px;" role="document">
+  <div class="modal-dialog" style="max-width: 700px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title" id="modal_create_label">Create department</h1>
+        <h1 class="modal-title" id="modal_create_label">Create Bank Information</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -98,54 +121,44 @@
       <div class="row">
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">รหัสธนาคาร : <span class="field-required">*</span></dt>
+            <dt class="col-sm-4 info-box-label">Bank No : <span class="field-required">*</span></dt>
             <dd class="col-sm-4 info-box-label">
-            <input name="bankcode" type="text" data-placement="top" required  class="form-control" maxlength="20" pattern="\w+"/>      
+            <input name="bankcode" type="text" data-placement="top" required  class="form-control" maxlength="20"/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ชื่อธนาคาร(ENG) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="BankEName" type="text" data-placement="top" required  class="form-control" maxlength="20"  pattern="\w+"/>
+            <dt class="col-sm-4 info-box-label">Bank Name (EN) : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="BankEName" type="text" data-placement="top" required  class="form-control" maxlength="100"/>
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ชื่อธนาคาร(TH) : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="BankTName" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
+            <dt class="col-sm-4 info-box-label">Bank Name (TH) : <span class="field-required">*</span></dt>
+            <dd class="col-sm-8 info-box-label">
+            <input name="BankTName" type="text" data-placement="top" required  class="form-control"  maxlength="100"/>      
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">ที่อยู่ : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <textarea class="form-control" rows="5" name="Address" id="comment"></textarea>       
+            <dt class="col-sm-4 info-box-label">Address : </dt>
+            <dd class="col-sm-8 info-box-label">
+            <textarea class="form-control" rows="5" name="Address"></textarea>       
             </dd>
           </dl>
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">เบอร์โทรศัพท์ : </dt>
-            <dd class="col-sm-4 info-box-label">
-            <input name="PhoneNo" type="text" data-placement="top"  class="form-control"  maxlength="20"/>      
+            <dt class="col-sm-4 info-box-label">Tel : </dt>
+            <dd class="col-sm-5 info-box-label">
+            <input name="PhoneNo" type="text" data-placement="top"  class="form-control"  maxlength="50"/>      
             </dd>
           </dl>
         </div>
-        <div class="col-md-12">
-          <dl class="row">
-            <dt class="col-sm-4 info-box-label">SysPgmID : </dt>
-            <dd class="col-sm-4 info-box-label">
-						<input name="SysPgmID" type="text" data-placement="top"  class="form-control"  maxlength="20"/>   
-            </dd>
-          </dl>
-        </div>                   
-      
-
 
                         
 </div>

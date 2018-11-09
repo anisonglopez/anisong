@@ -1,16 +1,6 @@
 <?php 
+error_reporting(0);
 if(isset($_POST["create"])) {
-  /*  echo "period = ".$_POST["period"]. "<br/>";
-    echo "term = ".$_POST["term"]. "<br/>";
-    echo "paydate = ".$_POST["paydate"]. "<br/>";
-    echo "emp_type = ".$_POST["emp_type"]. "<br/>";
-    echo "salary_date_from = ".$_POST["salary_date_from"]. "<br/>";
-    echo "salary_date_to = ".$_POST["salary_date_to"]. "<br/>";
-    echo "overtime_date_from = ".$_POST["overtime_date_from"]. "<br/>";
-    echo "overtime_date_to = ".$_POST["overtime_date_to"]. "<br/>";
-    echo "lev_date_from = ".$_POST["lev_date_from"]. "<br/>";
-    echo "lev_date_to = ".$_POST["lev_date_to"]. "<br/>";
-   */ 
     $ConvertPeriodDate = date("Ym", strtotime($_POST["period"]));
     $SysPgmID = "FT05_PrepareMonthlyData";
     date_default_timezone_set("Asia/Bangkok");
@@ -19,12 +9,12 @@ if(isset($_POST["create"])) {
     $strSQL = "INSERT INTO tm00_control ";
     $strSQL .="(Period, Term, EmplType, FmAttnDate, ToAttnDate, FmOVTDate, ToOVTDate, FmLevDate, ToLevDate,  PayDate, SysUpdDate, SysUserID, SysPgmID) ";
     $strSQL .="VALUES ";
-    $strSQL .="('".$ConvertPeriodDate."', '".($_POST["term"])."', '".mysql_real_escape_string($_POST["emp_type"])."',
+    $strSQL .="('".$ConvertPeriodDate."', '".($_POST["term"])."', '".mysqli_real_escape_string($_POST["emp_type"])."',
  '".($_POST["salary_date_from"])."', '".($_POST["salary_date_to"])."', '".($_POST["overtime_date_from"])."', '".($_POST["overtime_date_to"])."', 
  '".($_POST["lev_date_from"])."', '".($_POST["lev_date_to"])."', '".($_POST["paydate"])."', 
  '".$date. "' , '" .$_POST["user_login"]."' , '".$SysPgmID."')";
-    //$strSQL .="('".mysql_real_escape_string($_POST["period"])."', '"($_POST["term"])."', '".mysql_real_escape_string($_POST["emp_type"])."', '".($_POST["salary_date_from"])."', '".$_POST["salary_date_to"]. "' , '" .$_POST["overtime_date_from"]."' ,'" .$_POST["overtime_date_to"]."' , '" .$_POST["user_login"]."' , 'FM01_User' )";
-    $objQuery = mysql_query($strSQL);
+    //$strSQL .="('".mysqli_real_escape_string($_POST["period"])."', '"($_POST["term"])."', '".mysqli_real_escape_string($_POST["emp_type"])."', '".($_POST["salary_date_from"])."', '".$_POST["salary_date_to"]. "' , '" .$_POST["overtime_date_from"]."' ,'" .$_POST["overtime_date_to"]."' , '" .$_POST["user_login"]."' , 'FM01_User' )";
+    $objQuery = mysqli_query($conn, $strSQL);
     if($objQuery)
     {
         $result = '<script> alert("ทำการบันทึกข้อมูลสำเร็จ");</script>';
@@ -41,9 +31,11 @@ if(isset($_POST["edit_id"]))
 {  
     include "../../config/connect.php";
     $strSQL = "SELECT * FROM tm00_control WHERE auto_increment = '".$_POST["edit_id"]."'";   
-    $objQuery = mysql_query($strSQL); 
-    while ($rows = mysql_fetch_array($objQuery)) {    
-        $ConvertPeriodDate = date("Y-m", strtotime($rows["Period"]));
+    $objQuery = mysqli_query($conn, $strSQL); 
+    while ($rows = mysqli_fetch_array($objQuery)) {    
+        $Period_date = $rows["Period"];
+        echo "<br>";
+        $ConvertPeriodDate = date("Ym", strtotime($Period_date));
         if ($rows["EmplType"] == M){
             $EmplString = "Monthly Employee";
         }
@@ -57,7 +49,7 @@ if(isset($_POST["edit_id"]))
         <dl class="row">
             <dt class="col-sm-4 info-box-label">Period : <span class="field-required">*</span></dt>
             <dd class="col-sm-8 info-box-label">
-            <input name="period" type="month" value="'.$ConvertPeriodDate.'" data-placement="top" required  class="form-control"  disabled/ >      
+            <input name="period" type="text" value="'.$rows["Period"].'" data-placement="top" required  class="form-control"  disabled/ >      
             </dd>
         </dl>
     </div>
@@ -171,7 +163,7 @@ if(isset($_POST["update"]))  {
         $strSQL = "UPDATE tm00_control ";
         $strSQL .= "SET PayDate = '".($_POST["paydate"])."'";
         $strSQL .="WHERE auto_increment = '".$_POST["id"]."'";
-        $objQuery = mysql_query($strSQL);    
+        $objQuery = mysqli_query($conn, $strSQL);    
          if($objQuery)
        {
            $result = '<script>alert("ทำการแก้ไขข้อมูลสำเร็จ")</script>';
@@ -186,7 +178,7 @@ if(isset($_POST["update"]))  {
 if(isset($_POST["delete"])) {    
     $strSQL = "DELETE FROM tm00_control ";
     $strSQL .="WHERE auto_increment = '".$_POST["delete_id"]."' ";
-    $objQuery = mysql_query($strSQL);
+    $objQuery = mysqli_query($conn, $strSQL);
     if($objQuery)
   {
       echo '<script>window.location.href="systemcontrol.php"</script>';
