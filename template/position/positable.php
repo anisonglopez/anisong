@@ -22,9 +22,9 @@
 <table class="table table-hover">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">รหัสตำแหน่ง </th>
-      <th scope="col">ตำแหน่ง(ENG)</th>
-      <th scope="col">ตำแหน่ง(ไทย)</th>
+      <th scope="col">Position No </th>
+      <th scope="col">Position Name (EN)</th>
+      <th scope="col">Position Name (TH)</th>
       
       <th scope="col">เบี้ยเลี้ยง/วัน(เช้า)</th>
       <th scope="col">เบี้ยเลี้ยง/วัน(บ่าย)</th>

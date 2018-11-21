@@ -2,10 +2,10 @@
      
       <!--- Modal  Edit-->
 		<div class="modal fade" id="editModal" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 1000px;" role="document">
+  <div class="modal-dialog" style="max-width: 1200px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title">Update Prepare for Monthly Closing</h1>
+        <h1 class="modal-title">Update Employee</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reload()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -17,7 +17,7 @@
       </div>
       <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Update</button>
         </form>
       </div>
     </div>

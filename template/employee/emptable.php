@@ -16,7 +16,7 @@
 </div>
 </div>
 <div class="col-md-12"><br /></div>
-<table class="table table-hover table-bordered">
+<table class="table table-hover">
   <thead class="thead-dark">
     <tr>
       <th scope="col">Emp ID</th>
@@ -52,7 +52,7 @@
   <tbody>
     <tr>
       <td class="mx-2"><?php echo $EmplCode; ?></td>
-      <td><?php echo $EmplType; ?></td>
+      <td style="text-align: center;"><?php echo $EmplType; ?></td>
       <td><?php echo $EmplTName; ?></td>
       <td><?php echo $DeptTDesc;?></td>
       <td><?php echo $PosiTDesc; ?></td>
@@ -97,7 +97,7 @@
    
 <!--Modal Create-->
 <div class="modal fade" id="modal_create" tabindex="-1" role="dialog" aria-labelledby="modal_create_label" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 1100px;" role="document">
+  <div class="modal-dialog" style="max-width: 1300px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title" id="modal_create_label">Create Employee</h1>
@@ -120,34 +120,16 @@
          </dl>
        
          <dl class="row">
-         <dt class="col-sm-4 info-box-label">คำนำหน้า : <span class="field-required">*</span></dt>
-         <dd class="col-sm-4 info-box-label">
-          <input name="EmplTName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
-          </dd>
-          <dd class="col-sm-4 info-box-label"></dd>
-          <dt class="col-sm-4 info-box-label">ชื่อ : <span class="field-required">*</span></dt>
+          <dt class="col-sm-4 info-box-label">ชื่อ - นามสกุล (ไทย) : <span class="field-required">*</span></dt>
           <dd class="col-sm-8 info-box-label">
-          <input name="EmplTName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
-          </dd>
-          <dt class="col-sm-4 info-box-label">นามสกุล  : <span class="field-required">*</span></dt>
-          <dd class="col-sm-8 info-box-label">
-          <input name="EmplTName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
+          <input name="EmplTName" type="text" data-placement="top" required  class="form-control" maxlength="50"/>
           </dd>
          </dl>
 
             <dl class="row">
-         <dt class="col-sm-4 info-box-label">Name Title : <span class="field-required">*</span></dt>
-         <dd class="col-sm-4 info-box-label">
-          <input name="EmplTName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
-          </dd>
-          <dd class="col-sm-4 info-box-label"></dd>
-          <dt class="col-sm-4 info-box-label">First Name : <span class="field-required">*</span></dt>
-          <dd class="col-sm-8 info-box-label">
-          <input name="EmplTName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
-          </dd>
-          <dt class="col-sm-4 info-box-label">Lastname  : <span class="field-required">*</span></dt>
-          <dd class="col-sm-8 info-box-label">
-          <input name="EmplEName" type="text" data-placement="top" required  class="form-control" maxlength="20"/>
+         <dt class="col-sm-4 info-box-label">ชื่อ - นามสกลุ (English): <span class="field-required">*</span></dt>
+         <dd class="col-sm-8 info-box-label">
+          <input name="EmplEName" type="text" data-placement="top" required  class="form-control" maxlength="50"/>
           </dd>
          </dl>
       
@@ -157,7 +139,7 @@
           <dd class="col-sm-4 info-box-label">
           <select class="form-control"  name="EmplType" required>
             <option value="">Select</option>   
-            <option value="D">รานวัน</option>
+            <option value="D">รายวัน</option>
             <option value="M">รายเดือน</option>
           </select>      
           </dd>
@@ -176,6 +158,7 @@
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-4">
+        <!--
         <form action="" method="post" enctype="multipart/form-data" name="personal_image" id="newHotnessForm">
     <p><label for="image">รูปประจำตัวพนักงาน :</label>
      <div id="preview">
@@ -184,6 +167,7 @@
     <input type="file" onchange="readURL(this);" id="imageUpload" class="btn"/></p>
     <p>* ควรอัพโหลดเป็นรูปภาพแนวตั้ง</p>
     </form>
+    -->
         </div>
 <script>
   function readURL(input) {
@@ -307,9 +291,9 @@
                           ?>
                         </select>      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">กองทุนสำรองเลี้ยงชีพ : </dt>
+                        <dt class="col-sm-2 info-box-label"> </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="PF_Flag" type="text" data-placement="top"  class="form-control" />      
+                       
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -320,9 +304,8 @@
                         <dd class="col-sm-3 info-box-label">
                           <input name="Salary" type="number" data-placement="top" required  min="0" class="form-control" value="0"/>      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">รหัสสมาชิก : </dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="PF_MemNo" type="text" data-placement="top"  class="form-control" />      
+                        <dt class="col-sm-2 info-box-label"></dt>
+                        <dd class="col-sm-3 info-box-label"> 
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -333,6 +316,7 @@
                         <dd class="col-sm-3 info-box-label">
                           <input name="EnterDate" type="date" data-placement="top" required  class="form-control"/>      
                         </dd>
+                        <!--
                         <dt class="col-sm-2 info-box-label">วันที่พ้นสถาพ : </dt>
                         <dd class="col-sm-3 info-box-label">
                           <input name="ProbDate" type="date" data-placement="top"   class="form-control" />      
@@ -351,8 +335,37 @@
                           <input name="ProbFlag" type="text" data-placement="top"   class="form-control" />      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
+                        -->
                       </dl>
                     </div>
+                    <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-3 info-box-label">กองทุนสำรองเลี้ยงชีพ : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                        <input name="PF_Flag" type="checkbox" data-placement="top"  class="form-control" id="PF_Flag" onclick="PF_Flag_function()" value="1"/>       
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">รหัสสมาชิกกองทุน : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="PF_MemNo" type="text" data-placement="top"  class="form-control" id="PF_MemNo" disabled="disabled" />      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+
+                    <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-3 info-box-label">วันที่เป็นสมาชิกกองทุน : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                        <input name="PF_EnterDate" type="date" data-placement="top"  class="form-control" id="PF_EnterDate" disabled="disabled" />       
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">อัตราการหักเงินสำรองเลี้ยงชีพพนักงาน (%) : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="PF_E_Rate" type="number" data-placement="top"  class="form-control"   id="PF_E_Rate" disabled="disabled" min="0" max="100" />      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+                    
                     <div class="col-md-12">
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">เงื่อนไขภาษี : <span class="field-required">*</span></dt>
@@ -441,11 +454,11 @@
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">จำนวนบุตรที่กำลังเรียน : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="ChildInEduc" type="text" data-placement="top"   class="form-control"/ >      
+                          <input name="ChildInEduc" type="number" data-placement="top"   class="form-control" min="0" max="20" / >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">จำนวนบุตรที่ไม่ได้เรียนแล้ว : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="ChildNotEduc" type="text" data-placement="top"   class="form-control" / >      
+                          <input name="ChildNotEduc" type="number" data-placement="top"   class="form-control" min="0" max="20"  / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -463,22 +476,51 @@
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">บิดา :</dt>
+                        <dt class="col-sm-3 info-box-label">ชื่อบิดา :</dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Own_Fath_ID" type="text" data-placement="top" required  class="form-control"/ >      
+                          <input name="Own_Fath_ID" type="text" data-placement="top"   class="form-control"/ >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">มารดา : </dt>
+                        <dt class="col-sm-2 info-box-label">คู่สมรสของบิดา : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Own_Moth_ID" type="text" data-placement="top"   class="form-control" / >      
+                          <input name="SP_Fath_ID" type="text" data-placement="top"   class="form-control"/ >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
+
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">คู่สมรสของบิดา : </dt>
+                        <dt class="col-sm-3 info-box-label">สิทธิลดหย่อนบิดา :</dt>
+                        <dd class="col-sm-3">  
+                          <input id="Own_Fath_Red_F" name="Own_Fath_Red_F" type="checkbox" value="1"/>
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชนบิดา : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="SP_Fath_ID" type="text" data-placement="top"   class="form-control"/ >      
+                          <input name="Own_Fath_ID" type="text" data-placement="top"   class="form-control" maxlength="13"/ >      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+
+                        <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-3 info-box-label">สิทธิลดหย่อนบิดาคู่สมรส :</dt>
+                        <dd class="col-sm-3">  
+                          <input id="SP_Fath_Red_F" name="SP_Fath_Red_F" type="checkbox" value="1" onclick="SP_Fath_Red_F_function()"/>
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชนบิดาของคู่สมรส : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input  id="SP_Fath_ID" name="SP_Fath_ID" type="text" data-placement="top"   class="form-control" maxlength="13" disabled="disabled"/ >      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+
+                    <div class="col-md-12">
+                      <dl class="row">
+                      <dt class="col-sm-3 info-box-label">ชื่อมารดา : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="Own_Moth_ID" type="text" data-placement="top"   class="form-control" / >      
                         </dd>
                         <dt class="col-sm-2 info-box-label">คู่สมรสของมารดา : </dt>
                         <dd class="col-sm-3 info-box-label">
@@ -487,6 +529,36 @@
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
+
+        <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-3 info-box-label">สิทธิลดหย่อนมารดา :</dt>
+                        <dd class="col-sm-3">  
+                          <input id="Own_Moth_Red_F" name="Own_Moth_Red_F" type="checkbox" value="1"/>
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชนมารดา : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="Own_Moth_ID" type="text" data-placement="top"   class="form-control" maxlength="13"/ >      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+
+                     <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-3 info-box-label">สิทธิลดหย่อนมารดาคู่สมรส :</dt>
+                        <dd class="col-sm-3">  
+                          <input id="SP_Moth_Red_F" name="SP_Moth_Red_F" type="checkbox" value="1" onclick="SP_Moth_Red_F_function()"/>
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชนมารดาของคู่สมรส : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input id="SP_Moth_ID" name="SP_Moth_ID" type="text" data-placement="top"   class="form-control" maxlength="13" disabled="disabled"/>      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+                    
+                    <!-- div -->
                   </div>
                 </div>
               </div>
@@ -498,26 +570,39 @@
                   <div class="row">
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">วันเกิด : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">วันเกิด : </dt>
                         <dd class="col-sm-3 info-box-label">
-                         <input name="BirthDate" type="date" data-placement="top" required  class="form-control"/ >      
+                         <input name="BirthDate" type="date" data-placement="top"   class="form-control"/ >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชน : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชน :</dt>
                         <dd class="col-sm-3 info-box-label">
-                         <input name="IDno" type="text" data-placement="top" required  class="form-control" maxlength="13"/ >      
+                         <input name="IDno" type="text" data-placement="top"   class="form-control" maxlength="13"/ >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                       <dt class="col-sm-3 info-box-label">สัญชาติ : <span class="field-required">*</span></dt>
+                       <dt class="col-sm-3 info-box-label">สัญชาติ : </dt>
                        <dd class="col-sm-3 info-box-label">
-                         <input name="Nationality" type="text" data-placement="top" required  class="form-control"/ >      
+                         <input name="Nationality" type="text" data-placement="top"   class="form-control"/ >      
                        </dd>
-                       <dt class="col-sm-2 info-box-label">ศาสนา : </dt>
+                       <dt class="col-sm-2 info-box-label">ชาติพันธ์ : </dt>
                        <dd class="col-sm-3 info-box-label">
-                         <input name="Religion" type="text" data-placement="top"   class="form-control" / >      
+                         <input name="Ethnic" type="text" data-placement="top"   class="form-control" / >      
+                       </dd>
+                       <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+                    <div class="col-md-12">
+                      <dl class="row">
+                       <dt class="col-sm-3 info-box-label">ศาสนา : </dt>
+                       <dd class="col-sm-3 info-box-label">
+                       <input name="Religion" type="text" data-placement="top"   class="form-control" / >     
+                       </dd>
+                       <dt class="col-sm-2 info-box-label"></dt>
+                       <dd class="col-sm-3 info-box-label">
+                              
                        </dd>
                        <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -537,40 +622,40 @@
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">เพศ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">เพศ :</dt>
                         <dd class="col-sm-3 info-box-label">
-                        <select class="form-control"  name="Sex" required>
+                        <select class="form-control"  name="Sex" >
             <option value="">Select</option>   
             <option value="M">ชาย</option>
             <option value="F">หญิง</option>
           </select>     
               
                         </dd>
-                        <dt class="col-sm-2 info-box-label">เบอร์โทรศัพท์ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">เบอร์โทรศัพท์ : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="HomePhone" type="text" data-placement="top" required  class="form-control" / >      
+                          <input name="HomePhone" type="text" data-placement="top"   class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">ที่อยู่ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">ที่อยู่ : </dt>
                         <dd class="col-sm-3 info-box-label">
                         <textarea class="form-control" rows="5" name="Address" id="comment"></textarea>      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">รหัสไปรษณีย์ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">รหัสไปรษณีย์ : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="PostalCode" type="text" data-placement="top" required  class="form-control" / >      
+                          <input name="PostalCode" type="text" data-placement="top"   class="form-control"  maxlength="5"/ >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">เลขประจำตัวผู้เสียภาษี : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">เลขประจำตัวผู้เสียภาษี : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="TaxID" type="text" data-placement="top" required  class="form-control" maxlength="13"/ >      
+                          <input name="TaxID" type="text" data-placement="top"   class="form-control" maxlength="13"/ >      
                         </dd>
                         <dt class="col-sm-2 info-box-label"></dt>
                         <dd class="col-sm-3 info-box-label">
@@ -590,26 +675,26 @@
                   <div class="row">
                   <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">Last Company Gross : </dt>
+                        <dt class="col-sm-3 info-box-label">เงินได้สะสมจากบริษัทก่อนหน้า  (Last Company Gross) : </dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="L_C_Gross" type="text" data-placement="top"   class="form-control" / >      
+                        <input name="L_C_Gross" type="number" data-placement="top"   class="form-control"  min="0"/>      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">Last Company Tax : </dt>
+                        <dt class="col-sm-2 info-box-label">เงินภาษีรวมที่หักไว้จากบริษัทก่อนหน้า (Last Company Tax) : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="L_C_Tax" type="text" data-placement="top"   class="form-control" / >      
+                          <input name="L_C_Tax" type="number" data-placement="top"   class="form-control" min="0" />      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">Last Company Social : </dt>
+                        <dt class="col-sm-3 info-box-label">เงินประกันสังคมสะสมที่หักไว้จากบริษัทก่อนหน้า (Last Company Social) : </dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="L_C_SOC" type="text" data-placement="top"   class="form-control" / >     
+                        <input name="L_C_SOC" type="number" data-placement="top"   class="form-control"  min="0" / >     
                         </dd>
                         <dt class="col-sm-2 info-box-label">Company Loan/Month : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="CompLoan" type="text" data-placement="top"   class="form-control" / >      
+                          <input name="CompLoan" type="number" data-placement="top"   class="form-control" min="0" />      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -617,51 +702,57 @@
                     <div class="col-md-12">
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">Overtime Flag : </dt>
-                        <dd class="col-sm-3 info-box-label">
-                        <input name="OT_Cal_F" type="text" data-placement="top"   class="form-control" / >      
+                        <dd class="col-sm-3"> 
+                        <div class="material-switch pull-right">
+               <input id="OT_Cal_F" name="OT_Cal_F" type="checkbox" value="1"/>
+                <label for="OT_Cal_F" class="label-success"></label>
+                   </div>
                         </dd>
                         <dt class="col-sm-2 info-box-label">Attendance Flag : </dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="Attn_Cal_F" type="text" data-placement="top"   class="form-control" / >      
+                        <dd class="col-sm-3">
+                                    <div class="material-switch pull-right">
+                        <input id="Attn_Cal_F" name="Attn_Cal_F" type="checkbox"value="1"/>
+                          <label for="Attn_Cal_F" class="label-success"></label>
+                                </div>   
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">Office Shift : </dt>
+                        <dt class="col-sm-3 info-box-label">เข้ากะในเวลาทำงาน(วัน) : </dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="O_Shft_D_PM" type="text" data-placement="top"   class="form-control" / >      
+                        <input name="O_Shft_D_PM" type="number" data-placement="top"   class="form-control" min="0" / >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">Morning Shift : </dt>
+                        <dt class="col-sm-2 info-box-label">เข้ากะในช่วงเช้า(วัน) : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="M_Shft_D_PM" type="text" data-placement="top"   class="form-control" / >      
-                        </dd>
-                        <dd class="col-sm-1 info-box-label"></dd>
-                      </dl>
-                    </div>
-                    <div class="col-md-12">
-                      <dl class="row">
-                        <dt class="col-sm-3 info-box-label">Evening Shift : </dt>
-                        <dd class="col-sm-3 info-box-label">
-                        <input name="E_Shft_D_PM" type="text" data-placement="top"   class="form-control" / >      
-                        </dd>
-                        <dt class="col-sm-2 info-box-label">Night Shift : </dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="N_Shft_D_PM" type="text" data-placement="top"   class="form-control" / >      
+                          <input name="M_Shft_D_PM" type="number" data-placement="top"   class="form-control" min="0"  / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">Sick Leave : </dt>
+                        <dt class="col-sm-3 info-box-label">เข้ากะในช่วงดึก(วัน) : </dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="SL_Day" type="text" data-placement="top"   class="form-control" / >      
+                        <input name="E_Shft_D_PM" type="number" data-placement="top"   class="form-control"  min="0"/ >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">A/L Remaining : </dt>
+                        <dt class="col-sm-2 info-box-label">เข้ากะในเวลาเช้า(วัน) : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="AL_Rem_Hrs" type="text" data-placement="top"   class="form-control" / >      
+                          <input name="N_Shft_D_PM" type="number" data-placement="top"   class="form-control"  min="0"/ >      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+                    <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-3 info-box-label">สิทธิ์ลาป่วย(วัน) : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                        <input name="SL_Day" type="number" data-placement="top"   class="form-control" min="0" / >      
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">จำนวนชั่วโมงวันลาพักร้อนคงเหลือ : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="AL_Rem_Hrs" type="text" data-placement="top"   class="form-control" disabled="disabled" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>

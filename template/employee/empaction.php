@@ -172,8 +172,10 @@ if(isset($_POST["create"])) {
     '".$_POST["CooperativeAmt02"]."', 
     '".$_POST["CooperativeMemId02"]."', 
     '".$_POST["CooperativeUnit02"]."')";
-
+    echo $strSQL;
+    die();
     $objQuery = mysqli_query($conn, $strSQL);
+   
     if($objQuery)
     {
         $result = '<script>alert("ทำการบันทึกข้อมูลสำเร็จ")</script>';
@@ -199,76 +201,94 @@ if(isset($_POST["edit_id"]))
       $bankcode = $rows["BankCode"];
       $posicode = $rows["PosiCode"];
       $branchcode = $rows["BranchCode"];
+      if ($rows["EmplType"] == "M"){
+        $EmplMSe= "selected";
+    }
+    else
+    {
+        $EmplDSe= "selected";
+    }
 
+    if ($rows["ProcCode"] == 1){
+      $ProcASe= "selected";
+  }
+  else
+  {
+      $ProcMSe = "selected";
+  }
+  if ($rows["TaxCond"] == "C"){
+    $TaxCondCSe= "checked";
+}
+else
+{
+    $TaxCondESe = "checked";
+}
     $output .= '<input type="hidden" name="id" value="'.$_POST["edit_id"].'">
     <div class="modal-body" >
     <br/>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-7">
        <dl class="row">
          <dt class="col-sm-4 info-box-label">รหัสพนักงาน : <span class="field-required">*</span></dt>
-         <dd class="col-sm-8 info-box-label">
-         <input name="EmplCode" type="text" value="'.$rows["EmplCode"].'" data-placement="top" required  class="form-control"  maxlength="20"/>      
+         <dd class="col-sm-4 info-box-label">
+         <input name="EmplCode" type="text" value="'.$rows["EmplCode"].'" data-placement="top" required  class="form-control"  maxlength="10" disabled/>      
          </dd>
        </dl>
-      </div>
-      <div class="col-md-8">
+ 
+
        <dl class="row">
-        <dt class="col-sm-4 info-box-label">ชื่อพนักงาน(ไทย) : <span class="field-required">*</span></dt>
+        <dt class="col-sm-4 info-box-label">ชื่อ - นามสกุล (ไทย): <span class="field-required">*</span></dt>
         <dd class="col-sm-8 info-box-label">
-        <input name="EmplTName" type="text" value="'.$rows["EmplTName"].'" data-placement="top" required  class="form-control" maxlength="20"/>
+        <input name="EmplTName" type="text" value="'.$rows["EmplTName"].'" data-placement="top" required  class="form-control" maxlength="50"/>
         </dd>
        </dl>
-      </div>
-      <div class="col-md-8">
+
+
        <dl class="row">
-        <dt class="col-sm-4 info-box-label">ชื่อพนักงาน(ENG) : <span class="field-required">*</span></dt>
+        <dt class="col-sm-4 info-box-label">ชื่อ - นามสกลุ (English): : <span class="field-required">*</span></dt>
         <dd class="col-sm-8 info-box-label">
-        <input name="EmplEName" type="text" value="'.$rows["EmplEName"].'" data-placement="top"  class="form-control"  maxlength="20"/>      
+        <input name="EmplEName" type="text" value="'.$rows["EmplEName"].'" data-placement="top"  class="form-control"  maxlength="50"/>      
         </dd>
        </dl>
-      </div>
-      <div class="col-md-8">
+
+
        <dl class="row">
-        <dt class="col-sm-4 info-box-label">ประเภทพนักงาน : <span class="field-required">*</span></dt>
-        <dd class="col-sm-8 info-box-label">
+        <dt class="col-sm-4 info-box-label">Employee Type : <span class="field-required">*</span></dt>
+        <dd class="col-sm-4 info-box-label">
         <select class="form-control"  name="EmplType" required>
-          <option value="">Select</option>   
-          <option value="D">Daily Employee</option>
-          <option value="M">Monthly Employee</option>
+          <option value="D" '.$EmplDSe.'>Daily Employee</option>
+          <option value="M" '.$EmplMSe.'>Monthly Employee</option>
         </select>      
         </dd>
        </dl>
-      </div>
-      <div class="col-md-8">
        <dl class="row">
-        <dt class="col-sm-4 info-box-label">ประเภทกะบวนการ : <span class="field-required">*</span></dt>
+        <dt class="col-sm-4 info-box-label">Process Type : <span class="field-required">*</span></dt>
         <dd class="col-sm-4 info-box-label">
         <select class="form-control"  name="ProcCode" required>
-          <option value="">Select</option>   
-          <option value="1">Automatic</option>
-          <option value="2">Manual</option>
+          <option value="1" '.$ProcASe.'>Automatic</option>
+          <option value="2" '.$ProcMSe.'>Manual</option>
         </select>     
         </dd>
        </dl>
       </div>
       <div class="col-md-2"></div>
       <div class="col-md-12">
+      <br>
 <!--Start-->
        <div class="add-pad">
         <div class="title-header-info-box add-pad">
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active " data-toggle="tab" href="#tab1" id="tabspecification" role="tab">employee</a>
+              <a class="nav-link active " data-toggle="tab" href="#tab1" id="tabspecification" role="tab">Employee Information</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab2" id="tabspecification" role="tab">family</a>
+              <a class="nav-link" data-toggle="tab" href="#tab2" id="tabspecification" role="tab">Family</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab3" id="tabspecification" role="tab">personal</a>
+              <a class="nav-link" data-toggle="tab" href="#tab3" id="tabspecification" role="tab">Personal Info</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#tab4" id="tabspecification" role="tab">other</a>
+              <a class="nav-link" data-toggle="tab" href="#tab4" id="tabspecification" role="tab">Other Information</a>
             </li>
           </ul>
         </div>
@@ -281,7 +301,7 @@ if(isset($_POST["edit_id"]))
                 <div class="row">
                 <div class="col-md-12">
                 <dl class="row">
-                  <dt class="col-sm-3 info-box-label">แผนก : <span class="field-required">*</span></dt>
+                  <dt class="col-sm-3 info-box-label">Dapartment : <span class="field-required">*</span></dt>
                   <dd class="col-sm-3 info-box-label">
                    <select class="form-control"  name="DeptCode" required>';
                     
@@ -305,9 +325,9 @@ if(isset($_POST["edit_id"]))
                     
                   $output.='</select>      
                   </dd>
-                  <dt class="col-sm-2 info-box-label">ธนาคาร : <span class="field-required">*</span></dt>
+                  <dt class="col-sm-2 info-box-label">Bank : </dt>
                   <dd class="col-sm-3 info-box-label">
-                  <select class="form-control"  name="BankCode" required>';
+                  <select class="form-control"  name="BankCode" >';
                     
                     $strSQL = "SELECT * FROM tm02_bank";
                    $objQuery = mysqli_query($conn, $strSQL);
@@ -334,7 +354,7 @@ if(isset($_POST["edit_id"]))
               </div>
               <div class="col-md-12">
                 <dl class="row">
-                 <dt class="col-sm-3 info-box-label">ตำแหน่ง : <span class="field-required">*</span></dt>
+                 <dt class="col-sm-3 info-box-label">Position : <span class="field-required">*</span></dt>
                  <dd class="col-sm-3 info-box-label">
                  <select class="form-control"  name="PosiCode" required>';
                     
@@ -357,9 +377,9 @@ if(isset($_POST["edit_id"]))
                     
                     $output.='</select>      
                  </dd>
-                 <dt class="col-sm-2 info-box-label">เลที่บัญชี : <span class="field-required">*</span></dt>
+                 <dt class="col-sm-2 info-box-label">เลขที่บัญชี : </dt>
                  <dd class="col-sm-3 info-box-label">
-                   <input name="BankAccCode" type="text" data-placement="top" required  class="form-control" />      
+                   <input name="BankAccCode" type="text" data-placement="top"   class="form-control" maxlength="20" />      
                  </dd>
                  <dd class="col-sm-1 info-box-label"></dd>
                 </dl>
@@ -389,9 +409,9 @@ if(isset($_POST["edit_id"]))
                     
                     $output.='</select>      
                   </dd>
-                  <dt class="col-sm-2 info-box-label">กองทุนสำรองเลี้ยงชีพ : <span class="field-required">*</span></dt>
+                  <dt class="col-sm-2 info-box-label">กองทุนสำรองเลี้ยงชีพ : </dt>
                   <dd class="col-sm-3 info-box-label">
-                    <input name="PF_Flag" type="text" data-placement="top" required  class="form-control" />      
+                    <input name="PF_Flag" type="text" data-placement="top"   class="form-control" />      
                   </dd>
                   <dd class="col-sm-1 info-box-label"></dd>
                 </dl>
@@ -400,37 +420,48 @@ if(isset($_POST["edit_id"]))
                     <dl class="row">
                       <dt class="col-sm-3 info-box-label">เงินเดือน : <span class="field-required">*</span></dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="Salary" type="text" value="'.$rows["Salary"].'" data-placement="top" required  class="form-control"/>      
+                        <input name="Salary" type="number" value="'.$rows["Salary"].'" data-placement="top" required  class="form-control" min="0"/>      
                       </dd>
-                      <dt class="col-sm-2 info-box-label">รหัสสมาชิก : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-2 info-box-label">รหัสสมาชิก : </dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="PF_MemNo" type="text" value="'.$rows["PF_MemNo"].'" data-placement="top" required  class="form-control" />      
+                        <input name="PF_MemNo" type="text" value="'.$rows["PF_MemNo"].'" data-placement="top"   class="form-control" />      
                       </dd>
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
                   </div>
                   <div class="col-md-12">
                     <dl class="row">
-                      <dt class="col-sm-3 info-box-label">วันที่เข้างาน : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-3 info-box-label">วันที่เริ่มงาน : <span class="field-required">*</span></dt>
                       <dd class="col-sm-3 info-box-label">
                         <input name="EnterDate" type="date" value="'.$rows["EnterDate"].'" data-placement="top" required  class="form-control"/>      
                       </dd>
-                      <dt class="col-sm-2 info-box-label">วันที่พ้นสถาพ : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-3 info-box-label"> </dt>
+                      <dd class="col-sm-3 info-box-label"></dd>
+                      </dl>
+                 </div>
+                      <div class="col-md-12">
+                      <dl class="row">
+                      <dt class="col-sm-3 info-box-label">พ้นสถาพ :</dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="ProbDate" type="date" value="'.$rows["ProbDate"].'" data-placement="top" required  class="form-control" />      
+                      <input name="ProbFlag" type="checkbox" value="'.$rows["ProbFlag"].'" data-placement="top"   class="form-control" />     
                       </dd>
+                      <dt class="col-sm-2 info-box-label">วันที่พ้นสถาพ :</dt>
+                      <dd class="col-sm-3 info-box-label">
+                      <input name="ProbDate" type="date" value="'.$rows["ProbDate"].'" data-placement="top"   class="form-control" disabled />     
+                      </dd>
+
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
                   </div>
                   <div class="col-md-12">
                     <dl class="row">
-                      <dt class="col-sm-3 info-box-label">วันที่ลาออก : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-3 info-box-label">วันที่ลาออก :</dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="ResignDate" type="date" value="'.$rows["ResignDate"].'" data-placement="top" required  class="form-control"/>      
+                        <input name="ResignDate" type="date" value="'.$rows["ResignDate"].'" data-placement="top"   class="form-control" disabled/>      
                       </dd>
-                      <dt class="col-sm-2 info-box-label">พ้นสถาพ : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-2 info-box-label"> </dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="ProbFlag" type="text" value="'.$rows["ProbFlag"].'" data-placement="top" required  class="form-control" />      
+                            
                       </dd>
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
@@ -439,7 +470,8 @@ if(isset($_POST["edit_id"]))
                     <dl class="row">
                       <dt class="col-sm-3 info-box-label">เงื่อนไขภาษี : <span class="field-required">*</span></dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="TaxCond" type="text" value="'.$rows["TaxCond"].'" data-placement="top" required  class="form-control"/>      
+                        <input   type="radio" name="TaxCond" value="C" required '.$TaxCondCSe.'> Company 
+                        <input type="radio" name="TaxCond" value="E" required '.$TaxCondESe.'> Employee
                       </dd>
                       <dt class="col-sm-2 info-box-label"></dt>
                       <dd class="col-sm-3 info-box-label"></dd>

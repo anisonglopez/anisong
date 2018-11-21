@@ -57,3 +57,50 @@
 }
  </script>
   <!-- Script Delete-->
+
+  <script>
+  function PF_Flag_function() {
+    var provident_fund_checkbox = document.getElementById("PF_Flag");
+    var PF_MemNo = document.getElementById("PF_MemNo");
+    var PF_EnterDate = document.getElementById("PF_EnterDate");
+    var PF_E_Rate = document.getElementById("PF_E_Rate");
+    if (provident_fund_checkbox.checked == true){
+        PF_MemNo.disabled = "";
+        PF_EnterDate.disabled = "";
+        PF_E_Rate.disabled = "";
+
+    } else {
+        PF_MemNo.disabled = "disabled";
+        PF_EnterDate.disabled = "disabled";
+        PF_E_Rate.disabled = "disabled";
+        // PF_MemNo.value = "";
+        // PF_EnterDate.value = "";
+        // PF_E_Rate.value = "";
+    }
+}
+function SP_Moth_Red_F_function() {
+    var SP_Moth_Red_F = document.getElementById("SP_Moth_Red_F");
+    var SP_Moth_ID = document.getElementById("SP_Moth_ID");
+    if (SP_Moth_Red_F.checked == true){
+        SP_Moth_ID.disabled = "";
+    } else {
+        SP_Moth_ID.disabled = "disabled";
+        // PF_MemNo.value = "";
+        // PF_EnterDate.value = "";
+        // PF_E_Rate.value = "";
+    }
+}
+function SP_Fath_Red_F_function() {
+    var SP_Fath_Red_F = document.getElementById("SP_Fath_Red_F");
+    var SP_Fath_ID = document.getElementById("SP_Fath_ID");
+    if (SP_Fath_Red_F.checked == true){
+        SP_Fath_ID.disabled = "";
+    } else {
+        SP_Fath_ID.disabled = "disabled";
+        // PF_MemNo.value = "";
+        // PF_EnterDate.value = "";
+        // PF_E_Rate.value = "";
+    }
+}
+
+  </script>

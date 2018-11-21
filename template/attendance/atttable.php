@@ -22,9 +22,9 @@
 <table class="table table-hover">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">รหัสการลา</th>
-      <th scope="col">คำอธิบาย(ENG)</th>
-      <th scope="col">คำอธิบาย(ไทย)</th>
+      <th scope="col">Leave Type No</th>
+      <th scope="col">Description (EN)</th>
+      <th scope="col">Description (TH)</th>
       <th scope="col">อัตราหัก</th>
       <th scope="col">Deduct Flag</th>
       <th scope="col" style="text-align: center;">Action</th>
@@ -124,7 +124,7 @@ if($_GET["search"] != ""){
       <div class="row">
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">รหัสการลา : <span class="field-required">*</span></dt>
+            <dt class="col-sm-4 info-box-label">Leave Type No : <span class="field-required">*</span></dt>
             <dd class="col-sm-5 info-box-label">
             <input name="AttnCode" type="text" data-placement="top" required  class="form-control" maxlength="5"/>      
             </dd>
@@ -132,7 +132,7 @@ if($_GET["search"] != ""){
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">คำอธิบาย(ENG) : <span class="field-required">*</span></dt>
+            <dt class="col-sm-4 info-box-label">Description (EN) : <span class="field-required">*</span></dt>
             <dd class="col-sm-8 info-box-label">
             <input name="AttnEDesc" type="text" data-placement="top" required  class="form-control" maxlength="50"  />
             </dd>
@@ -140,7 +140,7 @@ if($_GET["search"] != ""){
         </div>
         <div class="col-md-12">
           <dl class="row">
-            <dt class="col-sm-4 info-box-label">คำอธิบาย(TH) : <span class="field-required">*</span></dt>
+            <dt class="col-sm-4 info-box-label">Description (TH) : <span class="field-required">*</span></dt>
             <dd class="col-sm-8 info-box-label">
             <input name="AttnTDesc" type="text" data-placement="top"  required  class="form-control"  maxlength="50"/>      
             </dd>
