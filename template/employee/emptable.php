@@ -472,19 +472,7 @@
                         
                       </dl>
                     </div>
-                    <div class="col-md-12">
-                      <dl class="row">
-                        <dt class="col-sm-3 info-box-label">ชื่อบิดา :</dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="Own_Fath_ID" type="text" data-placement="top"   class="form-control"/ >      
-                        </dd>
-                        <dt class="col-sm-2 info-box-label">คู่สมรสของบิดา : </dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="SP_Fath_ID" type="text" data-placement="top"   class="form-control"/ >      
-                        </dd>
-                        <dd class="col-sm-1 info-box-label"></dd>
-                      </dl>
-                    </div>
+
 
                     <div class="col-md-12">
                       <dl class="row">
@@ -504,25 +492,11 @@
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">สิทธิลดหย่อนบิดาคู่สมรส :</dt>
                         <dd class="col-sm-3">  
-                          <input id="SP_Fath_Red_F" name="SP_Fath_Red_F" type="checkbox" value="1" onclick="SP_Fath_Red_F_function()"/>
+                          <input id="SP_Fath_Red_F_create" name="SP_Fath_Red_F" type="checkbox" value="1" onclick="SP_Fath_Red_F_create_function()"/>
                         </dd>
                         <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชนบิดาของคู่สมรส : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input  id="SP_Fath_ID" name="SP_Fath_ID" type="text" data-placement="top"   class="form-control" maxlength="13" disabled="disabled"/ >      
-                        </dd>
-                        <dd class="col-sm-1 info-box-label"></dd>
-                      </dl>
-                    </div>
-
-                    <div class="col-md-12">
-                      <dl class="row">
-                      <dt class="col-sm-3 info-box-label">ชื่อมารดา : </dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="Own_Moth_ID" type="text" data-placement="top"   class="form-control" / >      
-                        </dd>
-                        <dt class="col-sm-2 info-box-label">คู่สมรสของมารดา : </dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="SP_Moth_ID" type="text" data-placement="top"   class="form-control" / >      
+                          <input  id="SP_Fath_ID_create" name="SP_Fath_ID" type="text" data-placement="top"   class="form-control" maxlength="13" disabled="disabled"/ >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -546,11 +520,11 @@
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">สิทธิลดหย่อนมารดาคู่สมรส :</dt>
                         <dd class="col-sm-3">  
-                          <input id="SP_Moth_Red_F" name="SP_Moth_Red_F" type="checkbox" value="1" onclick="SP_Moth_Red_F_function()"/>
+                          <input id="SP_Moth_Red_F_create" name="SP_Moth_Red_F" type="checkbox" value="1" onclick="SP_Moth_Red_F_create_function()"/>
                         </dd>
                         <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชนมารดาของคู่สมรส : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input id="SP_Moth_ID" name="SP_Moth_ID" type="text" data-placement="top"   class="form-control" maxlength="13" disabled="disabled"/>      
+                          <input id="SP_Moth_ID_create" name="SP_Moth_ID" type="text" data-placement="top"   class="form-control" maxlength="13" disabled="disabled"/>      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>

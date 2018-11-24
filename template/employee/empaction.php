@@ -698,47 +698,75 @@ else
                         
                       </dl>
                     </div>
+                  ';
+                  $checked = ($rows['Own_Fath_Red_F'] == '1') ? "checked" : "";
+                  $output .='
                     <div class="col-md-12">
-                      <dl class="row">
-                        <dt class="col-sm-3 info-box-label">ชื่อบิดา : </dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="Own_Fath_ID" type="text" value="'.$rows["Own_Fath_ID"].'" data-placement="top"   class="form-control"/ >      
-                        </dd>
-                        <dt class="col-sm-2 info-box-label">คู่สมรสของบิดา : </dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="SP_Fath_ID" type="text" value="'.$rows["SP_Fath_ID"].'" data-placement="top"   class="form-control"/ >      
-                        </dd>
+                    <dl class="row">
+                      <dt class="col-sm-3 info-box-label">สิทธิลดหย่อนบิดา :</dt>
+                      <dd class="col-sm-3">  
+                        <input id="Own_Fath_Red_F" name="Own_Fath_Red_F" type="checkbox" value="1" '.$checked .'/>
+                      </dd>
+                      <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชนบิดา : </dt>
+                      <dd class="col-sm-3 info-box-label">
+                        <input name="Own_Fath_ID" type="text" data-placement="top"   class="form-control" maxlength="13" value="'.$rows["Own_Fath_ID"].'"/ >      
+                      </dd>
+                      <dd class="col-sm-1 info-box-label"></dd>
+                    </dl>
+                  </div>
+                      ';
+                      $checked = ($rows['SP_Fath_Red_F'] == '1') ? "checked" : "";
+                      $disabled = ($rows['SP_Fath_Red_F'] == '1') ? "" : "disabled";
+                    $output .= '
+                      <div class="col-md-12">
+                    <dl class="row">
+                      <dt class="col-sm-3 info-box-label">สิทธิลดหย่อนบิดาคู่สมรส :</dt>
+                      <dd class="col-sm-3">  
+                        <input id="SP_Fath_Red_F" name="SP_Fath_Red_F" type="checkbox" value="1" '.$checked.' onclick="SP_Fath_Red_F_function()"/>
+                      </dd>
+                      <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชนบิดาของคู่สมรส : </dt>
+                      <dd class="col-sm-3 info-box-label">
+                        <input  id="SP_Fath_ID" name="SP_Fath_ID" type="text" data-placement="top"   class="form-control" maxlength="13" '.$disabled.' value="'.$rows["SP_Fath_ID"].'"/ >      
+                      </dd>
+                      <dd class="col-sm-1 info-box-label"></dd>
+                    </dl>
+                  </div>
+                    ';
 
-                        <div class="col-md-12">
-                        <dl class="row">
-                          <dt class="col-sm-3 info-box-label">สิทธิลดหย่อนบิดา :</dt>
-                          <dd class="col-sm-3">  
-                            <input id="Own_Fath_Red_F" name="Own_Fath_Red_F" value="'.$rows["Own_Fath_Red_F"].'" type="checkbox" value="1"/>
-                          </dd>
-                          <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชนบิดา : </dt>
-                          <dd class="col-sm-3 info-box-label">
-                            <input name="Own_Fath_ID" type="text"  value="'.$rows["Own_Fath_ID"].'" data-placement="top"   class="form-control" maxlength="13"/ >      
-                          </dd>
-                          <dd class="col-sm-1 info-box-label"></dd>
-                        </dl>
-                      </div>
+                    $checked = ($rows['Own_Moth_Red_F'] == '1') ? "checked" : "";
+                    $output.='
+      <div class="col-md-12">
+                    <dl class="row">
+                      <dt class="col-sm-3 info-box-label">สิทธิลดหย่อนมารดา :</dt>
+                      <dd class="col-sm-3">  
+                        <input id="Own_Moth_Red_F" name="Own_Moth_Red_F" type="checkbox" value="1" '.$checked .'/>
+                      </dd>
+                      <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชนมารดา : </dt>
+                      <dd class="col-sm-3 info-box-label">
+                        <input name="Own_Moth_ID" type="text" data-placement="top" value="'.$rows["Own_Moth_ID"].'"  class="form-control" maxlength="13"/ >      
+                      </dd>
+                      <dd class="col-sm-1 info-box-label"></dd>
+                    </dl>
+                  </div>
+                      ';
+                      $checked = ($rows['SP_Fath_Red_F'] == '1') ? "checked" : "";
+                      $disabled = ($rows['SP_Fath_Red_F'] == '1') ? "" : "disabled";
+                      $output.='
+                   <div class="col-md-12">
+                    <dl class="row">
+                      <dt class="col-sm-3 info-box-label">สิทธิลดหย่อนมารดาคู่สมรส :</dt>
+                      <dd class="col-sm-3">  
+                        <input id="SP_Moth_Red_F" name="SP_Moth_Red_F" type="checkbox" '.$checked .' value="1" onclick="SP_Moth_Red_F_function()"/>
+                      </dd>
+                      <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชนมารดาของคู่สมรส : </dt>
+                      <dd class="col-sm-3 info-box-label">
+                        <input id="SP_Moth_ID" name="SP_Moth_ID" type="text" data-placement="top" value="'.$rows["SP_Moth_ID"].'"  class="form-control" maxlength="13" '.$disabled.'/>      
+                      </dd>
+                      <dd class="col-sm-1 info-box-label"></dd>
+                    </dl>
+                  </div>
 
-                        <dd class="col-sm-1 info-box-label"></dd>
-                      </dl>
-                    </div>
-                    <div class="col-md-12">
-                      <dl class="row">
-                        <dt class="col-sm-3 info-box-label">บิดาคู่สมรถ : </dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="SP_Fath_ID" type="text" value="'.$rows["SP_Fath_ID"].'" data-placement="top"   class="form-control"/ >      
-                        </dd>
-                        <dt class="col-sm-2 info-box-label">มารดาคู่สมรถ : </dt>
-                        <dd class="col-sm-3 info-box-label">
-                          <input name="SP_Moth_ID" type="text" value="'.$rows["SP_Moth_ID"].'" data-placement="top"   class="form-control" / >      
-                        </dd>
-                        <dd class="col-sm-1 info-box-label"></dd>
-                      </dl>
-                    </div>
+
                 </div>
               </div>
             </div>

@@ -97,6 +97,18 @@ function PF_Flag_edit_function() {
         // PF_E_Rate.value = "";
     }
 }
+function SP_Moth_Red_F_create_function() {
+    var SP_Moth_Red_F = document.getElementById("SP_Moth_Red_F_create");
+    var SP_Moth_ID = document.getElementById("SP_Moth_ID_create");
+    if (SP_Moth_Red_F.checked == true){
+        SP_Moth_ID.disabled = "";
+    } else {
+        SP_Moth_ID.disabled = "disabled";
+        // PF_MemNo.value = "";
+        // PF_EnterDate.value = "";
+        // PF_E_Rate.value = "";
+    }
+}
 function SP_Moth_Red_F_function() {
     var SP_Moth_Red_F = document.getElementById("SP_Moth_Red_F");
     var SP_Moth_ID = document.getElementById("SP_Moth_ID");
@@ -104,6 +116,18 @@ function SP_Moth_Red_F_function() {
         SP_Moth_ID.disabled = "";
     } else {
         SP_Moth_ID.disabled = "disabled";
+        // PF_MemNo.value = "";
+        // PF_EnterDate.value = "";
+        // PF_E_Rate.value = "";
+    }
+}
+function SP_Fath_Red_F_create_function() {
+    var SP_Fath_Red_F = document.getElementById("SP_Fath_Red_F_create");
+    var SP_Fath_ID = document.getElementById("SP_Fath_ID_create");
+    if (SP_Fath_Red_F.checked == true){
+        SP_Fath_ID.disabled = "";
+    } else {
+        SP_Fath_ID.disabled = "disabled";
         // PF_MemNo.value = "";
         // PF_EnterDate.value = "";
         // PF_E_Rate.value = "";
