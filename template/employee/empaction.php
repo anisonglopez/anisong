@@ -244,6 +244,7 @@ if(isset($_POST["edit_id"]))
       $posicode = $rows["PosiCode"];
       $branchcode = $rows["BranchCode"];
       $Marital = $rows["Marital"];
+      $Sex = $rows["Sex"];
       if ($rows["EmplType"] == "M"){
         $EmplMSe= "selected";
     }
@@ -776,84 +777,106 @@ else
           <div class="tab-pane" id="tab3">
               <div class="header-info-content-box content-box-padding">
                 <div class="row">
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">วันเกิด : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                       <input name="BirthDate" type="date" value="'.$rows["BirthDate"].'" data-placement="top"   class="form-control"/ >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชน : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                       <input name="IDno" type="text" value="'.$rows["IDno"].'" data-placement="top"   class="form-control"/ >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                     <dt class="col-sm-3 info-box-label">สัญชาติ : </dt>
-                     <dd class="col-sm-3 info-box-label">
-                       <input name="Nationality" type="text" value="'.$rows["Nationality"].'" data-placement="top"   class="form-control"/ >      
-                     </dd>
-                     <dt class="col-sm-2 info-box-label">ศาสนา : </dt>
-                     <dd class="col-sm-3 info-box-label">
-                       <input name="Religion" type="text" value="'.$rows["Religion"].'" data-placement="top"   class="form-control" / >      
-                     </dd>
-                     <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">น้ำหนัก : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="Weight" type="text" value="'.$rows["Weight"].'" data-placement="top"   class="form-control"/ >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">ส่วนสูง : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="Height" type="text" value="'.$rows["Height"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">เพศ : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="Sex" type="text" value="'.$rows["Sex"].'" data-placement="top"   class="form-control"/ >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">เบอร์โทรศัพท์ :</dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="HomePhone" type="text" value="'.$rows["HomePhone"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">ที่อยู่ : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                      <textarea class="form-control" rows="5" value="'.$rows["Address"].'" name="Address" id="comment"></textarea>      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">รหัสไปรษณีย์ : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="PostalCode" type="text" value="'.$rows["PostalCode"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">เลขประจำตัวผู้เสียภาษี : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="TaxID" type="text" value="'.$rows["TaxID"].'" data-placement="top"   class="form-control"/ >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label"></dt>
-                      <dd class="col-sm-3 info-box-label">
+
+                <div class="col-md-12">
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">วันเกิด : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                   <input name="BirthDate" value="'.$rows["BirthDate"].'" type="date" data-placement="top"   class="form-control" / >      
+                  </dd>
+                  <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชน :</dt>
+                  <dd class="col-sm-3 info-box-label">
+                   <input name="IDno" type="text" value="'.$rows["IDno"].'" data-placement="top"   class="form-control" maxlength="13"/ >      
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
+              <div class="col-md-12">
+                <dl class="row">
+                 <dt class="col-sm-3 info-box-label">สัญชาติ : </dt>
+                 <dd class="col-sm-3 info-box-label">
+                   <input name="Nationality" type="text" value="'.$rows["Nationality"].'"  data-placement="top"   class="form-control"/ >      
+                 </dd>
+                 <dt class="col-sm-2 info-box-label">ชาติพันธ์ : </dt>
+                 <dd class="col-sm-3 info-box-label">
+                   <input name="Ethnic" type="text" value="'.$rows["Ethnic"].'" data-placement="top"   class="form-control" / >      
+                 </dd>
+                 <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
+              <div class="col-md-12">
+                <dl class="row">
+                 <dt class="col-sm-3 info-box-label">ศาสนา : </dt>
+                 <dd class="col-sm-3 info-box-label">
+                 <input name="Religion" type="text" value="'.$rows["Religion"].'" data-placement="top"   class="form-control" / >     
+                 </dd>
+                 <dt class="col-sm-2 info-box-label"></dt>
+                 <dd class="col-sm-3 info-box-label">
+                        
+                 </dd>
+                 <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
+              <div class="col-md-12">
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">น้ำหนัก : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                    <input name="Weight" type="number"  value="'.$rows["Weight"].'" data-placement="top" min="0"   class="form-control"/ >      
+                  </dd>
+                  <dt class="col-sm-2 info-box-label">ส่วนสูง : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                    <input name="Height" type="number"  value="'.$rows["Height"].'" data-placement="top"  min="0"   class="form-control" / >      
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>';
+              $SexM = $Sex == "M" ? "selected" :  "" ;
+              $SexF = $Sex == "F" ? "selected" :  "" ;
+              $output.='
+              <div class="col-md-12">
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">เพศ :</dt>
+                  <dd class="col-sm-3 info-box-label">
+                  <select class="form-control"  name="Sex" >
+      <option   value="">Select</option>   
+      <option  '.$SexM.' value="M">ชาย</option>
+      <option  '.$SexF.' value="F">หญิง</option>
+    </select>     
         
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
+                  </dd>
+                  <dt class="col-sm-2 info-box-label">เบอร์โทรศัพท์ : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                    <input name="HomePhone" type="text" value="'.$rows["HomePhone"].'"  data-placement="top"   class="form-control" / >      
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
+              <div class="col-md-12">
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">ที่อยู่ : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                  <textarea class="form-control" rows="5"   name="Address" id="comment">'.$rows["Address"].'</textarea>      
+                  </dd>
+                  <dt class="col-sm-2 info-box-label">รหัสไปรษณีย์ : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                    <input name="PostalCode" type="text" value="'.$rows["PostalCode"].'"  data-placement="top"   class="form-control"  maxlength="5"/ >      
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
+              <div class="col-md-12">
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">เลขประจำตัวผู้เสียภาษี : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                    <input name="TaxID" type="text" value="'.$rows["TaxID"].'" data-placement="top"   class="form-control" maxlength="13"/ >      
+                  </dd>
+                  <dt class="col-sm-2 info-box-label"></dt>
+                  <dd class="col-sm-3 info-box-label">
+    
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
                 </div>
               </div>
             </div>
@@ -864,83 +887,93 @@ else
               <div class="header-info-content-box content-box-padding">
                 <div class="row">
                 <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">Last Company Gross :</dt>
-                      <dd class="col-sm-3 info-box-label">
-                      <input name="L_C_Gross" type="text" value="'.$rows["L_C_Gross"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">Last Company Tax : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="L_C_Tax" type="text" value="'.$rows["L_C_Tax"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">Last Company Social : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                      <input name="L_C_SOC" type="text" value="'.$rows["L_C_SOC"].'" data-placement="top"   class="form-control" / >     
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">Company Loan/Month : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="CompLoan" type="text" value="'.$rows["CompLoan"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">Overtime Flag : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                      <input name="OT_Cal_F" type="text" value="'.$rows["OT_Cal_F"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">Attendance Flag : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="Attn_Cal_F" type="text" value="'.$rows["Attn_Cal_F"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">Office Shift : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                      <input name="O_Shft_D_PM" type="text" value="'.$rows["O_Shft_D_PM"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">Morning Shift : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="M_Shft_D_PM" type="text" value="'.$rows["M_Shft_D_PM"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">Evening Shift : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                      <input name="E_Shft_D_PM" type="text" value="'.$rows["E_Shft_D_PM"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">Night Shift : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="N_Shft_D_PM" type="text" value="'.$rows["N_Shft_D_PM"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">Sick Leave : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                      <input name="SL_Day" type="text" value="'.$rows["SL_Day"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">A/L Remaining : </dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="AL_Rem_Hrs" type="text" value="'.$rows["AL_Rem_Hrs"].'" data-placement="top"   class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">เงินได้สะสมจากบริษัทก่อนหน้า  (Last Company Gross) : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                  <input name="L_C_Gross" value="'.$rows["L_C_Gross"].'" type="number" data-placement="top"   class="form-control"  min="0"/>      
+                  </dd>
+                  <dt class="col-sm-2 info-box-label">เงินภาษีรวมที่หักไว้จากบริษัทก่อนหน้า (Last Company Tax) : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                    <input name="L_C_Tax" value="'.$rows["L_C_Tax"].'" type="number" data-placement="top"   class="form-control" min="0" />      
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
+              <div class="col-md-12">
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">เงินประกันสังคมสะสมที่หักไว้จากบริษัทก่อนหน้า (Last Company Social) : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                  <input name="L_C_SOC"  value="'.$rows["L_C_SOC"].'"  type="number" data-placement="top"   class="form-control"  min="0" / >     
+                  </dd>
+                  <dt class="col-sm-2 info-box-label">Company Loan/Month : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                    <input name="CompLoan" value="'.$rows["CompLoan"].'" type="number" data-placement="top"   class="form-control" min="0" />      
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>';
+              $checked = ($rows['OT_Cal_F'] == '1') ? "checked" : "";
+              $output.='
+              <div class="col-md-12">
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">Overtime Flag : </dt>
+                  <dd class="col-sm-3"> 
+                  <div class="material-switch pull-right">
+         <input id="OT_Cal_F" name="OT_Cal_F" type="checkbox" '.$checked.' value="1"/>
+          <label for="OT_Cal_F" class="label-success"></label>
+             </div>
+                  </dd>';
+                  $checked = ($rows['Attn_Cal_F'] == '1') ? "checked" : "";
+                  $output.='
+                  <dt class="col-sm-2 info-box-label">Attendance Flag : </dt>
+                  <dd class="col-sm-3">
+                              <div class="material-switch pull-right">
+                  <input id="Attn_Cal_F" name="Attn_Cal_F" type="checkbox" '.$checked .' value="1"/>
+                    <label for="Attn_Cal_F" class="label-success"></label>
+                          </div>   
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
+              <div class="col-md-12">
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">เข้ากะในเวลาทำงาน(วัน) : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                  <input name="O_Shft_D_PM" value="'.$rows["O_Shft_D_PM"].'"  type="number" data-placement="top"   class="form-control" min="0" / >      
+                  </dd>
+                  <dt class="col-sm-2 info-box-label">เข้ากะในช่วงเช้า(วัน) : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                    <input name="M_Shft_D_PM" value="'.$rows["M_Shft_D_PM"].'"  type="number" data-placement="top"   class="form-control" min="0"  / >      
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
+              <div class="col-md-12">
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">เข้ากะในช่วงดึก(วัน) : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                  <input name="E_Shft_D_PM" value="'.$rows["E_Shft_D_PM"].'"  type="number" data-placement="top"   class="form-control"  min="0"/ >      
+                  </dd>
+                  <dt class="col-sm-2 info-box-label">เข้ากะในเวลาเช้า(วัน) : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                    <input name="N_Shft_D_PM" value="'.$rows["N_Shft_D_PM"].'"  type="number" data-placement="top"   class="form-control"  min="0"/ >      
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
+              <div class="col-md-12">
+                <dl class="row">
+                  <dt class="col-sm-3 info-box-label">สิทธิ์ลาป่วย(วัน) : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                  <input name="SL_Day" type="number" value="'.$rows["SL_Day"].'" data-placement="top"   class="form-control" min="0" / >      
+                  </dd>
+                  <dt class="col-sm-2 info-box-label">จำนวนชั่วโมงวันลาพักร้อนคงเหลือ : </dt>
+                  <dd class="col-sm-3 info-box-label">
+                    <input name="AL_Rem_Hrs" type="number" value="'.$rows["AL_Rem_Hrs"].'" data-placement="top"   class="form-control" / >      
+                  </dd>
+                  <dd class="col-sm-1 info-box-label"></dd>
+                </dl>
+              </div>
                 </div>
               </div>
             </div>
@@ -1070,7 +1103,7 @@ if(isset($_POST["delete"])) {
     $objQuery = mysqli_query($conn, $strSQL);
     if($objQuery)
   {
-      echo '<script>window.location.href="otherinc.php"</script>';
+      echo '<script>window.location.href="employee.php"</script>';
      // $result = '<script> alert("ทำการลบข้อมูลสำเร็จ");</script>';
     //$msgbox = '<span class="success fixed animated fadeIn">ลบข้อมูล สำเร็จ </span>';
   }

@@ -7,10 +7,10 @@
     <button class="btn btn-success" data-toggle="modal" data-target="#modal_create">Create New</button>
     </div>
     <div class="col-sm" style="text-align: right;">
-    <form name="search" method="post"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
-        <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20" value="" /> 
+    <form name="search" method="get"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
+        <input type="text" name="search" id="search" class="" placeholder="ค้นหา" size="20"  value="<?php echo $_GET["search"];?>" />
+        <input type="hidden" name="page" id="page" class="" placeholder="ค้นหา" size="20" value="1"  />  
         <input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
-        <input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>
     </form>
 </div>
 </div>
@@ -28,7 +28,32 @@
       <th scope="col">Action</th>
     </tr>
   </thead>
-  <?php while ($rows = mysqli_fetch_array($DATA)) {
+  <?php 
+    if($_GET["search"] != ""){
+      //$sql = "SELECT * FROM tm02_department WHERE DeptCode like '%".$_GET['search']."%' OR DeptEDesc like '%".$_GET['search']."%' OR DeptTDesc like '%".$_GET['search']."%'  ORDER BY DeptCode ASC  LIMIT {$start} ,$perpage";
+$sql = "SELECT tm03_employee.EmplCode, tm03_employee.EmplType, tm03_employee.EmplTName, tm02_department.DeptTDesc, tm02_position.PosiTDesc, tm03_employee.Sex  ";
+$sql .= "FROM tm03_employee ";
+$sql .= "INNER JOIN tm02_department ON tm03_employee.DeptCode=tm02_department.DeptCode ";
+ $sql .= "INNER JOIN tm02_position ON tm03_employee.PosiCode=tm02_position.PosiCode ";
+ $sql .= "WHERE tm03_employee.Emplcode  like '%".$_GET['search']."%' OR tm03_employee.EmplTName like '%".$_GET['search']."%' OR tm02_department.DeptTDesc like '%".$_GET['search']."%' OR tm02_position.PosiTDesc like '%".$_GET['search']."%'  ";
+$sql .= "ORDER BY EmplCode ASC LIMIT {$start} , {$perpage}";
+      $DATA = mysqli_query($conn, $sql);
+      //page
+      //$sql2 = "SELECT * FROM tm02_department WHERE DeptCode like '%".$_GET['search']."%' OR DeptEDesc like '%".$_GET['search']."%' OR DeptTDesc like '%".$_GET['search']."%'  ";
+$sql2 = "SELECT tm03_employee.EmplCode, tm03_employee.EmplType, tm03_employee.EmplTName, tm02_department.DeptTDesc, tm02_position.PosiTDesc, tm03_employee.Sex  ";
+$sql2 .= "FROM tm03_employee ";
+$sql2 .= "INNER JOIN tm02_department ON tm03_employee.DeptCode=tm02_department.DeptCode ";
+$sql2 .= "INNER JOIN tm02_position ON tm03_employee.PosiCode=tm02_position.PosiCode ";
+$sql2 .= "WHERE tm03_employee.Emplcode  like '%".$_GET['search']."%' OR tm03_employee.EmplTName like '%".$_GET['search']."%' OR tm02_department.DeptTDesc like '%".$_GET['search']."%' OR tm02_position.PosiTDesc like '%".$_GET['search']."%'  ";
+$sql2 .= "ORDER BY EmplCode ASC ";
+      $query2 = mysqli_query($conn, $sql2);
+      $total_record2 = mysqli_num_rows($query2 );
+      $total_page = ceil($total_record2 / $perpage);
+      //page
+      }
+  
+    if(mysqli_num_rows($DATA) > 0)
+  while ($rows = mysqli_fetch_array($DATA)) {
     $EmplCode = $rows['EmplCode'];
     $EmplType = $rows['EmplType'];
     $EmplTName = $rows['EmplTName'];
@@ -64,21 +89,32 @@
   </td>
     </tr>
   </tbody>
-  <?php } ?>
+  <?php } 
+  else
+    echo "  <tbody>
+    <tr><td>ไม่พบข้อมูล ... <br/></td> 
+    </tr>
+    </tbody>";
+  ?>
   </table>
  <!--   Page List   -->
- <nav>
+<nav>
  <ul class="pagination">
  <li>
- <a href="systemcontrol.php?page=1" aria-label="Previous">
+ <a href='employee.php?page=1&search=<?php echo $_GET["search"] ?>' aria-label="Previous">
  <span aria-hidden="true">&laquo;</span> 
  </a>
  </li>
- <?php for($i=1;$i<=$total_page;$i++){?>
- <li><a class="btn btn-light" href="systemcontrol.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
- <?php } ?>
+ <?php for($i=1;$i<=$total_page;$i++){
+   	if($_GET['page']==$i){ //ถ้าตัวแปล page ตรง กับ เลขที่วนได้
+   echo '<li><a class="btn btn-light" href="employee.php?page='.$i. "&search=" .$_GET["search"].' "><b style=" color: blue;">' .$i.'</b></a></li>';
+}else{
+      echo '<li><a class="btn btn-light" href="employee.php?page='.$i ."&search=" .$_GET["search"].' "><b>'. $i.'</b></a></li>';; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+}
+ }
+   ?>
  <li>
- <a href="systemcontrol.php?page=<?php echo  $total_page;?>" aria-label="Next">
+ <a href='employee.php?page=<?php echo  $total_page;?>&search=<?php echo $_GET["search"] ?>' aria-label="Next">
  <span aria-hidden="true">&raquo;</span>
  </a>
  </li>
