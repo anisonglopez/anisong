@@ -59,7 +59,26 @@
   <!-- Script Delete-->
 
   <script>
-  function PF_Flag_function() {
+  function PF_Flag_create_function() {
+    var provident_fund_checkbox = document.getElementById("PF_Flag_create");
+    var PF_MemNo = document.getElementById("PF_MemNo_create");
+    var PF_EnterDate = document.getElementById("PF_EnterDate_create");
+    var PF_E_Rate = document.getElementById("PF_E_Rate_create");
+    if (provident_fund_checkbox.checked == true){
+        PF_MemNo.disabled = "";
+        PF_EnterDate.disabled = "";
+        PF_E_Rate.disabled = "";
+
+    } else {
+        PF_MemNo.disabled = "disabled";
+        PF_EnterDate.disabled = "disabled";
+        PF_E_Rate.disabled = "disabled";
+        // PF_MemNo.value = "";
+        // PF_EnterDate.value = "";
+        // PF_E_Rate.value = "";
+    }
+}
+function PF_Flag_edit_function() {
     var provident_fund_checkbox = document.getElementById("PF_Flag");
     var PF_MemNo = document.getElementById("PF_MemNo");
     var PF_EnterDate = document.getElementById("PF_EnterDate");
@@ -97,6 +116,21 @@ function SP_Fath_Red_F_function() {
         SP_Fath_ID.disabled = "";
     } else {
         SP_Fath_ID.disabled = "disabled";
+        // PF_MemNo.value = "";
+        // PF_EnterDate.value = "";
+        // PF_E_Rate.value = "";
+    }
+}
+function ProbFlag_Function() {
+    var ProbFlag = document.getElementById("ProbFlag");
+    var ProbDate = document.getElementById("ProbDate");
+    var ResignDate = document.getElementById("ResignDate");
+    if (ProbFlag.checked == true){
+        ProbDate.disabled = "";
+        ResignDate.disabled = "";
+    } else {
+        ProbDate.disabled = "disabled";
+        ResignDate.disabled = "disabled";
         // PF_MemNo.value = "";
         // PF_EnterDate.value = "";
         // PF_E_Rate.value = "";

@@ -1,7 +1,49 @@
 <?php 
 error_reporting(0);
 if(isset($_POST["create"])) {
-    date_default_timezone_set("Asia/Bangkok");
+ /*
+$target_dir = "img/emp_pic/";
+$target_file = $target_dir.basename($_FILES["emp_pic"]["name"]);
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+$check = getimagesize($_FILES["emp_pic"]["tmp_name"]);
+    if($check !== false) {
+        $uploadOk = 1;
+        
+    } else {
+      //$result = '<script>alert("File is not an image.")</script>';
+        $uploadOk = 0;
+    }
+// Check if file already exists
+if (file_exists($target_file)) {
+  //$result = '<script>alert("ขออภัย! มีชื่อไฟล์รูปภาพนี้อยู่แล้วในระบบ")</script>';
+  $uploadOk = 0;
+}
+// Check file size
+if ($_FILES["emp_pic"]["size"] > 5000000) {
+  $result = '<script>alert("ขออภัย! ขนาดของไฟล์ มีขนาดที่ใหญ่กว่า 5,000 KB")</script>';
+  $uploadOk = 0;
+}
+// Allow certain file formats
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" ) {
+  //$result = '<script>alert("ขออภัย! only JPG, JPEG, PNG & GIF files are allowed.")</script>';
+  $uploadOk = 0;
+}
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+  //$result = '<script>alert("Sorry, your file was not uploaded.")</script>';
+// if everything is ok, try to upload file
+} else {
+  if (move_uploaded_file($_FILES["emp_pic"]["tmp_name"], $target_file)) {
+    //$pic_error = "The file ". basename( $_FILES["emp_pic"]["name"]). " has been uploaded.";
+    
+  } else {
+    $result = '<script>alert("Sorry, there was an error uploading your file.")</script>';
+  }
+}
+*/
+date_default_timezone_set("Asia/Bangkok");
     $date = date('Y-m-d H:i:s');
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $strSQL = "INSERT INTO tm03_employee ";
@@ -87,7 +129,8 @@ if(isset($_POST["create"])) {
                 `CooperativeUnit01`, 
                 `CooperativeAmt02`, 
                 `CooperativeMemId02`, 
-                `CooperativeUnit02`) ";
+                `CooperativeUnit02`,
+                `emp_pic`) ";
     $strSQL .="VALUES ";
     $strSQL .="('".$_POST["EmplCode"]."', 
     '".$_POST["EmplType"]."', 
@@ -171,9 +214,8 @@ if(isset($_POST["create"])) {
     '".$_POST["CooperativeUnit01"]."', 
     '".$_POST["CooperativeAmt02"]."', 
     '".$_POST["CooperativeMemId02"]."', 
-    '".$_POST["CooperativeUnit02"]."')";
-    echo $strSQL;
-    die();
+    '".$_POST["CooperativeUnit02"]."',
+    '".$_FILES["emp_pic"]["name"]."')";
     $objQuery = mysqli_query($conn, $strSQL);
    
     if($objQuery)
@@ -189,6 +231,7 @@ if(isset($_POST["create"])) {
        // header("location: ../../user.php");
     }
   }
+    
 }
 if(isset($_POST["edit_id"]))  
 {  
@@ -196,11 +239,11 @@ if(isset($_POST["edit_id"]))
     $strSQL = "SELECT * FROM tm03_employee WHERE EmplCode = '".$_POST["edit_id"]."'";   
     $objQuery = mysqli_query($conn, $strSQL); 
     while ($rows = mysqli_fetch_array($objQuery)) { 
-      
       $deptcode = $rows["DeptCode"];
       $bankcode = $rows["BankCode"];
       $posicode = $rows["PosiCode"];
       $branchcode = $rows["BranchCode"];
+      $Marital = $rows["Marital"];
       if ($rows["EmplType"] == "M"){
         $EmplMSe= "selected";
     }
@@ -272,6 +315,7 @@ else
        </dl>
       </div>
       <div class="col-md-2"></div>
+      
       <div class="col-md-12">
       <br>
 <!--Start-->
@@ -327,14 +371,14 @@ else
                   </dd>
                   <dt class="col-sm-2 info-box-label">Bank : </dt>
                   <dd class="col-sm-3 info-box-label">
-                  <select class="form-control"  name="BankCode" >';
-                    
-                    $strSQL = "SELECT * FROM tm02_bank";
-                   $objQuery = mysqli_query($conn, $strSQL);
-                    while($objResuut = mysqli_fetch_array($objQuery))
+                  <select class="form-control"  name="BankCode" >
+                  <option value="">Select</option>
+                  ';                    
+                  $strSQL_bank = "SELECT * FROM tm02_bank";
+                   $objQuery_bank = mysqli_query($conn, $strSQL_bank);
+                    while($objResuut = mysqli_fetch_array($objQuery_bank))
                     {
-                    
-                      if($objResuut["DeptCode"] == $bankcode)
+                      if($objResuut["bankcode"] == $bankcode)
                       {
                         $sel = "selected";
                       }
@@ -343,10 +387,8 @@ else
                         $sel = "";
                       }
 
-                      $output.='<option value="'.$objResuut["bankcode"].'">'.$objResuut["bankcode"].' - '.$objResuut["BankTName"].'</option>';
-                    
-                    }
-                    
+                      $output.='<option value="'.$objResuut["bankcode"].'" '.$sel.'>'.$objResuut["bankcode"].' - '.$objResuut["BankTName"].'</option>';
+                    } 
                     $output.='</select>      
                   </dd>
                   <dd class="col-sm-1 info-box-label"></dd>
@@ -379,7 +421,7 @@ else
                  </dd>
                  <dt class="col-sm-2 info-box-label">เลขที่บัญชี : </dt>
                  <dd class="col-sm-3 info-box-label">
-                   <input name="BankAccCode" type="text" data-placement="top"   class="form-control" maxlength="20" />      
+                   <input name="BankAccCode" type="text" data-placement="top"   class="form-control" maxlength="20" value="'.$rows["BankAccCode"].'" />      
                  </dd>
                  <dd class="col-sm-1 info-box-label"></dd>
                 </dl>
@@ -409,9 +451,9 @@ else
                     
                     $output.='</select>      
                   </dd>
-                  <dt class="col-sm-2 info-box-label">กองทุนสำรองเลี้ยงชีพ : </dt>
+                  <dt class="col-sm-2 info-box-label"></dt>
                   <dd class="col-sm-3 info-box-label">
-                    <input name="PF_Flag" type="text" data-placement="top"   class="form-control" />      
+                    
                   </dd>
                   <dd class="col-sm-1 info-box-label"></dd>
                 </dl>
@@ -422,9 +464,8 @@ else
                       <dd class="col-sm-3 info-box-label">
                         <input name="Salary" type="number" value="'.$rows["Salary"].'" data-placement="top" required  class="form-control" min="0"/>      
                       </dd>
-                      <dt class="col-sm-2 info-box-label">รหัสสมาชิก : </dt>
+                      <dt class="col-sm-2 info-box-label"> </dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="PF_MemNo" type="text" value="'.$rows["PF_MemNo"].'" data-placement="top"   class="form-control" />      
                       </dd>
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
@@ -439,15 +480,24 @@ else
                       <dd class="col-sm-3 info-box-label"></dd>
                       </dl>
                  </div>
-                      <div class="col-md-12">
+                 ';
+                 if ($rows["ProbFlag"] == 1){
+                  $ProbFlag_ckk = "checked";
+                  $disabled = "";
+                }
+                else{
+                  $disabled = "disabled";
+                }
+                 $output .= '
+                 <div class="col-md-12">
                       <dl class="row">
                       <dt class="col-sm-3 info-box-label">พ้นสถาพ :</dt>
                       <dd class="col-sm-3 info-box-label">
-                      <input name="ProbFlag" type="checkbox" value="'.$rows["ProbFlag"].'" data-placement="top"   class="form-control" />     
+                      <input name="ProbFlag" id="ProbFlag" type="checkbox"  value="1" data-placement="top"   class="form-control" onclick="ProbFlag_Function()" '.$ProbFlag_ckk.' />     
                       </dd>
                       <dt class="col-sm-2 info-box-label">วันที่พ้นสถาพ :</dt>
                       <dd class="col-sm-3 info-box-label">
-                      <input name="ProbDate" type="date" value="'.$rows["ProbDate"].'" data-placement="top"   class="form-control" disabled />     
+                      <input name="ProbDate" id="ProbDate" type="date" value="'.$rows["ProbDate"].'" data-placement="top"   class="form-control" '.$disabled .' />     
                       </dd>
 
                       <dd class="col-sm-1 info-box-label"></dd>
@@ -457,7 +507,7 @@ else
                     <dl class="row">
                       <dt class="col-sm-3 info-box-label">วันที่ลาออก :</dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="ResignDate" type="date" value="'.$rows["ResignDate"].'" data-placement="top"   class="form-control" disabled/>      
+                        <input name="ResignDate" id="ResignDate" type="date" value="'.$rows["ResignDate"].'" data-placement="top"   class="form-control" '.$disabled .'/>      
                       </dd>
                       <dt class="col-sm-2 info-box-label"> </dt>
                       <dd class="col-sm-3 info-box-label">
@@ -466,10 +516,48 @@ else
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
                   </div>
+';
+                      if ($rows["PF_Flag"] == 1){
+                        $PF_Flag_ckk = "checked";
+                        $disabled = "";
+                      }
+                      else{
+                        $disabled = "disabled";
+                      }
+                    $output.= '
+                 <div class="col-md-12">
+                      <dl class="row">
+                        <dt class="col-sm-3 info-box-label">กองทุนสำรองเลี้ยงชีพ : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                        <input name="PF_Flag" type="checkbox" '.$PF_Flag_ckk.' data-placement="top"  class="form-control" id="PF_Flag" onclick="PF_Flag_edit_function()" value="1"/>       
+                        </dd>
+                        <dt class="col-sm-2 info-box-label">รหัสสมาชิกกองทุน : </dt>
+                        <dd class="col-sm-3 info-box-label">
+                          <input name="PF_MemNo" value="'.$rows["PF_MemNo"].'" type="text" data-placement="top"  class="form-control" id="PF_MemNo" '.$disabled .'/>      
+                        </dd>
+                        <dd class="col-sm-1 info-box-label"></dd>
+                      </dl>
+                    </div>
+
+                    <div class="col-md-12">
+                    <dl class="row">
+                      <dt class="col-sm-3 info-box-label">วันที่เป็นสมาชิกกองทุน : </dt>
+                      <dd class="col-sm-3 info-box-label">
+                      <input name="PF_EnterDate"  value="'.$rows["PF_EnterDate"].'"   type="date" data-placement="top"  class="form-control" id="PF_EnterDate" '.$disabled .' />       
+                      </dd>
+                      <dt class="col-sm-2 info-box-label">อัตราการหักเงินสำรองเลี้ยงชีพพนักงาน (%) : </dt>
+                      <dd class="col-sm-3 info-box-label">
+                        <input name="PF_E_Rate" value="'.$rows["PF_E_Rate"].'" type="number" data-placement="top"  class="form-control"   id="PF_E_Rate" '.$disabled .' min="0" max="100" />      
+                      </dd>
+                      <dd class="col-sm-1 info-box-label"></dd>
+                    </dl>
+                  </div>
+
+                    
                   <div class="col-md-12">
                     <dl class="row">
                       <dt class="col-sm-3 info-box-label">เงื่อนไขภาษี : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
+                      <dd class="col-sm-3">
                         <input   type="radio" name="TaxCond" value="C" required '.$TaxCondCSe.'> Company 
                         <input type="radio" name="TaxCond" value="E" required '.$TaxCondESe.'> Employee
                       </dd>
@@ -512,15 +600,15 @@ else
                               $mlcheck = "";
                             }
 
-                            $output.='<td><label class="checkbox-inline"><input type="checkbox" name="UM_Flag" value="1" '.$umcheck.'>สมาชิกสหภาพฯ</label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="Cooperative_F" value="1" '.$coopcheck.'>สมาชิกสหกรณ์ออมทรัพย์</label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="GHB_F" value="1" '.$gbhcheck.'>สมาชิก ธอส.</label></td>
+                            $output.='<td><label class="checkbox-inline"><input type="checkbox" name="UM_Flag" value="1" '.$umcheck.'>  สมาชิกสหภาพฯ</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="Cooperative_F" value="1" '.$coopcheck.'>  สมาชิกสหกรณ์ออมทรัพย์</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="GHB_F" value="1" '.$gbhcheck.'>  สมาชิก ธอส.</label></td>
 
                             </tr>
                             <tr>
 
-                              <td><label class="checkbox-inline"><input type="checkbox" name="Feneral_F" value="1" '.$fencheck.'>สมาชิกฌาปนกิจสงเคราะห์</label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" name="MoneyLoan_F" value="1" '.$mlcheck.'>สมาชิก สินเชื่อเงินกู้</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="Feneral_F" value="1" '.$fencheck.'>  สมาชิกฌาปนกิจสงเคราะห์</label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" name="MoneyLoan_F" value="1" '.$mlcheck.'>  สมาชิก สินเชื่อเงินกู้</label></td>
 
                               <td></td>
                             </tr>
@@ -539,26 +627,39 @@ else
                 <div class="row">
                   <div class="col-md-12">
                     <dl class="row">
-                      <dt class="col-sm-3 info-box-label">สถานะ : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                       <input name="Marital" type="text" value="'.$rows["Marital"].'" data-placement="top" required  class="form-control"/ >      
+                      <dt class="col-sm-3 info-box-label">สถานะ : </dt>
+                      <dd class="col-sm-3 info-box-label">';
+                      $Marital_1 = $Marital == "โสด" ? "selected" :  "" ;
+                      $Marital_2 = $Marital == "แต่งงานแล้ว" ? "selected" :  "" ;
+                      $Marital_3 = $Marital == "หม้าย" ? "selected" :  "" ;
+                      $Marital_4 = $Marital == "หย่า" ? "selected" :  "" ;
+                      $Marital_5 = $Marital == "แยกกันอยู่" ? "selected" :  "" ;
+                      $output .='
+                       <select class="form-control"  name="Marital">
+                                  <option value="">Select</option>   
+                                  <option value="โสด" '.$Marital_1 .'>โสด</option>
+                                  <option value="แต่งงานแล้ว" '.$Marital_2.'>แต่งงานแล้ว</option>
+                                  <option value="หม้าย" '.$Marital_3.'>หม้าย</option>
+                                  <option value="หย่า" '.$Marital_4.'>หย่า</option>
+                                  <option value="แยกกันอยู่" '.$Marital_5.'>แยกกันอยู่</option>
+                        </select> 
                       </dd>
-                      <dt class="col-sm-2 info-box-label">หมายเลขสมรถ : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-2 info-box-label">หมายเลขสมรถ :</dt>
                       <dd class="col-sm-3 info-box-label">
-                       <input name="MarriageNo" type="text" value="'.$rows["MarriageNo"].'" data-placement="top" required  class="form-control"/ >      
+                       <input name="MarriageNo" type="text" value="'.$rows["MarriageNo"].'" data-placement="top"   class="form-control"/ >      
                       </dd>
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
                   </div>
                   <div class="col-md-12">
                     <dl class="row">
-                     <dt class="col-sm-3 info-box-label">วันที่สมรถ : <span class="field-required">*</span></dt>
+                     <dt class="col-sm-3 info-box-label">วันที่สมรถ : </dt>
                      <dd class="col-sm-3 info-box-label">
-                       <input name="MarriagedDate" type="date" value="'.$rows["MarriagedDate"].'" data-placement="top" required  class="form-control"/ >      
+                       <input name="MarriagedDate" type="date" value="'.$rows["MarriagedDate"].'" data-placement="top"   class="form-control"/ >      
                      </dd>
-                     <dt class="col-sm-2 info-box-label">ชื่อ-สกุลคู่สมรถ : <span class="field-required">*</span></dt>
+                     <dt class="col-sm-2 info-box-label">ชื่อ-สกุลคู่สมรถ : </dt>
                      <dd class="col-sm-3 info-box-label">
-                       <input name="SpouseName" type="text" value="'.$rows["SpouseName"].'" data-placement="top" required  class="form-control" / >      
+                       <input name="SpouseName" type="text" value="'.$rows["SpouseName"].'" data-placement="top"   class="form-control" / >      
                      </dd>
                      <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
@@ -568,19 +669,20 @@ else
                         <dt class="col-sm-1 info-box-label"></dt>
                         <dd class="col-sm-3">
                           <h3>ข้อมูลบุตร</h3>      
+                          <hr>
                         </dd>
                         
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">กำลังศึกษา : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">จำนวนบุตรที่กำลังเรียน : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="ChildInEduc" type="text" value="'.$rows["SpouseName"].'" data-placement="top" required  class="form-control"/ >      
+                          <input name="ChildInEduc" type="number" value="'.$rows["ChildInEduc"].'" data-placement="top"   class="form-control" min="0"/ >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">ไม่ได้ศึกษา : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">จำนวนบุตรที่ไม่ได้เรียนแล้ว : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="ChildNotEduc" type="text" value="'.$rows["SpouseName"].'" data-placement="top" required  class="form-control" / >      
+                          <input name="ChildNotEduc" type="number" value="'.$rows["ChildNotEduc"].'" data-placement="top"   class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -589,7 +691,8 @@ else
                       <dl class="row">
                         <dt class="col-sm-1 info-box-label"></dt>
                         <dd class="col-sm-4">
-                          <h3>ข้อมูลผู้ปกครอง(เลขประจำตัวประชาชน)</h3>      
+                          <h3>ข้อมูลผู้ปกครอง</h3>      
+                          <hr>
                         </dd>
                         
                         
@@ -597,26 +700,41 @@ else
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">บิดา : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">ชื่อบิดา : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Own_Fath_ID" type="text" value="'.$rows["Own_Fath_ID"].'" data-placement="top" required  class="form-control"/ >      
+                          <input name="Own_Fath_ID" type="text" value="'.$rows["Own_Fath_ID"].'" data-placement="top"   class="form-control"/ >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">มารดา : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">คู่สมรสของบิดา : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Own_Moth_ID" type="text" value="'.$rows["Own_Moth_ID"].'" data-placement="top" required  class="form-control" / >      
+                          <input name="SP_Fath_ID" type="text" value="'.$rows["SP_Fath_ID"].'" data-placement="top"   class="form-control"/ >      
                         </dd>
+
+                        <div class="col-md-12">
+                        <dl class="row">
+                          <dt class="col-sm-3 info-box-label">สิทธิลดหย่อนบิดา :</dt>
+                          <dd class="col-sm-3">  
+                            <input id="Own_Fath_Red_F" name="Own_Fath_Red_F" value="'.$rows["Own_Fath_Red_F"].'" type="checkbox" value="1"/>
+                          </dd>
+                          <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชนบิดา : </dt>
+                          <dd class="col-sm-3 info-box-label">
+                            <input name="Own_Fath_ID" type="text"  value="'.$rows["Own_Fath_ID"].'" data-placement="top"   class="form-control" maxlength="13"/ >      
+                          </dd>
+                          <dd class="col-sm-1 info-box-label"></dd>
+                        </dl>
+                      </div>
+
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
                     </div>
                     <div class="col-md-12">
                       <dl class="row">
-                        <dt class="col-sm-3 info-box-label">บิดาคู่สมรถ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-3 info-box-label">บิดาคู่สมรถ : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="SP_Fath_ID" type="text" value="'.$rows["SP_Fath_ID"].'" data-placement="top" required  class="form-control"/ >      
+                          <input name="SP_Fath_ID" type="text" value="'.$rows["SP_Fath_ID"].'" data-placement="top"   class="form-control"/ >      
                         </dd>
-                        <dt class="col-sm-2 info-box-label">มารดาคู่สมรถ : <span class="field-required">*</span></dt>
+                        <dt class="col-sm-2 info-box-label">มารดาคู่สมรถ : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="SP_Moth_ID" type="text" value="'.$rows["SP_Moth_ID"].'" data-placement="top" required  class="form-control" / >      
+                          <input name="SP_Moth_ID" type="text" value="'.$rows["SP_Moth_ID"].'" data-placement="top"   class="form-control" / >      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -632,74 +750,74 @@ else
                 <div class="row">
                   <div class="col-md-12">
                     <dl class="row">
-                      <dt class="col-sm-3 info-box-label">วันเกิด : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-3 info-box-label">วันเกิด : </dt>
                       <dd class="col-sm-3 info-box-label">
-                       <input name="BirthDate" type="date" value="'.$rows["BirthDate"].'" data-placement="top" required  class="form-control"/ >      
+                       <input name="BirthDate" type="date" value="'.$rows["BirthDate"].'" data-placement="top"   class="form-control"/ >      
                       </dd>
-                      <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชน : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-2 info-box-label">เลขประจำตัวประชาชน : </dt>
                       <dd class="col-sm-3 info-box-label">
-                       <input name="IDno" type="text" value="'.$rows["IDno"].'" data-placement="top" required  class="form-control"/ >      
+                       <input name="IDno" type="text" value="'.$rows["IDno"].'" data-placement="top"   class="form-control"/ >      
                       </dd>
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
                   </div>
                   <div class="col-md-12">
                     <dl class="row">
-                     <dt class="col-sm-3 info-box-label">สัญชาติ : <span class="field-required">*</span></dt>
+                     <dt class="col-sm-3 info-box-label">สัญชาติ : </dt>
                      <dd class="col-sm-3 info-box-label">
-                       <input name="Nationality" type="text" value="'.$rows["Nationality"].'" data-placement="top" required  class="form-control"/ >      
+                       <input name="Nationality" type="text" value="'.$rows["Nationality"].'" data-placement="top"   class="form-control"/ >      
                      </dd>
-                     <dt class="col-sm-2 info-box-label">ศาสนา : <span class="field-required">*</span></dt>
+                     <dt class="col-sm-2 info-box-label">ศาสนา : </dt>
                      <dd class="col-sm-3 info-box-label">
-                       <input name="Religion" type="text" value="'.$rows["Religion"].'" data-placement="top" required  class="form-control" / >      
+                       <input name="Religion" type="text" value="'.$rows["Religion"].'" data-placement="top"   class="form-control" / >      
                      </dd>
                      <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
                   </div>
                   <div class="col-md-12">
                     <dl class="row">
-                      <dt class="col-sm-3 info-box-label">น้ำหนัก : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-3 info-box-label">น้ำหนัก : </dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="Weight" type="text" value="'.$rows["Weight"].'" data-placement="top" required  class="form-control"/ >      
+                        <input name="Weight" type="text" value="'.$rows["Weight"].'" data-placement="top"   class="form-control"/ >      
                       </dd>
-                      <dt class="col-sm-2 info-box-label">ส่วนสูง : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-2 info-box-label">ส่วนสูง : </dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="Height" type="text" value="'.$rows["Height"].'" data-placement="top" required  class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">เพศ : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="Sex" type="text" value="'.$rows["Sex"].'" data-placement="top" required  class="form-control"/ >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">เบอร์โทรศัพท์ : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="HomePhone" type="text" value="'.$rows["HomePhone"].'" data-placement="top" required  class="form-control" / >      
+                        <input name="Height" type="text" value="'.$rows["Height"].'" data-placement="top"   class="form-control" / >      
                       </dd>
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
                   </div>
                   <div class="col-md-12">
                     <dl class="row">
-                      <dt class="col-sm-3 info-box-label">ที่อยู่ : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-3 info-box-label">เพศ : </dt>
+                      <dd class="col-sm-3 info-box-label">
+                        <input name="Sex" type="text" value="'.$rows["Sex"].'" data-placement="top"   class="form-control"/ >      
+                      </dd>
+                      <dt class="col-sm-2 info-box-label">เบอร์โทรศัพท์ :</dt>
+                      <dd class="col-sm-3 info-box-label">
+                        <input name="HomePhone" type="text" value="'.$rows["HomePhone"].'" data-placement="top"   class="form-control" / >      
+                      </dd>
+                      <dd class="col-sm-1 info-box-label"></dd>
+                    </dl>
+                  </div>
+                  <div class="col-md-12">
+                    <dl class="row">
+                      <dt class="col-sm-3 info-box-label">ที่อยู่ : </dt>
                       <dd class="col-sm-3 info-box-label">
                       <textarea class="form-control" rows="5" value="'.$rows["Address"].'" name="Address" id="comment"></textarea>      
                       </dd>
-                      <dt class="col-sm-2 info-box-label">รหัสไปรษณีย์ : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-2 info-box-label">รหัสไปรษณีย์ : </dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="PostalCode" type="text" value="'.$rows["PostalCode"].'" data-placement="top" required  class="form-control" / >      
+                        <input name="PostalCode" type="text" value="'.$rows["PostalCode"].'" data-placement="top"   class="form-control" / >      
                       </dd>
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
                   </div>
                   <div class="col-md-12">
                     <dl class="row">
-                      <dt class="col-sm-3 info-box-label">เลขประจำตัวผู้เสียภาษี : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-3 info-box-label">เลขประจำตัวผู้เสียภาษี : </dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="TaxID" type="text" value="'.$rows["TaxID"].'" data-placement="top" required  class="form-control"/ >      
+                        <input name="TaxID" type="text" value="'.$rows["TaxID"].'" data-placement="top"   class="form-control"/ >      
                       </dd>
                       <dt class="col-sm-2 info-box-label"></dt>
                       <dd class="col-sm-3 info-box-label">
@@ -719,78 +837,78 @@ else
                 <div class="row">
                 <div class="col-md-12">
                     <dl class="row">
-                      <dt class="col-sm-3 info-box-label">Last Company Gross : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-3 info-box-label">Last Company Gross :</dt>
                       <dd class="col-sm-3 info-box-label">
-                      <input name="L_C_Gross" type="text" value="'.$rows["L_C_Gross"].'" data-placement="top" required  class="form-control" / >      
+                      <input name="L_C_Gross" type="text" value="'.$rows["L_C_Gross"].'" data-placement="top"   class="form-control" / >      
                       </dd>
-                      <dt class="col-sm-2 info-box-label">Last Company Tax : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-2 info-box-label">Last Company Tax : </dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="L_C_Tax" type="text" value="'.$rows["L_C_Tax"].'" data-placement="top" required  class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">Last Company Social : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                      <input name="L_C_SOC" type="text" value="'.$rows["L_C_SOC"].'" data-placement="top" required  class="form-control" / >     
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">Company Loan/Month : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="CompLoan" type="text" value="'.$rows["CompLoan"].'" data-placement="top" required  class="form-control" / >      
+                        <input name="L_C_Tax" type="text" value="'.$rows["L_C_Tax"].'" data-placement="top"   class="form-control" / >      
                       </dd>
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
                   </div>
                   <div class="col-md-12">
                     <dl class="row">
-                      <dt class="col-sm-3 info-box-label">Overtime Flag : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-3 info-box-label">Last Company Social : </dt>
                       <dd class="col-sm-3 info-box-label">
-                      <input name="OT_Cal_F" type="text" value="'.$rows["OT_Cal_F"].'" data-placement="top" required  class="form-control" / >      
+                      <input name="L_C_SOC" type="text" value="'.$rows["L_C_SOC"].'" data-placement="top"   class="form-control" / >     
                       </dd>
-                      <dt class="col-sm-2 info-box-label">Attendance Flag : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-2 info-box-label">Company Loan/Month : </dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="Attn_Cal_F" type="text" value="'.$rows["Attn_Cal_F"].'" data-placement="top" required  class="form-control" / >      
-                      </dd>
-                      <dd class="col-sm-1 info-box-label"></dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-12">
-                    <dl class="row">
-                      <dt class="col-sm-3 info-box-label">Office Shift : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                      <input name="O_Shft_D_PM" type="text" value="'.$rows["O_Shft_D_PM"].'" data-placement="top" required  class="form-control" / >      
-                      </dd>
-                      <dt class="col-sm-2 info-box-label">Morning Shift : <span class="field-required">*</span></dt>
-                      <dd class="col-sm-3 info-box-label">
-                        <input name="M_Shft_D_PM" type="text" value="'.$rows["M_Shft_D_PM"].'" data-placement="top" required  class="form-control" / >      
+                        <input name="CompLoan" type="text" value="'.$rows["CompLoan"].'" data-placement="top"   class="form-control" / >      
                       </dd>
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
                   </div>
                   <div class="col-md-12">
                     <dl class="row">
-                      <dt class="col-sm-3 info-box-label">Evening Shift : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-3 info-box-label">Overtime Flag : </dt>
                       <dd class="col-sm-3 info-box-label">
-                      <input name="E_Shft_D_PM" type="text" value="'.$rows["E_Shft_D_PM"].'" data-placement="top" required  class="form-control" / >      
+                      <input name="OT_Cal_F" type="text" value="'.$rows["OT_Cal_F"].'" data-placement="top"   class="form-control" / >      
                       </dd>
-                      <dt class="col-sm-2 info-box-label">Night Shift : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-2 info-box-label">Attendance Flag : </dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="N_Shft_D_PM" type="text" value="'.$rows["N_Shft_D_PM"].'" data-placement="top" required  class="form-control" / >      
+                        <input name="Attn_Cal_F" type="text" value="'.$rows["Attn_Cal_F"].'" data-placement="top"   class="form-control" / >      
                       </dd>
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
                   </div>
                   <div class="col-md-12">
                     <dl class="row">
-                      <dt class="col-sm-3 info-box-label">Sick Leave : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-3 info-box-label">Office Shift : </dt>
                       <dd class="col-sm-3 info-box-label">
-                      <input name="SL_Day" type="text" value="'.$rows["SL_Day"].'" data-placement="top" required  class="form-control" / >      
+                      <input name="O_Shft_D_PM" type="text" value="'.$rows["O_Shft_D_PM"].'" data-placement="top"   class="form-control" / >      
                       </dd>
-                      <dt class="col-sm-2 info-box-label">A/L Remaining : <span class="field-required">*</span></dt>
+                      <dt class="col-sm-2 info-box-label">Morning Shift : </dt>
                       <dd class="col-sm-3 info-box-label">
-                        <input name="AL_Rem_Hrs" type="text" value="'.$rows["AL_Rem_Hrs"].'" data-placement="top" required  class="form-control" / >      
+                        <input name="M_Shft_D_PM" type="text" value="'.$rows["M_Shft_D_PM"].'" data-placement="top"   class="form-control" / >      
+                      </dd>
+                      <dd class="col-sm-1 info-box-label"></dd>
+                    </dl>
+                  </div>
+                  <div class="col-md-12">
+                    <dl class="row">
+                      <dt class="col-sm-3 info-box-label">Evening Shift : </dt>
+                      <dd class="col-sm-3 info-box-label">
+                      <input name="E_Shft_D_PM" type="text" value="'.$rows["E_Shft_D_PM"].'" data-placement="top"   class="form-control" / >      
+                      </dd>
+                      <dt class="col-sm-2 info-box-label">Night Shift : </dt>
+                      <dd class="col-sm-3 info-box-label">
+                        <input name="N_Shft_D_PM" type="text" value="'.$rows["N_Shft_D_PM"].'" data-placement="top"   class="form-control" / >      
+                      </dd>
+                      <dd class="col-sm-1 info-box-label"></dd>
+                    </dl>
+                  </div>
+                  <div class="col-md-12">
+                    <dl class="row">
+                      <dt class="col-sm-3 info-box-label">Sick Leave : </dt>
+                      <dd class="col-sm-3 info-box-label">
+                      <input name="SL_Day" type="text" value="'.$rows["SL_Day"].'" data-placement="top"   class="form-control" / >      
+                      </dd>
+                      <dt class="col-sm-2 info-box-label">A/L Remaining : </dt>
+                      <dd class="col-sm-3 info-box-label">
+                        <input name="AL_Rem_Hrs" type="text" value="'.$rows["AL_Rem_Hrs"].'" data-placement="top"   class="form-control" / >      
                       </dd>
                       <dd class="col-sm-1 info-box-label"></dd>
                     </dl>
@@ -819,91 +937,90 @@ if(isset($_POST["delete_id"]))  {
 }
 
 if(isset($_POST["update"]))  {
-        $strSQL = "UPDATE tm03_employee ";
-        $strSQL .= "`EmplType`='".$_POST["EmplType"]."',
-                    `ProcCode`='".$_POST["ProcCode"]."',
-                    `OT_Cal_F`='".$_POST["OT_Cal_F"]."',
-                    `Attn_Cal_F`='".$_POST["Attn_Cal_F"]."',
-                    `EmplTName`='".$_POST["EmplTName"]."',
-                    `EmplEName`='".$_POST["EmplEName"]."',
-                    `DeptCode`='".$_POST["DeptCode"]."',
-                    `PosiCode`='".$_POST["PosiCode"]."',
-                    `EnterDate`='".$_POST["EnterDate"]."',
-                    `ProbFlag`='".$_POST["ProbFlag"]."',
-                    `ProbDate`='".$_POST["ProbDate"]."',
-                    `ResignDate`='".$_POST["ResignDate"]."',
-                    `BankCode`='".$_POST["BankCode"]."',
-                    `BankAccCode`='".$_POST["BankAccCode"]."',
-                    `Sex`='".$_POST["Sex"]."',
-                    `Salary`='".$_POST["Salary"]."',
-                    `L_C_Gross`='".$_POST["L_C_Gross"]."',
-                    `L_C_Tax`='".$_POST["L_C_Tax"]."',
-                    `L_C_SOC`='".$_POST["L_C_SOC"]."',
-                    `BranchCode`='".$_POST["BranchCode"]."',
-                    `CompLoan`='".$_POST["CompLoan"]."',
-                    `Marital`='".$_POST["Marital"]."',
-                    `MarriageNo`='".$_POST["MarriageNo"]."',
-                    `MarriagedDate`='".$_POST["MarriagedDate"]."',
-                    `TaxID`='".$_POST["TaxID"]."',
-                    `TaxCond`='".$_POST["TaxCond"]."',
-                    `SpouseName`='".$_POST["SpouseName"]."',
-                    `ChildInEduc`='".$_POST["ChildInEduc"]."',
-                    `ChildNotEduc`='".$_POST["ChildNotEduc"]."',
-                    `Own_Fath_Red_F`='".$_POST["Own_Fath_Red_F"]."',
-                    `Own_Fath_ID`='".$_POST["Own_Fath_ID"]."',
-                    `Own_Moth_Red_F`='".$_POST["Own_Moth_Red_F"]."',
-                    `Own_Moth_ID`='".$_POST["Own_Moth_ID"]."',
-                    `SP_Fath_Red_F`='".$_POST["SP_Fath_Red_F"]."',
-                    `SP_Fath_ID`='".$_POST["SP_Fath_ID"]."',
-                    `SP_Moth_Red_F`='".$_POST["SP_Moth_Red_F"]."',
-                    `SP_Moth_ID`='".$_POST["SP_Moth_ID"]."',
-                    `Address`='".$_POST["Address"]."',
-                    `PostalCode`='".$_POST["PostalCode"]."',
-                    `HomePhone`='".$_POST["HomePhone"]."',
-                    `Nationality`='".$_POST["Nationality"]."',
-                    `Ethnic`='".$_POST["Ethnic"]."',
-                    `Religion`='".$_POST["Religion"]."',
-                    `BirthDate`='".$_POST["BirthDate"]."',
-                    `IDno`='".$_POST["IDno"]."',
-                    `Height`='".$_POST["Height"]."',
-                    `Weight`='".$_POST["Weight"]."',
-                    `UM_Flag`='".$_POST["UM_Flag"]."',
-                    `PF_Flag`='".$_POST["PF_Flag"]."',
-                    `PF_MemNo`='".$_POST["PF_MemNo"]."',
-                    `PF_EnterDate`='".$_POST["PF_EnterDate"]."',
-                    `PF_E_Rate`='".$_POST["PF_E_Rate"]."',
-                    `AL_Rem_Hrs`='".$_POST["AL_Rem_Hrs"]."',
-                    `O_Shft_D_PM`='".$_POST["O_Shft_D_PM"]."',
-                    `M_Shft_D_PM`='".$_POST["M_Shft_D_PM"]."',
-                    `E_Shft_D_PM`='".$_POST["E_Shft_D_PM"]."',
-                    `N_Shft_D_PM`='".$_POST["N_Shft_D_PM"]."',
-                    `Attn_ALW_F`='".$_POST["Attn_ALW_F"]."',
-                    `Attn_ALW_Accum`='".$_POST["Attn_ALW_Accum"]."',
-                    `Attn_ALW_AccumNext`='".$_POST["Attn_ALW_AccumNext"]."',
-                    `SL_Day`='".$_POST["SL_Day"]."',
-                    `SysUpdDate`='".$_POST["SysUpdDate"]."',
-                    `SysUserID`='".$_POST["SysUserID"]."',
-                    `SysPgmID`='".$_POST["SysPgmID"]."',
-                    `Feneral_F`='".$_POST["Feneral_F"]."',
-                    `Cooperative_F`='".$_POST["Cooperative_F"]."',
-                    `MoneyLoan_F`='".$_POST["MoneyLoan_F"]."',
-                    `GHB_F`='".$_POST["GHB_F"]."',
-                    `AccMoneyLoan`='".$_POST["AccMoneyLoan"]."',
-                    `LoanType`='".$_POST["LoanType"]."',
-                    `LoanAmt`='".$_POST["LoanAmt"]."',
-                    `AccGHB`='".$_POST["AccGHB"]."',
-                    `GHBType`='".$_POST["GHBType"]."',
-                    `GHBAmt`='".$_POST["GHBAmt"]."',
-                    `UnionMemberAmt`='".$_POST["UnionMemberAmt"]."',
-                    `AwardAmt`='".$_POST["AwardAmt"]."',
-                    `CooperativeAmt01`='".$_POST["CooperativeAmt01"]."',
-                    `CooperativeMemId01`='".$_POST["CooperativeMemId01"]."',
-                    `CooperativeUnit01`='".$_POST["CooperativeUnit01"]."',
-                    `CooperativeAmt02`='".$_POST["CooperativeAmt02"]."',
-                    `CooperativeMemId02`='".$_POST["CooperativeMemId02"]."',
-                    `CooperativeUnit02`='".$_POST["CooperativeUnit02"]."' ";
-        $strSQL .= " WHERE EmplCode = '".$_POST["id"]."'";
-
+  $strSQL = "UPDATE tm03_employee SET ";
+  $strSQL .= "EmplType='".$_POST["EmplType"]."',
+              ProcCode='".$_POST["ProcCode"]."',
+              OT_Cal_F='".$_POST["OT_Cal_F"]."',
+              Attn_Cal_F='".$_POST["Attn_Cal_F"]."',
+              EmplTName='".$_POST["EmplTName"]."',
+              EmplEName='".$_POST["EmplEName"]."',
+              DeptCode='".$_POST["DeptCode"]."',
+              PosiCode='".$_POST["PosiCode"]."',
+              EnterDate='".$_POST["EnterDate"]."',
+              ProbFlag='".$_POST["ProbFlag"]."',
+              ProbDate='".$_POST["ProbDate"]."',
+              ResignDate='".$_POST["ResignDate"]."',
+              BankCode='".$_POST["BankCode"]."',
+              BankAccCode='".$_POST["BankAccCode"]."',
+              Sex='".$_POST["Sex"]."',
+              Salary='".$_POST["Salary"]."',
+              L_C_Gross='".$_POST["L_C_Gross"]."',
+              L_C_Tax='".$_POST["L_C_Tax"]."',
+              L_C_SOC='".$_POST["L_C_SOC"]."',
+              BranchCode='".$_POST["BranchCode"]."',
+              CompLoan='".$_POST["CompLoan"]."',
+              Marital='".$_POST["Marital"]."',
+              MarriageNo='".$_POST["MarriageNo"]."',
+              MarriagedDate='".$_POST["MarriagedDate"]."',
+              TaxID='".$_POST["TaxID"]."',
+              TaxCond='".$_POST["TaxCond"]."',
+              SpouseName='".$_POST["SpouseName"]."',
+              ChildInEduc='".$_POST["ChildInEduc"]."',
+              ChildNotEduc='".$_POST["ChildNotEduc"]."',
+              Own_Fath_Red_F='".$_POST["Own_Fath_Red_F"]."',
+              Own_Fath_ID='".$_POST["Own_Fath_ID"]."',
+              Own_Moth_Red_F='".$_POST["Own_Moth_Red_F"]."',
+              Own_Moth_ID='".$_POST["Own_Moth_ID"]."',
+              SP_Fath_Red_F='".$_POST["SP_Fath_Red_F"]."',
+              SP_Fath_ID='".$_POST["SP_Fath_ID"]."',
+              SP_Moth_Red_F='".$_POST["SP_Moth_Red_F"]."',
+              SP_Moth_ID='".$_POST["SP_Moth_ID"]."',
+              Address='".$_POST["Address"]."',
+              PostalCode='".$_POST["PostalCode"]."',
+              HomePhone='".$_POST["HomePhone"]."',
+              Nationality='".$_POST["Nationality"]."',
+              Ethnic='".$_POST["Ethnic"]."',
+              Religion='".$_POST["Religion"]."',
+              BirthDate='".$_POST["BirthDate"]."',
+              IDno='".$_POST["IDno"]."',
+              Height='".$_POST["Height"]."',
+              Weight='".$_POST["Weight"]."',
+              UM_Flag='".$_POST["UM_Flag"]."',
+              PF_Flag='".$_POST["PF_Flag"]."',
+              PF_MemNo='".$_POST["PF_MemNo"]."',
+              PF_EnterDate='".$_POST["PF_EnterDate"]."',
+              PF_E_Rate='".$_POST["PF_E_Rate"]."',
+              AL_Rem_Hrs='".$_POST["AL_Rem_Hrs"]."',
+              O_Shft_D_PM='".$_POST["O_Shft_D_PM"]."',
+              M_Shft_D_PM='".$_POST["M_Shft_D_PM"]."',
+              E_Shft_D_PM='".$_POST["E_Shft_D_PM"]."',
+              N_Shft_D_PM='".$_POST["N_Shft_D_PM"]."',
+              Attn_ALW_F='".$_POST["Attn_ALW_F"]."',
+              Attn_ALW_Accum='".$_POST["Attn_ALW_Accum"]."',
+              Attn_ALW_AccumNext='".$_POST["Attn_ALW_AccumNext"]."',
+              SL_Day='".$_POST["SL_Day"]."',
+              SysUpdDate='".$_POST["SysUpdDate"]."',
+              SysUserID='".$_POST["SysUserID"]."',
+              SysPgmID='".$_POST["SysPgmID"]."',
+              Feneral_F='".$_POST["Feneral_F"]."',
+              Cooperative_F='".$_POST["Cooperative_F"]."',
+              MoneyLoan_F='".$_POST["MoneyLoan_F"]."',
+              GHB_F='".$_POST["GHB_F"]."',
+              AccMoneyLoan='".$_POST["AccMoneyLoan"]."',
+              LoanType='".$_POST["LoanType"]."',
+              LoanAmt='".$_POST["LoanAmt"]."',
+              AccGHB='".$_POST["AccGHB"]."',
+              GHBType='".$_POST["GHBType"]."',
+              GHBAmt='".$_POST["GHBAmt"]."',
+              UnionMemberAmt='".$_POST["UnionMemberAmt"]."',
+              AwardAmt='".$_POST["AwardAmt"]."',
+              CooperativeAmt01='".$_POST["CooperativeAmt01"]."',
+              CooperativeMemId01='".$_POST["CooperativeMemId01"]."',
+              CooperativeUnit01='".$_POST["CooperativeUnit01"]."',
+              CooperativeAmt02='".$_POST["CooperativeAmt02"]."',
+              CooperativeMemId02='".$_POST["CooperativeMemId02"]."',
+              CooperativeUnit02='".$_POST["CooperativeUnit02"]."' ";
+  $strSQL .= " WHERE EmplCode = '".$_POST["id"]."'";
         $objQuery = mysqli_query($conn, $strSQL);    
          if($objQuery)
        {

@@ -6,7 +6,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title">Update Employee</h1>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reload()">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" autocomplete="on">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -30,7 +30,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title">Are you Confirm Delete ?</h1>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reload()">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

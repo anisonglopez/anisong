@@ -97,7 +97,7 @@
    
 <!--Modal Create-->
 <div class="modal fade" id="modal_create" tabindex="-1" role="dialog" aria-labelledby="modal_create_label" aria-hidden="true">
-  <div class="modal-dialog" style="max-width: 1300px;" role="document">
+  <div class="modal-dialog" style="max-width: 1200px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title" id="modal_create_label">Create Employee</h1>
@@ -158,22 +158,20 @@
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-4">
-        <!--
-        <form action="" method="post" enctype="multipart/form-data" name="personal_image" id="newHotnessForm">
+
+<!--
     <p><label for="image">รูปประจำตัวพนักงาน :</label>
      <div id="preview">
             <img width="200px" height="250px" src="profile pic.jpg" id="blah" src="#" class="img-thumbnail-personal" />
         </div>
-    <input type="file" onchange="readURL(this);" id="imageUpload" class="btn"/></p>
+    <input type="file" name="emp_pic" onchange="readURL(this);" id="emp_pic" class="btn"/></p>
     <p>* ควรอัพโหลดเป็นรูปภาพแนวตั้ง</p>
-    </form>
-    -->
+-->
         </div>
 <script>
   function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-
                 reader.onload = function (e) {
                     $('#blah')
                         .attr('src', e.target.result)
@@ -302,7 +300,7 @@
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">เงินเดือน : <span class="field-required">*</span></dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="Salary" type="number" data-placement="top" required  min="0" class="form-control" value="0"/>      
+                          <input name="Salary" type="number" data-placement="top" required  min="1" class="form-control" value="0"/>      
                         </dd>
                         <dt class="col-sm-2 info-box-label"></dt>
                         <dd class="col-sm-3 info-box-label"> 
@@ -342,11 +340,11 @@
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">กองทุนสำรองเลี้ยงชีพ : </dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="PF_Flag" type="checkbox" data-placement="top"  class="form-control" id="PF_Flag" onclick="PF_Flag_function()" value="1"/>       
+                        <input name="PF_Flag" type="checkbox" data-placement="top"  class="form-control" id="PF_Flag_create" onclick="PF_Flag_create_function()" value="1"/>       
                         </dd>
                         <dt class="col-sm-2 info-box-label">รหัสสมาชิกกองทุน : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="PF_MemNo" type="text" data-placement="top"  class="form-control" id="PF_MemNo" disabled="disabled" />      
+                          <input name="PF_MemNo" type="text" data-placement="top"  class="form-control" id="PF_MemNo_create" disabled="disabled" />      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
@@ -356,11 +354,11 @@
                       <dl class="row">
                         <dt class="col-sm-3 info-box-label">วันที่เป็นสมาชิกกองทุน : </dt>
                         <dd class="col-sm-3 info-box-label">
-                        <input name="PF_EnterDate" type="date" data-placement="top"  class="form-control" id="PF_EnterDate" disabled="disabled" />       
+                        <input name="PF_EnterDate" type="date" data-placement="top"  class="form-control" id="PF_EnterDate_create" disabled="disabled" />       
                         </dd>
                         <dt class="col-sm-2 info-box-label">อัตราการหักเงินสำรองเลี้ยงชีพพนักงาน (%) : </dt>
                         <dd class="col-sm-3 info-box-label">
-                          <input name="PF_E_Rate" type="number" data-placement="top"  class="form-control"   id="PF_E_Rate" disabled="disabled" min="0" max="100" />      
+                          <input name="PF_E_Rate" type="number" data-placement="top"  class="form-control"   id="PF_E_Rate_create" disabled="disabled" min="0" max="100" />      
                         </dd>
                         <dd class="col-sm-1 info-box-label"></dd>
                       </dl>
