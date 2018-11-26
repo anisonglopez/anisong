@@ -22,8 +22,9 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
     <tr>
       <th scope="col">รหัสพนักงาน</th>
       <th scope="col">ชื่อพนักงาน</th>
+      <th scope="col">CommCode</th>
       <th scope="col">CommAllow</th>
-      <th scope="col">Remark</th>
+      <th scope="col" style="text-align: left;">Remark</th>
       <th scope="col" style="text-align: center;">Action</th>
     </tr>
   </thead>
@@ -31,11 +32,13 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
   <?php 
   if(mysqli_num_rows($DATA) > 0)
   while ($rows = mysqli_fetch_array($DATA)) {
-    $id = $rows[''];
+    $id = $rows['auto_increment'];
     $row1 = $rows['EmplCode'];
     $row2 = $rows['EmplTName'];
-    $row3 = $rows['CommAllow'];
-    $row4 = $rows['Remark'];
+    $row3 = $rows['CommCode'];
+    $row4 = $rows['CommAllow'];
+    $row5 = $rows['Remark'];
+
 
   ?>
   <tbody>
@@ -45,6 +48,7 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
       <td><?php echo $row3; ?></td>
       
       <td><?php echo $row4; ?></td>
+      <td><?php echo $row5; ?></td>
       <td><center>
     <button  class="btn btn-warning edit_id "  id="<?php echo $id?>">Edit</button>
   <button  class="btn btn-danger delete_id "  id="<?php echo $id?>">Delete</button>
@@ -96,7 +100,7 @@ else
   <div class="modal-dialog" style="max-width: 1000px;" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title" id="modal_create_label">Create Communication Allowance</h1>
+        <h1 class="modal-title" id="modal_create_label">Create  Trasnportation Cost</h1>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -110,10 +114,9 @@ else
                         <div class="col-md-6">
                             <dl class="row">
                                 <dt class="col-sm-4 info-box-label">Employee Code : <span class="field-required">*</span></dt>
-                                <dd class="col-sm-8 info-box-label">
-                                <input name="period" type="text" data-placement="top" required  class="form-control" placeholder="ระบุพนักงาน" / >      
-                                <input name="show_province" type="text" id="show_province" size="50" class="form-control"/>
-                                <input name="h_province_id" type="hidden" id="h_province_id" value=""class="form-control" />
+                                <dd class="col-sm-8 info-box-label">  
+                                <input name="show_emp_name" type="text" id="show_emp_name"  class="form-control" placeholder="ระบุพนักงาน"/>
+                                <input name="EmplCode" type="hidden" id="EmplCode" value=""class="form-control" />
  <script type="text/javascript">
 function make_autocom(autoObj,showObj){
     var mkAutoObj=autoObj; 
@@ -126,12 +129,12 @@ function make_autocom(autoObj,showObj){
             this.setValue("");
         if ( this.value.length < 1 && this.isNotClick ) 
             return ;    
-        return "gdata.php?q=" +encodeURIComponent(this.value);
+        return "autocomplete/employee_autocomplete.php?q=" +encodeURIComponent(this.value);
     }); 
 }   
 // การใช้งาน
 // make_autocom(" id ของ input ตัวที่ต้องการกำหนด "," id ของ input ตัวที่ต้องการรับค่า");
-make_autocom("show_province","h_province_id");
+make_autocom("show_emp_name","EmplCode");
 </script>
                                 </dd>
                             </dl>
@@ -140,7 +143,15 @@ make_autocom("show_province","h_province_id");
                             <dl class="row">
                                 <dt class="col-sm-4 info-box-label">CommAllow : <span class="field-required">*</span></dt>
                                 <dd class="col-sm-8 info-box-label">
-                                <input name="term" type="number" data-placement="top" required  class="form-control"placeholder="ระบุรอบที่จ่าย" min="1" max="3" maxlength="1"  pattern="\w+"  title="ระบุรหัสผ่านเป็นภาษาอังกฤษ 6 - 10 ตัวอักษร"/>
+                                <input name="CommAllow" type="number" data-placement="top" required  class="form-control" min="1"  value="0"/>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-4 info-box-label">CommCode : </dt>
+                                <dd class="col-sm-8 info-box-label">
+                                <input type="text" name="CommCode" placeholder="ระบุ CommCode" class="form-control"/>
                                 </dd>
                             </dl>
                         </div>
@@ -148,7 +159,7 @@ make_autocom("show_province","h_province_id");
                             <dl class="row">
                                 <dt class="col-sm-4 info-box-label">Remark : </dt>
                                 <dd class="col-sm-8 info-box-label">
-                                <input name="paydate" type="date" data-placement="top"  class="form-control"  maxlength="20"/ >      
+                                <textarea  class="form-control" rows="3" name="Remark" id="Remark" placeholder="ระบุหมายเหตุ"></textarea>
                                 </dd>
                             </dl>
                         </div>

@@ -20,6 +20,7 @@ $page = 1;
 $start = ($page - 1) * $perpage;
 //page
 include "config/connect.php";
+include "template/communication-allowance/communallow_action.php";
 //include "template/communication-allowance/communallow.php";
 $sql = "SELECT tt04_commuteallow. * , tm03_employee.EmplTName FROM tt04_commuteallow, tm03_employee WHERE tt04_commuteallow.EmplCode = tm03_employee.EmplCode ORDER by tt04_commuteallow.auto_increment ASC LIMIT {$start} , {$perpage}";
 $DATA = mysqli_query($conn, $sql);
@@ -36,8 +37,8 @@ $total_page = ceil($total_record / $perpage);
 $title = "Communication Allowance";
 $tpl = "";
 $detail = "template/communication-allowance/communallow.php";
-//$modal = "template/systemcontrol/sysconmodal.php";
-//$script = "template/systemcontrol/sysscript.php";
+$modal = "template/communication-allowance/communallow_modal.php";
+$script = "template/communication-allowance/communallow_script.php";
 $footer = "";
 include "template/layout.php";
 //page
