@@ -6,13 +6,14 @@
     <button class="btn btn-success" data-toggle="modal" data-target="#modal_create">Create New</button>
     </div>
     <div class="col-sm" style="text-align: right;">
-        <!--
-    <form name="search_user" method="get"  action="<?php echo $_SERVER['SCRIPT_NAME'];?>">
-Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholder="ค้นหาผู้ใช้งาน" size="20" value="<?php echo $_GET["txtKeyword"];?>" /> 
-<input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
-<input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>
-</form>
--->
+
+    <form name="search" method="GET"  action="<?php echo $_SERVER['PHP_SELF'];?>">Search: 
+      <input type="hidden" name="page" id="page" class="" placeholder="ค้นหา" size="20" value="1"  /> 
+        <input type="text" name="search" id="search" class="" placeholder="ค้นหาค่าเดินทาง" size="20" value="<?php echo $_GET["search"];?>" /> 
+        <input type="submit" value="Search" class="btn btn-success"  style="display: inline-block"/>
+<!--<input type="submit" value="Print" class="btn btn-info"  style="display: inline-block"/>-->
+    </form>
+
 </div>
 </div>
 </div>
@@ -30,6 +31,39 @@ Search: <input type="text" name="txtKeyword" id="txtKeyword" class="" placeholde
   </thead>
 
   <?php 
+   if($_GET["search"] != ""){
+    $start = ($page - 1) * $perpage;
+    include "connect.php";
+  $sql = "select  tt04_commuteallow. *, 
+  tm03_employee.EmplTName
+  from tt04_commuteallow 
+  JOIN tm03_employee ON tt04_commuteallow.EmplCode = tm03_employee.EmplCode 
+  where 
+  tm03_employee.EmplCode  like '%".$_GET['search']."%' 
+  OR tm03_employee.EmplTName like '%".$_GET['search']."%' 
+  OR tt04_commuteallow.CommCode like '%".$_GET['search']."%' 
+  OR tt04_commuteallow.CommAllow like '%".$_GET['search']."%' 
+  OR tt04_commuteallow.Remark like '%".$_GET['search']."%' 
+  ORDER by tt04_commuteallow.auto_increment ASC LIMIT {$start} , {$perpage}";
+    //$sql = "SELECT * FROM tm02_deducttype WHERE DeductCode like '%".$_GET['search']."%' OR DeductDesc like '%".$_GET['search']."%' OR DeductTDesc like '%".$_GET['search']."%'  ORDER BY DeductCode ASC  LIMIT {$start} ,$perpage";
+    $DATA = mysqli_query($conn, $sql);
+    //page
+    $sql2 = "select  tt04_commuteallow. *, 
+    tm03_employee.EmplTName
+    from tt04_commuteallow 
+    JOIN tm03_employee ON tt04_commuteallow.EmplCode = tm03_employee.EmplCode 
+    where 
+    tm03_employee.EmplCode  like '%".$_GET['search']."%' 
+    OR tm03_employee.EmplTName like '%".$_GET['search']."%' 
+    OR tt04_commuteallow.CommCode like '%".$_GET['search']."%' 
+    OR tt04_commuteallow.CommAllow like '%".$_GET['search']."%' 
+    OR tt04_commuteallow.Remark like '%".$_GET['search']."%' 
+    ORDER by tt04_commuteallow.auto_increment ASC";;
+    $query2 = mysqli_query($conn, $sql2);
+    $total_record2 = mysqli_num_rows($query2 );
+    $total_page = ceil($total_record2 / $perpage);
+    //page
+    }
   if(mysqli_num_rows($DATA) > 0)
   while ($rows = mysqli_fetch_array($DATA)) {
     $id = $rows['auto_increment'];
@@ -65,19 +99,25 @@ else
   </tbody>";
   ?>
   </table>
-  <!--   Page List   -->
+<!--   Page List   -->
 <nav>
  <ul class="pagination">
  <li>
- <a href="systemcontrol.php?page=1" aria-label="Previous">
+ <a href='communication-allowance.php?page=1&search=<?php echo $_GET["search"] ?>' aria-label="Previous">
  <span aria-hidden="true">&laquo;</span> 
  </a>
  </li>
- <?php for($i=1;$i<=$total_page;$i++){?>
- <li><a class="btn btn-light" href="systemcontrol.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
- <?php } ?>
+ <?php for($i=1;$i<=$total_page;$i++){
+
+   	if($_GET['page']==$i){ //ถ้าตัวแปล page ตรง กับ เลขที่วนได้
+   echo '<li><a class="btn btn-light" href="communication-allowance.php?page='.$i. "&search=" .$_GET["search"].' "><b style=" color: blue;">' .$i.'</b></a></li>';
+}else{
+      echo '<li><a class="btn btn-light" href="communication-allowance.php?page='.$i ."&search=" .$_GET["search"].' "><b>'. $i.'</b></a></li>';; //ลิ้งค์ แบ่งหน้า เงื่อนไขที่ 2
+}
+ }
+   ?>
  <li>
- <a href="systemcontrol.php?page=<?php echo  $total_page;?>" aria-label="Next">
+ <a href='communication-allowance.php?page=<?php echo  $total_page;?>&search=<?php echo $_GET["search"] ?>' aria-label="Next">
  <span aria-hidden="true">&raquo;</span>
  </a>
  </li>

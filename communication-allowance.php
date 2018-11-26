@@ -11,7 +11,7 @@ if($_SESSION['UserID'] == "")
 //getting required data
 //$DATA=dbgetarr("SELECT * FROM links");
 //page
-$perpage = 20;
+$perpage = 10;
 if (isset($_GET['page'])) {
 $page = $_GET['page'];
 } else {
@@ -25,13 +25,15 @@ include "template/communication-allowance/communallow_action.php";
 $sql = "SELECT tt04_commuteallow. * , tm03_employee.EmplTName FROM tt04_commuteallow, tm03_employee WHERE tt04_commuteallow.EmplCode = tm03_employee.EmplCode ORDER by tt04_commuteallow.auto_increment ASC LIMIT {$start} , {$perpage}";
 $DATA = mysqli_query($conn, $sql);
 //page
-/*
-$sql2 = "SELECT * FROM tm00_control ORDER BY Period DESC";
-$query2 = mysqli_query($sql2);
+
+$sql2 = "SELECT * FROM tt04_commuteallow";
+$query2 = mysqli_query($conn, $sql2);
 $total_record = mysqli_num_rows($query2);
+
 $total_page = ceil($total_record / $perpage);
+
 //page
-*/
+
 //etc
 //and then call a template:
 $title = "Communication Allowance";

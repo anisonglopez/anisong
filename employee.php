@@ -53,6 +53,6 @@ $modal = "template/employee/empmodal.php";
 $script = "template/employee/empscript.php";
 $footer = "";
 include "template/layout.php";
-//page
+
 
 ?>
